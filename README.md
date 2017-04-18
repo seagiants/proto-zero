@@ -5,7 +5,7 @@
 To get the code:
 
 ```bash
-git clone ...
+git clone https://github.com/seagiants/proto-zero.git
 ```
 
 To run:
