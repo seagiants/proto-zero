@@ -27,7 +27,7 @@ const playerTwoCards = [
 const App = () => (
   <div>
     <Hand cards={playerOneCards} />
-    <Grid x={4} y={4}/>
+    <Grid x={4} y={4} />
     <Hand cards={playerTwoCards} />
   </div>
 );

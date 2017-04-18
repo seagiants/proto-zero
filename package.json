@@ -6,6 +6,7 @@
     "react-scripts": "0.9.5"
   },
   "dependencies": {
+    "lodash.random": "^3.2.0",
     "lodash.range": "^3.2.0",
     "lodash.uniqueid": "^4.0.1",
     "react": "^15.5.4",
