@@ -1,11 +1,10 @@
 import React from "react";
-import range from "lodash.range";
 import uniqueId from "lodash.uniqueid";
 import Row from "./Row";
 
-const MapDisplay = ({ x, y }) => (
+const MapDisplay = ({ gameMap }) => (
   <div>
-    {range(x).map((e, i) => <Row key={uniqueId()} size={y} />)}
+    {gameMap.map((e, i) => <Row key={uniqueId()} row={e} />)}
   </div>
 );
 
