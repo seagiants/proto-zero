@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import Hand from "./components/Hand";
-import Grid from "./components/Grid";
+import MapDisplay from "./components/MapDisplay";
 
 const playerOneCards = [
   {
@@ -27,7 +27,7 @@ const playerTwoCards = [
 const App = () => (
   <div>
     <Hand cards={playerOneCards} />
-    <Grid x={4} y={4} />
+    <MapDisplay x={20} y={20} />
     <Hand cards={playerTwoCards} />
   </div>
 );
