@@ -4,9 +4,15 @@ const w = 30;
 const h = 30;
 
 const Cell = ({ type }) => {
-  return(
-    <svg width={w} height={h}>
-      <rect width={w} height={h} style={{fill: type.color}} />
+  return (
+    <svg
+      width={w}
+      height={h}
+      onClick={() => {
+        console.log(`clicking on a ${type.name} tile`);
+      }}
+    >
+      <rect width={w} height={h} style={{ fill: type.color }} />
     </svg>
   );
 };
