@@ -1,5 +1,14 @@
 import React from "react";
 
-const Cell = ({ type }) => <span>{type}</span>;
+const w = 30;
+const h = 30;
+
+const Cell = ({ type }) => {
+  return(
+    <svg width={w} height={h}>
+      <rect width={w} height={h} style={{fill: type.color}} />
+    </svg>
+  );
+};
 
 export default Cell;

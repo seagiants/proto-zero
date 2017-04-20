@@ -1,7 +1,11 @@
 import random from "lodash.random";
 import range from "lodash.range";
 
-const types = ["field", "river", "mountain", "forest"];
+const types = [
+  {name: "river", color: "blue"},
+  {name: "mountain", color: "grey"},
+  {name: "grass", color: "green"}
+];
 
 const randType = () => types[random(types.length - 1)];
 
