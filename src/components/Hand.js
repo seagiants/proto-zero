@@ -1,6 +1,6 @@
-import React from "react";
-import Card from "./Card";
-import uniqueId from "lodash.uniqueid";
+import React from 'react';
+import Card from './Card';
+import uniqueId from 'lodash.uniqueid';
 
 const Hand = ({ cards }) => (
   <div>

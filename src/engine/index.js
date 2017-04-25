@@ -1,3 +1,3 @@
-import { generateMap } from "./map";
+import { generateMap } from './map';
 
 export { generateMap };

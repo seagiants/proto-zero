@@ -4,7 +4,7 @@ import Row from "./Row";
 
 const MapDisplay = ({ gameMap }) => (
   <div>
-    {gameMap.map((e, i) => <Row key={uniqueId()} row={e} />)}
+    {gameMap.map(row => <Row key={uniqueId()} row={row} />)}
   </div>
 );
 

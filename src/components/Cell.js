@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const w = 30;
 const h = 30;
