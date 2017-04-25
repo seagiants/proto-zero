@@ -1,5 +1,6 @@
 import React from "react";
 import uniqueId from "lodash.uniqueid";
+import { connect } from "react-redux";
 import Row from "./Row";
 
 const MapDisplay = ({ gameMap }) => (
@@ -8,4 +9,8 @@ const MapDisplay = ({ gameMap }) => (
   </div>
 );
 
-export default MapDisplay;
+const mapStateToProps = state => {
+  return { gameMap: state.mapState.gameMap };
+};
+
+export default connect(mapStateToProps)(MapDisplay);
