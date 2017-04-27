@@ -1,6 +1,7 @@
-import React from 'react';
-import Card from './Card';
-import uniqueId from 'lodash.uniqueid';
+import React from "react";
+import Card from "./Card";
+import uniqueId from "lodash.uniqueid";
+import { connect } from "react-redux";
 
 const Hand = ({ cards }) => (
   <div>
@@ -8,4 +9,10 @@ const Hand = ({ cards }) => (
   </div>
 );
 
-export default Hand;
+const mapStateToProps = (state) => {
+  return {
+    cards: state.playersState.playerOne.hand
+  };
+}
+
+export default connect(mapStateToProps)(Hand);

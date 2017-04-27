@@ -1,3 +1,4 @@
-import { generateMap } from './map';
+import { generateMap } from "./map";
+import { generateHand } from "./hand";
 
-export { generateMap };
+export { generateMap, generateHand };
