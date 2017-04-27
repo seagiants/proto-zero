@@ -3,16 +3,21 @@ import Card from "./Card";
 import uniqueId from "lodash.uniqueid";
 import { connect } from "react-redux";
 
-const Hand = ({ cards }) => (
+const Hand = ({ player, name, cards }) => (
   <div>
-    {cards.map(card => <Card key={uniqueId(card.name)} card={card} />)}
+    <div>{name}</div>
+    <div>
+      {cards.map(card => <Card key={uniqueId(card.name)} card={card} />)}
+    </div>
   </div>
 );
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
+  const player = ownProps.player;
   return {
-    cards: state.playersState.playerOne.hand
+    name: state.playersState[player].name,
+    cards: state.playersState[player].hand
   };
-}
+};
 
 export default connect(mapStateToProps)(Hand);
