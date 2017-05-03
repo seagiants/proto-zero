@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { seletedCard } from "../actions";
+import { selectedCard } from "../actions";
 
 const Card = ({ card, click }) => (
   <span
@@ -15,7 +15,7 @@ const Card = ({ card, click }) => (
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     click: cardType => {
-      dispatch(seletedCard(cardType));
+      dispatch(selectedCard(cardType));
     }
   };
 };

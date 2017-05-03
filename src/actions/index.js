@@ -25,7 +25,7 @@ export function discoverTile() {
   };
 }
 
-export function seletedCard(cardType) {
+export function selectedCard(cardType) {
   return {
     type: SELECTED_CARD,
     cardType: cardType

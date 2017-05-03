@@ -1,3 +1,4 @@
+import {SELECTED_CARD} from "../actions";
 import { generateHand } from "../engine";
 
 const initialState = {
@@ -9,11 +10,13 @@ const initialState = {
     name: "BustedKeaton",
     hand: generateHand(5)
   }
-}
+};
 
 export const playersState = (state = initialState, action) => {
-  switch(action.type){
+  switch (action.type) {
+    case SELECTED_CARD:
+      return {...state, selectedCard: action.cardType}
     default:
       return state;
   }
-}
+};
