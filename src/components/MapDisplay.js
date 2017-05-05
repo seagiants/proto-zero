@@ -3,8 +3,12 @@ import uniqueId from "lodash.uniqueid";
 import { connect } from "react-redux";
 import Row from "./Row";
 
+const styles = {
+  alignSelf: "center"
+};
+
 const MapDisplay = ({ gameMap }) => (
-  <div>
+  <div style={styles}>
     {gameMap.map(row => <Row key={uniqueId()} row={row} />)}
   </div>
 );

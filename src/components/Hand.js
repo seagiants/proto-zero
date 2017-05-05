@@ -3,8 +3,12 @@ import Card from "./Card";
 import uniqueId from "lodash.uniqueid";
 import { connect } from "react-redux";
 
+const styles = {
+  alignSelf: "center"
+};
+
 const Hand = ({ player, name, cards }) => (
-  <div>
+  <div style={styles}>
     <div>{name}</div>
     <div>
       {cards.map(card => <Card key={uniqueId(card.name)} card={card} />)}
