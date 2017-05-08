@@ -1,8 +1,8 @@
-import { generateHand } from "./hand";
+import { generateHand, generateCard } from "./hand";
 
 describe("Hand generator", () => {
   it("should generate an array of cards of the right size", () => {
-    let size = 5
+    let size = 5;
     let hand = generateHand(size);
     expect(hand.length).toBe(size);
   });
@@ -12,5 +12,12 @@ describe("Hand generator", () => {
     expect(testedCard).toBeDefined();
     expect(testedCard).toHaveProperty("name");
     expect(testedCard).toHaveProperty("cost");
-  })
+  });
+});
+
+describe("Card generator", () => {
+  it("should create a card with selected equals false", () => {
+    let card = generateCard("Test", 4);
+    expect(card.selected).toBeFalsy();
+  });
 });

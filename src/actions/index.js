@@ -25,9 +25,10 @@ export function discoverTile() {
   };
 }
 
-export function selectedCard(cardType) {
+export function selectedCard(cardType, index) {
   return {
     type: SELECTED_CARD,
-    cardType: cardType
+    cardType: cardType,
+    cardIndex: index
   };
 }
