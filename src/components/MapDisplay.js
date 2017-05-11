@@ -9,7 +9,7 @@ const styles = {
 
 const MapDisplay = ({ gameMap }) => (
   <div style={styles}>
-    {gameMap.map(row => <Row key={uniqueId()} row={row} />)}
+   {gameMap.map(row => <Row key={uniqueId()} row={row} />)}
   </div>
 );
 

@@ -1,21 +1,28 @@
 import random from 'lodash.random';
-import range from 'lodash.range';
 
-const types = [
-  {name: 'river', color: 'blue'},
-  {name: 'mountain', color: 'grey'},
-  {name: 'grass', color: 'green'}
+const baseTypes = [
+  {name: 'river', color: 'blue', hidden : true},
+  {name: 'mountain', color: 'grey', hidden : true},
+  {name: 'grass', color: 'green', hidden : true}
 ];
 
-const randType = () => types[random(types.length - 1)];
+function generateType(baseType, x, y) {
+  return {...baseType, x: x, y: y};
+}
+
+function randType(i,j){
+  let base = baseTypes[random(baseTypes.length - 1)];
+  let gen = generateType(base, i, j);
+  return gen;
+}
 
 /* Generate an x by y matrix, each cell being of a particular type */
 export const generateMap = (x, y) => {
   let map = [];
-  for (let i in range(x)) {
+  for (let i = 0; i < x;  i++) {
     map.push([]);
-    for (let _ in range(y)) {
-      map[i].push(randType());
+    for (let j = 0 ; j < y ; j++) {
+      map[i].push(randType(i,j));
     }
   }
   return map;
