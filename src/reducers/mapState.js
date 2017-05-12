@@ -5,16 +5,14 @@ const initialState = {
   gameMap: generateMap(20, 20)
 };
 
-
 export const mapState = (state = initialState, action) => {
   switch (action.type) {
     case GENERATE_MAP:
       return { ...state, gameMap: generateMap(action.x, action.y) };
     case DISCOVER_CELL:
-      let gameMapTemp = state.gameMap;
-      gameMapTemp[action.x][action.y].hidden = false;
-      return { ...state, gameMap : gameMapTemp };
-      //
+      let modifiedGameMap = state.gameMap;
+      modifiedGameMap[action.x][action.y].hidden = false;
+      return { ...state, gameMap: modifiedGameMap };
     default:
       return state;
   }

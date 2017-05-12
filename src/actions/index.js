@@ -25,9 +25,10 @@ export function discoverCell(x,y) {
   };
 }
 
-export function selectedCard(cardType, index) {
+export function selectedCard(player, cardType, index) {
   return {
     type: SELECTED_CARD,
+    player: player,
     cardType: cardType,
     cardIndex: index
   };

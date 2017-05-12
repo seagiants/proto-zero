@@ -2,10 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import { selectedCard } from "../actions";
 
-const Card = ({ card, index, click }) => (
+const Card = ({ card, index, player, click }) => (
   <span
     onClick={() => {
-      click(card.name, index);
+      click(player, card.name, index);
     }}
   >
     {card.name} - {card.cost}
@@ -14,8 +14,8 @@ const Card = ({ card, index, click }) => (
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    click: (cardType, cardIndex) => {
-      dispatch(selectedCard(cardType, cardIndex));
+    click: (player, cardType, cardIndex) => {
+      dispatch(selectedCard(player, cardType, cardIndex));
     }
   };
 };

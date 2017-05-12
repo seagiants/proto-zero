@@ -12,7 +12,12 @@ const Hand = ({ player, name, cards }) => (
     <div>{name}</div>
     <div>
       {cards.map((card, index) => (
-        <Card key={uniqueId(card.name)} card={card} index={index} />
+        <Card
+          key={uniqueId(card.name)}
+          card={card}
+          index={index}
+          player={player}
+        />
       ))}
     </div>
   </div>

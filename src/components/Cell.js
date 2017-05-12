@@ -5,6 +5,10 @@ import { discoverCell } from "../actions";
 const w = 30;
 const h = 30;
 
+const styles = (type) => ({
+  fill: type.hidden ? 'black' : type.color,
+});
+
 const Cell = ({ type, click }) => {
   return (
     <svg
@@ -16,7 +20,7 @@ const Cell = ({ type, click }) => {
         click(type.x,type.y);
       }}
     >
-      <rect width={w} height={h} style={{ fill: type.hidden ? 'black' : type.color }} />
+      <rect width={w} height={h} style={styles(type)} />
     </svg>
   );
 };
