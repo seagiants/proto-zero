@@ -4,6 +4,9 @@ export const generateCard = (name, cost) => {
   return {
     name: name,
     cost: cost,
+    color : "purple",
+    h : 30,
+    w : 30,
     selected: false
   };
 };
