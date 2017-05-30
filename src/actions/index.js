@@ -36,11 +36,11 @@ export function clickCell(x,y) {
   };
 }
 
-export function selectedCard(player, cardType, index) {
+export function selectedCard(player, card, index) {
   return {
     type: SELECTED_CARD,
     player: player,
-    cardType: cardType,
+    card: card,
     cardIndex: index
   };
 }

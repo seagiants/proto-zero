@@ -11,7 +11,7 @@ const Card = ({ card, index, player, click }) => {
     <rect x="20" y="30" width={card.w} height={card.h} style={{fill: card.color}} onClick={e => {
       e.preventDefault();
       console.log(`clicking on a ${card.name} card`);
-      click(player,card.name,index);
+      click(player,card,index);
     }} />
 
     </svg>
@@ -19,8 +19,8 @@ const Card = ({ card, index, player, click }) => {
 };
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    click: (player, cardType, cardIndex) => {
-      dispatch(selectedCard(player, cardType, cardIndex));
+    click: (player, card, cardIndex) => {
+      dispatch(selectedCard(player, card, cardIndex));
     }
   };
 };
