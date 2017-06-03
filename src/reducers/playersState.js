@@ -1,13 +1,16 @@
-import { generateHand } from "../engine";
+import { generateHand, generateActionBoard } from "../engine";
 
 const initialState = {
   playerOne: {
     name: "Bibi",
-    hand: generateHand(5)
+    actionBoard : generateActionBoard(),
+    drawBoard : generateHand(3)
+
   },
   playerTwo: {
     name: "BustedKeaton",
-    hand: generateHand(5)
+    actionBoard : generateActionBoard(),
+    drawBoard : generateHand(3)
   }
 };
 
