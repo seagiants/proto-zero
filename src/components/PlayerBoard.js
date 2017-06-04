@@ -1,6 +1,7 @@
 import React from "react";
-import ActionBoard from "./ActionBoard.js";
+import PowerBoard from "./PowerBoard.js";
 import DrawBoard from "./DrawBoard.js";
+import DrawButton from "./DrawButton.js";
 import uniqueId from "lodash.uniqueid";
 import { connect } from "react-redux";
 
@@ -13,19 +14,22 @@ const PlayerBoard = ({ player, name, board }) => (
     <div>{name}</div>
     <div>
       {
-        <ActionBoard
-          key={uniqueId(board.actionBoard)}
+        <PowerBoard
+          key={uniqueId(board.powerBoard)}
           player={player}
-          name='ActionBoard'
-          board={board.actionBoard}
+          name='PowerBoard'
+          powers={board.powerBoard}
 
-        />},{
+        />} {
         <DrawBoard
           key={uniqueId(board.drawBoard)}
-          board={board.drawBoard}
           player={player}
-        />
-      }
+          name='DrawBoard'
+          cards={board.drawBoard}
+          />
+      } {<DrawButton
+            player={player}
+        />}
     </div>
   </div>
 );

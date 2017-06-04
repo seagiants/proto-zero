@@ -1,5 +1,5 @@
 import React from "react";
-import PlayerAction from "./PlayerAction";
+import Power from "./Power";
 import uniqueId from "lodash.uniqueid";
 import { connect } from "react-redux";
 
@@ -7,14 +7,13 @@ const styles = {
   alignSelf: "center"
 };
 
-const ActionBoard = ({ player, name, actions }) => (
+const PowerBoard = ({ player, name, powers }) => (
   <div style={styles}>
-    <div>{name}</div>
     <div>
-      {actions.map((playerAction, index) => (
-        <PlayerAction
-          key={uniqueId(playerAction.name)}
-          action={playerAction}
+      {powers.map((power, index) => (
+        <Power
+          key={uniqueId(power.name)}
+          power={power}
           index={index}
           player={player}
         />
@@ -27,8 +26,8 @@ const mapStateToProps = (state, ownProps) => {
   const player = ownProps.player;
   return {
     name: state.playersState[player].name,
-    actions: state.playersState[player].actionBoard
+    powers: state.playersState[player].playerBoard.powerBoard
   };
 };
 
-export default connect(mapStateToProps)(ActionBoard);
+export default connect(mapStateToProps)(PowerBoard);

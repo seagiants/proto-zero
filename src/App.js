@@ -1,7 +1,5 @@
 import React from "react";
-import ActionBoard from "./components/ActionBoard";
-import DrawBoard from "./components/DrawBoard";
-import Hand from "./components/Hand";
+import PlayerBoard from "./components/PlayerBoard";
 import MapDisplay from "./components/MapDisplay";
 import Chat from "./components/Chat";
 
@@ -12,11 +10,9 @@ const styles = {
 
 const App = () => (
   <div style={styles}>
-    <ActionBoard player="playerOne" />
-    <DrawBoard player="playerOne" />
+    <PlayerBoard player="playerOne"/>
     <MapDisplay />
-    <ActionBoard player="playerTwo" />
-    <DrawBoard player="playerTwo" />
+    <PlayerBoard player="playerTwo"/>
     <Chat />
   </div>
 );

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-
+import { noAction } from "../actions"
 
 const w = 30;
 const h = 30;
@@ -9,7 +9,7 @@ const styles = type => ({
   fill: type.hidden ? "black" : type.color
 });
 
-const Cell = ({ type, click, selectedCard }) => {
+const Cell = ({ type, click, selectedPower }) => {
   return (
     <svg
       width={w}
@@ -19,7 +19,8 @@ const Cell = ({ type, click, selectedCard }) => {
         console.log(
           `clicking on a ${type.name} tile with position [${type.x} - ${type.y}]`
         );
-        click(type.x, type.y, selectedCard.action);
+        console.log("selectedPower : "+selectedPower);
+        click(type.x, type.y, selectedPower);
       }}
     >
       <rect width={w} height={h} style={styles(type)} />
@@ -28,14 +29,15 @@ const Cell = ({ type, click, selectedCard }) => {
 };
 
 const mapStateToProps = state => {
-  if(state.mapState.selectedCard !== null) {
-    return { selectedCard: state.mapState.selectedCard };
+  if(state.mapState.selectedPower !== null) {
+    return { selectedPower: state.mapState.selectedPower };
   } else {
-    return { selectedCard: null };
+    return { selectedPower: noAction };
   }
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+
   return {
     click: (x, y, action) => {
       dispatch(action(x, y));

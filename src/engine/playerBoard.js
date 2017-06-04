@@ -1,34 +1,40 @@
 import random from "lodash.random";
-import { discoverCell } from "../actions"
+import { discoverCell, noAction } from "../actions"
 
-export const generateCard = (name, cost, action) => {
+export const emptyBoard = {
+  h:60,
+  w:90
+};
+
+export const generateCard = (name, cost, type, cardPower) => {
+  console.log(cardPower);
   return {
     name: name,
     cost: cost,
     color : "purple",
-    h : 30,
-    w : 30,
     selected: false,
-    action: action
+    cardPower: cardPower(),
+    type: type
+
   };
 };
 
 const cards = [
-  generateCard("Vision", 2, discoverCell),
-  generateCard("Radar", 7),
-  generateCard("Factory", 5),
-  generateCard("Missile", 8),
+  generateCard("Vision", 2,"explore", discoverCell),
+  generateCard("Radar", 7,"explore", noAction),
+  generateCard("Factory", 5,"produce", noAction),
+  generateCard("Missile", 8,"produce", noAction),
 
 ];
 
 const randCard = () => cards[random(cards.length - 1)];
 
-export const generateHand = size => {
+export const drawCards = size => {
   return Array.from({ length: size }, _ => randCard());
 };
 
-const actionColor = (actionType) => {
-  switch (actionType) {
+const powerColor = (powerType) => {
+  switch (powerType) {
     case 'explore':
       return 'green';
     case 'research':
@@ -40,24 +46,38 @@ const actionColor = (actionType) => {
   }
 };
 
-const generatePlayerAction = (actionType) => {
+const generatePower = (powerType) => {
   return{
-    type : actionType,
+    type : powerType,
     card : null,
     h : 30,
     w : 30,
-    color : actionColor(actionType)
+    color : powerColor(powerType)
   };
 };
 
 
 
 
-export const generateActionBoard = () => ([generatePlayerAction('explore'),generatePlayerAction('research'),generatePlayerAction('produce')]);
+export const generatePowerBoard = () => ([generatePower('explore'),generatePower('research'),generatePower('produce')]);
 
+export const powerIndex = (action) => {
+  switch (action) {
+    case 'explore':
+      return 0;
+    case 'research':
+      return 1;
+    case 'produce':
+      return 2;
+    case 'attack':
+      return 3;
+    default:
+        return undefined;
+  }
+}
 export const generateBoard = () => {
   return{
-    actionBoard : generateActionBoard(),
-    drawBoard : generateHand(3)
+    powerBoard : generatePowerBoard(),
+    drawBoard : null
   };
 };

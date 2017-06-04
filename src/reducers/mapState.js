@@ -1,10 +1,9 @@
-import { GENERATE_MAP, DISCOVER_CELL, SELECTED_CARD } from "../actions";
+import { GENERATE_MAP, DISCOVER_CELL, POWER_SELECTION, noAction } from "../actions";
 import { generateMap } from "../engine";
 
 const initialState = {
   gameMap: generateMap(20, 20),
-  selectedCard: null,
-  selectedCardIndex: null
+  selectedPower : noAction
 };
 
 export const mapState = (state = initialState, action) => {
@@ -14,11 +13,9 @@ export const mapState = (state = initialState, action) => {
     case DISCOVER_CELL:
           let modifiedGameMap = state.gameMap;
           modifiedGameMap[action.x][action.y].hidden = false;
-          return { ...state, gameMap: modifiedGameMap, selectedCard: null, selectedCardIndex: null };
-    case SELECTED_CARD:
-        let newSelectedCardIndex = state.selectedCardIndex === action.cardIndex ? null : action.cardIndex;
-        let newSelectedCard = newSelectedCardIndex === null ?  null : action.card;
-        return { ...state, selectedCard: newSelectedCard, selectedCardIndex: newSelectedCardIndex };
+          return { ...state, gameMap: modifiedGameMap, selectedPower: noAction };
+    case POWER_SELECTION:
+          return { ...state, selectedPower: action.power.card == null ? action.power.type : action.power.card.cardPower };
     default:
       return state;
   }
