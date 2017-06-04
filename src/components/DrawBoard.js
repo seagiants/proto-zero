@@ -20,7 +20,7 @@ function refillDrawBoard(cards,player){
         index={index}
         player={player}
         />
-      )))};
+      )))}
 };
 const DrawBoard = ({ player, name, cards }) => {
  return(
