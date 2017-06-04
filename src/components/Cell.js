@@ -19,7 +19,7 @@ const Cell = ({ type, click, selectedPower }) => {
         console.log(
           `clicking on a ${type.name} tile with position [${type.x} - ${type.y}]`
         );
-        click(type.x, type.y, selectedPower);
+        click(type.x, type.y, selectedPower.powerAction);
       }}
     >
       <rect width={w} height={h} style={styles(type)} />
@@ -39,7 +39,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
   return {
     click: (x, y, action) => {
-      dispatch(action(x, y));
+      if(action !== null && action !== undefined){
+        dispatch(action(x, y));
+      }
     }
   };
 };

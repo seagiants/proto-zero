@@ -1,4 +1,4 @@
-import { generateBoard, powerIndex, drawCards } from "../engine";
+import { generateBoard, drawCards } from "../engine";
 import { DRAW, SELECTED_CARD } from "../actions"
 const initialState = {
   playerOne: {
@@ -13,6 +13,7 @@ const initialState = {
 };
 
 export const playersState = (state = initialState, action) => {
+
   switch (action.type) {
     case DRAW :
       let modifiedPlayerState = state[action.player];
@@ -21,8 +22,7 @@ export const playersState = (state = initialState, action) => {
     case SELECTED_CARD :
       let modifiedPlayerState2 = state[action.player];
       modifiedPlayerState2.playerBoard.drawBoard = null;
-      modifiedPlayerState2.playerBoard.powerBoard[powerIndex(action.card.type)].card = action.card;
-      //console.log(action.card);
+      modifiedPlayerState2.playerBoard.powerBoard.filter((element)=>(element.category.name===action.card.type))[0].card = action.card;
       return { ...state};
     default:
       console.log("Action not supported : "+action.type);

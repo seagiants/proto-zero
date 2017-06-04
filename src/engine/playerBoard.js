@@ -1,27 +1,27 @@
 import random from "lodash.random";
-import { discoverCell, noAction, EXPLORE, explore, RESEARCH, research, PRODUCE, produce } from "../actions"
+import { generatePowerBoard, getPower } from "../librairies/powerLib.js"
 
 export const emptyBoard = {
   h:60,
   w:90
 };
 
-export const generateCard = (name, cost, type, cardPower) => {
+export const generateCard = (name, cost, cardPower) => {
   return {
     name: name,
     cost: cost,
     color : "purple",
     selected: false,
     cardPower: cardPower,
-    type: type
+    type: cardPower.category.name
   };
 };
 
 const cards = [
-  generateCard("Vision", 2,EXPLORE, discoverCell),
-  generateCard("Radar", 7,EXPLORE, noAction),
-  generateCard("Factory", 5,PRODUCE, noAction),
-  generateCard("Missile", 8,PRODUCE, noAction),
+  generateCard("Vision", 2, getPower("EXPLORE")),
+  generateCard("Radar", 7, getPower("EXPLORE")),
+  generateCard("Factory", 5, getPower("PRODUCE")),
+  generateCard("Missile", 8, getPower("PRODUCE")),
 
 ];
 
@@ -30,7 +30,7 @@ const randCard = () => cards[random(cards.length - 1)];
 export const drawCards = size => {
   return Array.from({ length: size }, _ => randCard());
 };
-
+/*
 const powerColor = (powerType) => {
   switch (powerType) {
     case EXPLORE:
@@ -74,6 +74,7 @@ export const powerIndex = (action) => {
         return undefined;
   }
 }
+*/
 export const generateBoard = () => {
   return{
     powerBoard : generatePowerBoard(),

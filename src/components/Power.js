@@ -1,22 +1,21 @@
 import React from "react";
 import { connect } from "react-redux";
 import { powerSelection } from "../actions";
-import { powerIndex } from "../engine";
 
 const h = 60;
 const w = 40;
 
-const Power = ({ power, index, player, card, click }) => {
-  const powerText = card == null ? power.type : card.name;
+const Power = ({ power, player, card, click }) => {
+  const powerText = card == null ? power.powerName : card.name;
   return (
     <svg width={3*w} height={3*h} >
     <text x="0"
        y="20"
        id="text4533">{powerText}</text>
-    <rect x="20" y="30" width={w} height={h} style={{fill: power.color}} onClick={e => {
+    <rect x="20" y="30" width={w} height={h} style={{fill: power.category.color}} onClick={e => {
       e.preventDefault();
-      console.log(`clicking on a ${power.type} power tile`);
-      click(player,power,index);
+      console.log(`clicking on a ${power.powerName} power tile`);
+      click(player,power);
     }} />
 
     </svg>
@@ -25,15 +24,15 @@ const Power = ({ power, index, player, card, click }) => {
 
 const mapStateToProps = (state, ownProps) => {
     const player = ownProps.player;
-    const index = powerIndex(ownProps.power.type);
-  return {
+    const index = ownProps.power.category.index;
+    return {
     card: state.playersState[player].playerBoard.powerBoard[index].card
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    click: (player, power, cardIndex) => {
+    click: (player, power) => {
       dispatch(powerSelection(player, power));
     }
   };

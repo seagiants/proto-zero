@@ -10,6 +10,7 @@ export const NO_ACTION = "NO_ACTION";
 export const RESEARCH = "RESEARCH";
 export const EXPLORE = "EXPLORE";
 export const PRODUCE = "PRODUCE";
+export const ARMY = "ARMY";
 
 /* Action creators */
 export function startGame() {

@@ -14,7 +14,6 @@ const PowerBoard = ({ player, name, powers }) => (
         <Power
           key={uniqueId(power.name)}
           power={power}
-          index={index}
           player={player}
         />
       ))}
