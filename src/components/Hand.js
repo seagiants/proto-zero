@@ -1,4 +1,4 @@
-import React from "react";
+/*import React from "react";
 import Card from "./Card";
 import uniqueId from "lodash.uniqueid";
 import { connect } from "react-redux";
@@ -32,3 +32,4 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default connect(mapStateToProps)(Hand);
+*/

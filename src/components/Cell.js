@@ -19,7 +19,6 @@ const Cell = ({ type, click, selectedPower }) => {
         console.log(
           `clicking on a ${type.name} tile with position [${type.x} - ${type.y}]`
         );
-        console.log("selectedPower : "+selectedPower);
         click(type.x, type.y, selectedPower);
       }}
     >

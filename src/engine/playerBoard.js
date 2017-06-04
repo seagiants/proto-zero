@@ -1,5 +1,5 @@
 import random from "lodash.random";
-import { discoverCell, noAction } from "../actions"
+import { discoverCell, noAction, EXPLORE, explore, RESEARCH, research, PRODUCE, produce } from "../actions"
 
 export const emptyBoard = {
   h:60,
@@ -7,23 +7,21 @@ export const emptyBoard = {
 };
 
 export const generateCard = (name, cost, type, cardPower) => {
-  console.log(cardPower);
   return {
     name: name,
     cost: cost,
     color : "purple",
     selected: false,
-    cardPower: cardPower(),
+    cardPower: cardPower,
     type: type
-
   };
 };
 
 const cards = [
-  generateCard("Vision", 2,"explore", discoverCell),
-  generateCard("Radar", 7,"explore", noAction),
-  generateCard("Factory", 5,"produce", noAction),
-  generateCard("Missile", 8,"produce", noAction),
+  generateCard("Vision", 2,EXPLORE, discoverCell),
+  generateCard("Radar", 7,EXPLORE, noAction),
+  generateCard("Factory", 5,PRODUCE, noAction),
+  generateCard("Missile", 8,PRODUCE, noAction),
 
 ];
 
@@ -35,39 +33,40 @@ export const drawCards = size => {
 
 const powerColor = (powerType) => {
   switch (powerType) {
-    case 'explore':
+    case EXPLORE:
       return 'green';
-    case 'research':
+    case RESEARCH:
       return 'blue';
-    case 'produce':
+    case PRODUCE:
       return 'yellow';
     default:
       return 'black';
   }
 };
 
-const generatePower = (powerType) => {
+const generatePower = (powerType,powerAction) => {
   return{
     type : powerType,
     card : null,
     h : 30,
     w : 30,
-    color : powerColor(powerType)
+    color : powerColor(powerType),
+    power: powerAction
   };
 };
 
 
 
 
-export const generatePowerBoard = () => ([generatePower('explore'),generatePower('research'),generatePower('produce')]);
+export const generatePowerBoard = () => ([generatePower(EXPLORE,explore),generatePower(RESEARCH,research),generatePower(PRODUCE,produce)]);
 
 export const powerIndex = (action) => {
   switch (action) {
-    case 'explore':
+    case EXPLORE:
       return 0;
-    case 'research':
+    case RESEARCH:
       return 1;
-    case 'produce':
+    case PRODUCE:
       return 2;
     case 'attack':
       return 3;

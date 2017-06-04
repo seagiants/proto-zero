@@ -9,7 +9,7 @@ const w = 40;
 const Power = ({ power, index, player, card, click }) => {
   const powerText = card == null ? power.type : card.name;
   return (
-    <svg width={2*w} height={3*h} >
+    <svg width={3*w} height={3*h} >
     <text x="0"
        y="20"
        id="text4533">{powerText}</text>

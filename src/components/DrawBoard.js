@@ -31,6 +31,7 @@ const DrawBoard = ({ player, name, cards }) => {
   </div>
 );
 };
+
 const mapStateToProps = (state, ownProps) => {
   const player = ownProps.player;
   return {

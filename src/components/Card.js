@@ -16,7 +16,6 @@ const Card = ({ card, index, player, click }) => {
       console.log(`clicking on a ${card.name} card`);
       click(player,card,index);
     }} />
-
     </svg>
 );
 };
@@ -28,4 +27,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-export default connect(state => state, mapDispatchToProps)(Card);
+const mapStateToProps = state => state;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Card);
