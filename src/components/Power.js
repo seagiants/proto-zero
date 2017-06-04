@@ -22,6 +22,14 @@ const Power = ({ power, player, card, click }) => {
 );
 };
 
+const getActivePower = power => {
+  if(power.card !== null && power.card !== undefined){
+    return power.card;
+  }else{
+    return power;
+  }
+};
+
 const mapStateToProps = (state, ownProps) => {
     const player = ownProps.player;
     const index = ownProps.power.category.index;
@@ -32,10 +40,15 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    click: (player, power) => {
-      dispatch(powerSelection(player, power));
-    }
+      click: (player, power) => {
+        const activePower = getActivePower(power);
+        if (!activePower.isTargetRequired) {
+          dispatch(activePower.powerAction(player, power));
+        }else{
+          dispatch(powerSelection(player, power));
+        }
+      }
+    };
   };
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Power);

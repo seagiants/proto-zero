@@ -31,22 +31,26 @@ const powerLibrairy = [
   {
     powerName : actions.EXPLORE,
     category : getCategory("EXPLORATION"),
-    powerAction : actions.discoverCell
+    powerAction : actions.discoverCell,
+    isTargetRequired : true
   },
   {
     powerName : actions.RESEARCH,
     category : getCategory("TECHNOLOGY"),
-    powerAction : actions.noAction
+    powerAction : actions.draw,
+    isTargetRequired : false
   },
   {
     powerName : actions.PRODUCE,
     category : getCategory("ECONOMY"),
-    powerAction : actions.noAction
+    powerAction : actions.noAction,
+    isTargetRequired : false
   },
   {
     powerName : actions.ARMY,
     category : getCategory("MILITARY"),
-    powerAction : actions.noAction
+    powerAction : actions.noAction,
+    isTargetRequired : false
   }
 ];
 

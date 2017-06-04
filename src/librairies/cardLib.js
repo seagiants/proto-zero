@@ -7,36 +7,41 @@ const cardLibrairy = [
     name: "Vision",
     cost: 2,
     color : "purple",
-    cardPower: actions.discoverCell,
-    category: getCategory("EXPLORATION")
+    powerAction: actions.discoverCell,
+    category: getCategory("EXPLORATION"),
+    isTargetRequired : true
   },
   {
     name: "Radar",
     cost: 7,
     color : "purple",
-    cardPower: actions.discoverCell,
-    category: getCategory("EXPLORATION")
+    powerAction: actions.discoverCell,
+    category: getCategory("EXPLORATION"),
+    isTargetRequired : true
   },
   {
     name: "Factory",
     cost: 2,
     color : "purple",
-    cardPower: actions.noAction,
-    category: getCategory("ECONOMY")
+    powerAction: actions.noAction,
+    category: getCategory("ECONOMY"),
+    isTargetRequired : true
   },
   {
     name: "Missile",
     cost: 2,
     color : "purple",
-    cardPower: actions.noAction,
-    category: getCategory("ECONOMY")
+    powerAction: actions.noAction,
+    category: getCategory("ECONOMY"),
+    isTargetRequired : true
   },
   {
     name: "Increased Radar",
     cost: 2,
     color : "purple",
-    cardPower: actions.noAction,
-    category: getCategory("TECHNOLOGY")
+    powerAction: actions.noAction,
+    category: getCategory("TECHNOLOGY"),
+    isTargetRequired : false
   }
 ];
 

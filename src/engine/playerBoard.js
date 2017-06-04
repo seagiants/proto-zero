@@ -11,7 +11,8 @@ export const generatePower = (powerName) => {
   return{
     powerName :powerTemplate.powerName,
     category : powerTemplate.category,
-    powerAction : powerTemplate.powerAction
+    powerAction : powerTemplate.powerAction,
+    isTargetRequired : powerTemplate.isTargetRequired
   };
 };
 
@@ -22,8 +23,9 @@ export const generateCard = (cardTemplate) => {
     name: cardTemplate.name,
     cost: cardTemplate.cost,
     color : cardTemplate.color,
-    cardPower: cardTemplate.cardPower,
-    category: cardTemplate.category
+    powerAction: cardTemplate.powerAction,
+    category: cardTemplate.category,
+    isTargetRequired : cardTemplate.isTargetRequired
   };
 };
 
