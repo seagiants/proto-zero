@@ -1,5 +1,5 @@
 import random from "lodash.random";
-import { generatePowerBoard, getPower } from "../librairies/powerLib.js"
+import { generatePowerBoard, generatePower } from "../librairies/powerLib.js"
 
 export const emptyBoard = {
   h:60,
@@ -18,10 +18,10 @@ export const generateCard = (name, cost, cardPower) => {
 };
 
 const cards = [
-  generateCard("Vision", 2, getPower("EXPLORE")),
-  generateCard("Radar", 7, getPower("EXPLORE")),
-  generateCard("Factory", 5, getPower("PRODUCE")),
-  generateCard("Missile", 8, getPower("PRODUCE")),
+  generateCard("Vision", 2, generatePower("EXPLORE")),
+  generateCard("Radar", 7, generatePower("EXPLORE")),
+  generateCard("Factory", 5, generatePower("PRODUCE")),
+  generateCard("Missile", 8, generatePower("PRODUCE")),
 
 ];
 

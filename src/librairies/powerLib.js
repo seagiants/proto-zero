@@ -23,7 +23,7 @@ const powerCategoryLibrairy = [
   }
 ];
 
-function getCategory(categoryName){
+export function getCategory(categoryName){
   return powerCategoryLibrairy.filter((element)=>(element.name === categoryName))[0];
 };
 
@@ -50,8 +50,13 @@ const powerLibrairy = [
   }
 ];
 
-export const getPower = (powerName) => {
-  return powerLibrairy.filter((element) => (element.powerName === powerName) )[0];
+export const generatePower = (powerName) => {
+  let powerTemplate = powerLibrairy.filter((element) => (element.powerName === powerName) )[0];
+  return{
+    powerName :powerTemplate.powerName,
+    category : powerTemplate.category,
+    powerAction : powerTemplate.powerAction
+  };
 };
 
-export const generatePowerBoard = () => ([getPower("EXPLORE"),getPower("RESEARCH"),getPower("PRODUCE"), getPower("ARMY")]);
+export const generatePowerBoard = () => ([generatePower("EXPLORE"),generatePower("RESEARCH"),generatePower("PRODUCE"), generatePower("ARMY")]);
