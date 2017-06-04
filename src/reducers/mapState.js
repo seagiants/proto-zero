@@ -15,7 +15,9 @@ export const mapState = (state = initialState, action) => {
           modifiedGameMap[action.x][action.y].hidden = false;
           return { ...state, gameMap: modifiedGameMap, selectedPower: noAction };
     case POWER_SELECTION:
-          return { ...state, selectedPower: action.power.card == null ? action.power : action.power.card.cardPower };
+          let newSelectPower = action.power.card == null ? action.power.powerAction : action.power.card.cardPower;
+          console.log(newSelectPower);
+          return { ...state, selectedPower: newSelectPower };
     default:
       return state;
   }

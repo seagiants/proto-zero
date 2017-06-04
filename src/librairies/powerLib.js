@@ -50,13 +50,4 @@ const powerLibrairy = [
   }
 ];
 
-export const generatePower = (powerName) => {
-  let powerTemplate = powerLibrairy.filter((element) => (element.powerName === powerName) )[0];
-  return{
-    powerName :powerTemplate.powerName,
-    category : powerTemplate.category,
-    powerAction : powerTemplate.powerAction
-  };
-};
-
-export const generatePowerBoard = () => ([generatePower("EXPLORE"),generatePower("RESEARCH"),generatePower("PRODUCE"), generatePower("ARMY")]);
+export const getPower = (powerName) => powerLibrairy.filter((element) => (element.powerName === powerName) )[0];

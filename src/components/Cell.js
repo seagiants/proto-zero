@@ -19,7 +19,7 @@ const Cell = ({ type, click, selectedPower }) => {
         console.log(
           `clicking on a ${type.name} tile with position [${type.x} - ${type.y}]`
         );
-        click(type.x, type.y, selectedPower.powerAction);
+        click(type.x, type.y, selectedPower);
       }}
     >
       <rect width={w} height={h} style={styles(type)} />
