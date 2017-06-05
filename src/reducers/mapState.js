@@ -6,17 +6,35 @@ const initialState = {
   selectedPower : noAction
 };
 
+
+const toogleCell = (gameMap, x, y) => {
+  return gameMap.map( (row,index) => {
+    if(index !== x) {
+      return row;
+    }else{
+      let saveX = index;
+      return row.map( (cell,index) => {
+          if(index !== y) {
+            return cell;
+          }else{
+            return {
+              ...cell, hidden : cell.hidden != true
+            }
+          }
+        });
+      }
+    });
+  };
+
 export const mapState = (state = initialState, action) => {
   switch (action.type) {
     case GENERATE_MAP:
       return { ...state, gameMap: generateMap(action.x, action.y) };
     case DISCOVER_CELL:
-          let modifiedGameMap = state.gameMap;
-          modifiedGameMap[action.x][action.y].hidden = false;
-          return { ...state, gameMap: modifiedGameMap, selectedPower: noAction };
+      return { ...state, gameMap: toogleCell(state.gameMap,action.x,action.y), selectedPower: noAction };
     case POWER_SELECTION:
-          let newSelectPower = action.power.card == null ? action.power.powerAction : action.power.card.powerAction;
-          return { ...state, selectedPower: newSelectPower };
+      let newSelectPower = action.power.card == null ? action.power.powerAction : action.power.card.powerAction;
+      return { ...state, selectedPower: newSelectPower };
     default:
       return state;
   }

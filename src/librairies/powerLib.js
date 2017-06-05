@@ -32,26 +32,34 @@ const powerLibrairy = [
     powerName : actions.EXPLORE,
     category : getCategory("EXPLORATION"),
     powerAction : actions.discoverCell,
-    isTargetRequired : true
-  },
+    powerProps : {
+      isTargetRequired : true
+    }  },
   {
     powerName : actions.RESEARCH,
     category : getCategory("TECHNOLOGY"),
     powerAction : actions.draw,
-    isTargetRequired : false
-  },
+    powerProps : {
+      isTargetRequired : false
+      }
+    },
   {
     powerName : actions.PRODUCE,
     category : getCategory("ECONOMY"),
-    powerAction : actions.noAction,
-    isTargetRequired : false
+    powerAction : actions.produce,
+    powerProps : {
+      isTargetRequired : false,
+      quantity : 1
+    }
   },
   {
     powerName : actions.ARMY,
     category : getCategory("MILITARY"),
     powerAction : actions.noAction,
-    isTargetRequired : false
-  }
+    powerProps : {
+      isTargetRequired : false
+      }
+    }
 ];
 
 export const getPower = (powerName) => powerLibrairy.filter((element) => (element.powerName === powerName) )[0];

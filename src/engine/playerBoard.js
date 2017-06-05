@@ -12,7 +12,7 @@ export const generatePower = (powerName) => {
     powerName :powerTemplate.powerName,
     category : powerTemplate.category,
     powerAction : powerTemplate.powerAction,
-    isTargetRequired : powerTemplate.isTargetRequired
+    powerProps : powerTemplate.powerProps
   };
 };
 
@@ -25,7 +25,7 @@ export const generateCard = (cardTemplate) => {
     color : cardTemplate.color,
     powerAction: cardTemplate.powerAction,
     category: cardTemplate.category,
-    isTargetRequired : cardTemplate.isTargetRequired
+    powerProps : cardTemplate.powerProps
   };
 };
 
@@ -36,6 +36,7 @@ export const drawCards = size => {
 export const generateBoard = () => {
   return{
     powerBoard : generatePowerBoard(),
-    drawBoard : null
+    drawBoard : null,
+    resourceCounter : 0
   };
 };
