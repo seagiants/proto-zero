@@ -7,18 +7,17 @@ const initialState = {
 };
 
 
-const toogleCell = (gameMap, x, y) => {
+const showCell = (gameMap, x, y) => {
   return gameMap.map( (row,index) => {
     if(index !== x) {
       return row;
     }else{
-      let saveX = index;
       return row.map( (cell,index) => {
           if(index !== y) {
             return cell;
           }else{
             return {
-              ...cell, hidden : cell.hidden != true
+              ...cell, hidden : false
             }
           }
         });
@@ -31,7 +30,7 @@ export const mapState = (state = initialState, action) => {
     case GENERATE_MAP:
       return { ...state, gameMap: generateMap(action.x, action.y) };
     case DISCOVER_CELL:
-      return { ...state, gameMap: toogleCell(state.gameMap,action.x,action.y), selectedPower: noAction };
+      return { ...state, gameMap: showCell(state.gameMap,action.x,action.y), selectedPower: noAction };
     case POWER_SELECTION:
       let newSelectPower = action.power.card == null ? action.power.powerAction : action.power.card.powerAction;
       return { ...state, selectedPower: newSelectPower };
