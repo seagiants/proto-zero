@@ -9,7 +9,16 @@ const styles = type => ({
   fill: type.hidden ? "black" : type.color
 });
 
+const layout = (type) => {
+  if(type.visibleBuilding !== null && type.visibleBuilding !== undefined){
+  return type.visibleBuilding.renderBuilding();
+  }else{
+  return <rect width={w} height={h} style={styles(type)} />
+  }
+};
+
 const Cell = ({ type, click, selectedPower }) => {
+
   return (
     <svg
       width={w}
@@ -22,7 +31,8 @@ const Cell = ({ type, click, selectedPower }) => {
         click(type.x, type.y, selectedPower);
       }}
     >
-      <rect width={w} height={h} style={styles(type)} />
+    {layout(type)}
+
     </svg>
   );
 };

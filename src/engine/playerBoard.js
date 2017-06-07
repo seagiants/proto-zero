@@ -1,5 +1,5 @@
-import { getPower } from "../librairies/powerLib.js"
-import { randCard } from "../librairies/cardLib.js"
+import { getPower } from "../libraries/powerLib.js"
+import { randCard } from "../libraries/cardLib.js"
 
 export const emptyBoard = {
   h:60,
