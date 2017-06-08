@@ -80,10 +80,11 @@ export function selectedCard(player, card, index) {
   };
 };
 
-  export function produce(player){
+  export function produce(player,powerProps){
     return {
-      type: NO_ACTION,
-      player: player
+      type: PRODUCE,
+      player: player,
+      powerProps : powerProps
   };
 };
 

@@ -42,10 +42,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
       click: (player, power) => {
         const activePower = getActivePower(power);
-        if (!activePower.isTargetRequired) {
-          dispatch(activePower.powerAction(player, power));
+        if (!activePower.powerProps.isTargetRequired) {
+          dispatch(activePower.powerAction(player, activePower.powerProps));
         }else{
-          dispatch(powerSelection(player, power));
+          dispatch(powerSelection(player, power, activePower.powerProps));
         }
       }
     };

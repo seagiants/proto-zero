@@ -2,6 +2,7 @@ import React from "react";
 import PowerBoard from "./PowerBoard.js";
 import DrawBoard from "./DrawBoard.js";
 import DrawButton from "./DrawButton.js";
+import ResourceCounter from "./ResourceCounter.js";
 import uniqueId from "lodash.uniqueid";
 import { connect } from "react-redux";
 
@@ -30,6 +31,7 @@ const PlayerBoard = ({ player, name, board }) => (
       } {<DrawButton
             player={player}
         />}
+        {<ResourceCounter player={player}/>}
     </div>
   </div>
 );

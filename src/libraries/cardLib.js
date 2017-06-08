@@ -9,15 +9,19 @@ const cardLibrairy = [
     color : "purple",
     powerAction: actions.discoverCell,
     category: getCategory("EXPLORATION"),
-    isTargetRequired : true
-  },
+    powerProps : {
+      isTargetRequired : true
+      }
+    },
   {
     name: "Radar",
     cost: 7,
     color : "purple",
     powerAction: actions.discoverCell,
     category: getCategory("EXPLORATION"),
-    isTargetRequired : true
+    powerProps : {
+      isTargetRequired : true
+      }
   },
   {
     name: "Factory",
@@ -25,7 +29,9 @@ const cardLibrairy = [
     color : "purple",
     powerAction: actions.noAction,
     category: getCategory("ECONOMY"),
-    isTargetRequired : true
+    powerProps : {
+      isTargetRequired : true
+      }
   },
   {
     name: "Missile",
@@ -33,7 +39,9 @@ const cardLibrairy = [
     color : "purple",
     powerAction: actions.noAction,
     category: getCategory("ECONOMY"),
-    isTargetRequired : true
+    powerProps : {
+      isTargetRequired : true
+      }
   },
   {
     name: "Increased Radar",
@@ -41,7 +49,9 @@ const cardLibrairy = [
     color : "purple",
     powerAction: actions.noAction,
     category: getCategory("TECHNOLOGY"),
-    isTargetRequired : false
+    powerProps : {
+      isTargetRequired : false
+      }
   }
 ];
 
