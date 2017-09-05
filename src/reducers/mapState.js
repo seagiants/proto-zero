@@ -5,9 +5,10 @@ import {
   noAction
 } from "../actions";
 import { generateMap } from "../engine";
+import { mapDimensions } from "../constants";
 
 const initialState = {
-  gameMap: generateMap(20, 20),
+  gameMap: generateMap(mapDimensions.width, mapDimensions.height),
   selectedPower: noAction
 };
 

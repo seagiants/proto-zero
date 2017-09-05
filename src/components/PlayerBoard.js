@@ -14,24 +14,20 @@ const PlayerBoard = ({ player, name, board }) => (
   <div style={styles}>
     <div>{name}</div>
     <div>
-      {
-        <PowerBoard
-          key={uniqueId(board.powerBoard)}
-          player={player}
-          name='PowerBoard'
-          powers={board.powerBoard}
-
-        />} {
-        <DrawBoard
-          key={uniqueId(board.drawBoard)}
-          player={player}
-          name='DrawBoard'
-          cards={board.drawBoard}
-          />
-      } {<DrawButton
-            player={player}
-        />}
-        {<ResourceCounter player={player}/>}
+      <PowerBoard
+        key={uniqueId(board.powerBoard)}
+        player={player}
+        name="PowerBoard"
+        powers={board.powerBoard}
+      />
+      <DrawBoard
+        key={uniqueId(board.drawBoard)}
+        player={player}
+        name="DrawBoard"
+        cards={board.drawBoard}
+      />
+      <DrawButton player={player} />
+      <ResourceCounter player={player} />
     </div>
   </div>
 );

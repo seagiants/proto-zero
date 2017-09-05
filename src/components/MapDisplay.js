@@ -3,6 +3,7 @@ import uniqueId from "lodash.uniqueid";
 import flatten from "lodash.flatten";
 import { connect } from "react-redux";
 import Cell from "./Cell";
+import { mapDimensions, cellSize } from "../constants";
 
 const styles = {
   alignSelf: "center"
@@ -13,7 +14,7 @@ const styles = {
 // those should be constants
 const MapDisplay = ({ gameMap }) => (
   <div style={styles}>
-    <svg width={600} height={600}>
+    <svg width={mapDimensions.width * cellSize.width} height={mapDimensions.height * cellSize.height}>
       {flatten(gameMap).map(type => <Cell key={uniqueId()} type={type} />)}
     </svg>
   </div>
