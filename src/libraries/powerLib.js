@@ -1,25 +1,30 @@
 import * as actions from "../actions";
 
+// FIXME color scheme should be extracted to a proper file
 const powerCategoryLibrairy = [
    {
     name : "EXPLORATION",
     index : 0,
-    color : "green"
+    color : "#4212AF",
+    altColor: "#8D6DD7"
   },
   {
     name : "TECHNOLOGY",
     index : 1,
-    color : "blue"
+    color : "#FF1E00",
+    altColor: "#FF8373"
   },
   {
     name : "ECONOMY",
     index : 2,
-    color : "yellow"
+    color : "#00BF32",
+    altColor: "#64DF85"
   },
   {
     name : "MILITARY",
     index : 3,
-    color : "red"
+    color : "#FFDA00",
+    altColor: "#FFEB73"
   }
 ];
 
