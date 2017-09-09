@@ -1,4 +1,4 @@
-import { getPower } from "../libraries/powerLib.js"
+import { getPowerCase } from "../libraries/powerLib.js"
 import { randCard } from "../libraries/cardLib.js"
 
 export const emptyBoard = {
@@ -7,7 +7,7 @@ export const emptyBoard = {
 };
 
 export const generatePower = (powerName) => {
-  const powerTemplate = getPower(powerName);
+  const powerTemplate = getPowerCase(powerName);
   return{
     powerName :powerTemplate.powerName,
     category : powerTemplate.category,

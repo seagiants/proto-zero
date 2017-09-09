@@ -1,5 +1,5 @@
 import React from "react";
-import Power from "./Power";
+import PowerCase from "./PowerCase";
 import uniqueId from "lodash.uniqueid";
 import { connect } from "react-redux";
 
@@ -11,7 +11,7 @@ const PowerBoard = ({ player, name, powers }) => (
   <div style={styles}>
     <div>
       {powers.map((power, index) => (
-        <Power
+        <PowerCase
           key={uniqueId(power.name)}
           power={power}
           player={player}

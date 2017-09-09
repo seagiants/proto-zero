@@ -67,4 +67,4 @@ const powerLibrairy = [
     }
 ];
 
-export const getPower = (powerName) => powerLibrairy.filter((element) => (element.powerName === powerName) )[0];
+export const getPowerCase = (powerName) => powerLibrairy.filter((element) => (element.powerName === powerName) )[0];

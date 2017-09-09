@@ -19,7 +19,7 @@ const textTransform = (text) => {
   return `${firstPart}${secondPart}`;
 }
 
-const Power = ({ power, player, card, click }) => {
+const PowerCase = ({ power, player, card, click }) => {
   const powerText = card == null ? power.powerName : card.name;
   return (
     <svg
@@ -80,4 +80,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Power);
+export default connect(mapStateToProps, mapDispatchToProps)(PowerCase);
