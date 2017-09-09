@@ -10,6 +10,7 @@ const rectStyles = power => ({
 
 const textStyles = power => ({
   fill: power.category.altColor,
+  cursor: "pointer",
   fontSize: "3em"
 });
 
@@ -18,6 +19,12 @@ const textTransform = (text) => {
   const secondPart = text.substring(1,3).toLowerCase();
   return `${firstPart}${secondPart}`;
 }
+
+const clickWrapper = (e, power, player, click) => {
+  e.preventDefault();
+  console.log(`clicking on a ${power.powerName} power tile`);
+  click(player, power);
+};
 
 const PowerCase = ({ power, player, card, click }) => {
   const powerText = card == null ? power.powerName : card.name;
@@ -32,11 +39,7 @@ const PowerCase = ({ power, player, card, click }) => {
         width={powerSize.width}
         height={powerSize.height}
         style={rectStyles(power)}
-        onClick={e => {
-          e.preventDefault();
-          console.log(`clicking on a ${power.powerName} power tile`);
-          click(player, power);
-        }}
+        onClick={e => clickWrapper(e, power, player, click)}
       />
       <text
         x="50%"
@@ -44,6 +47,7 @@ const PowerCase = ({ power, player, card, click }) => {
         alignmentBaseline="middle"
         textAnchor="middle"
         style={textStyles(power)}
+        onClick={e => clickWrapper(e, power, player, click)}
       >
         {textTransform(powerText)}
       </text>
