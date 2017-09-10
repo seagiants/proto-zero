@@ -48,6 +48,14 @@ export const playersState = (state = initialState, action) => {
           }
         }
       }
+  /*  case DISCOVER_CELL :
+
+        return {..., [action.player] : {
+            ...state[action.player], playerBoard: {
+              ......state[action.player].playerBoard,
+            }
+        }
+      }*/
     default:
       console.log("Action not supported : "+action.type);
       return state;

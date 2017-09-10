@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { powerSelection } from "../actions";
+import { powerSelection, noAction } from "../actions";
 import { powerSize } from "../constants";
 
 const rectStyles = power => ({
@@ -66,19 +66,31 @@ const getActivePower = power => {
 const mapStateToProps = (state, ownProps) => {
   const player = ownProps.player;
   const index = ownProps.power.category.index;
+  const powerBoard = state.playersState[player].playerBoard.powerBoard[index];
   return {
-    card: state.playersState[player].playerBoard.powerBoard[index].card
+    card: powerBoard.card,
+    isTapped: powerBoard.isTapped
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    /*Click function :
+      First check isTapped => noAction
+      Second check isTargetRequired => powerAction
+      Default => powerSelection
+      FIXME - This implementation should be elsewhere...
+    */
     click: (player, power) => {
-      const activePower = getActivePower(power);
-      if (!activePower.powerProps.isTargetRequired) {
-        dispatch(activePower.powerAction(player, activePower.powerProps));
-      } else {
-        dispatch(powerSelection(player, power, activePower.powerProps));
+      if (power.isTapped){
+        dispatch(noAction(player))
+      }else{
+        const activePower = getActivePower(power);
+        if (!activePower.powerProps.isTargetRequired) {
+          dispatch(activePower.powerAction(player, activePower.powerProps));
+        } else {
+          dispatch(powerSelection(player, power, activePower.powerProps));
+        }
       }
     }
   };

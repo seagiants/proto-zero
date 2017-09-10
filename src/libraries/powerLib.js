@@ -38,14 +38,16 @@ const powerLibrairy = [
     category : getCategory("EXPLORATION"),
     powerAction : actions.discoverCell,
     powerProps : {
-      isTargetRequired : true
+      isTargetRequired : true,
+      isTapped : false
     }  },
   {
     powerName : actions.RESEARCH,
     category : getCategory("TECHNOLOGY"),
     powerAction : actions.draw,
     powerProps : {
-      isTargetRequired : false
+      isTargetRequired : false,
+      isTapped : false
       }
     },
   {
@@ -54,6 +56,7 @@ const powerLibrairy = [
     powerAction : actions.produce,
     powerProps : {
       isTargetRequired : false,
+      isTapped : false,
       quantity : 1
     }
   },
@@ -62,9 +65,9 @@ const powerLibrairy = [
     category : getCategory("MILITARY"),
     powerAction : actions.noAction,
     powerProps : {
-      isTargetRequired : false
+      isTargetRequired : false,
+      isTapped : false
       }
     }
 ];
-
-export const getPowerCase = (powerName) => powerLibrairy.filter((element) => (element.powerName === powerName) )[0];
+export const getPowerCaseTemplate= (powerName)=> powerLibrairy.filter((element) => (element.powerName === powerName) )[0];

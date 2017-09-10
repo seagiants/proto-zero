@@ -1,4 +1,4 @@
-import { getPowerCase } from "../libraries/powerLib.js"
+import { getPowerCaseTemplate } from "../libraries/powerLib.js"
 import { randCard } from "../libraries/cardLib.js"
 
 export const emptyBoard = {
@@ -6,17 +6,17 @@ export const emptyBoard = {
   w:90
 };
 
-export const generatePower = (powerName) => {
-  const powerTemplate = getPowerCase(powerName);
+export const generatePowerCase = (powerName) => {
+  const powerCaseTemplate = getPowerCaseTemplate(powerName);
   return{
-    powerName :powerTemplate.powerName,
-    category : powerTemplate.category,
-    powerAction : powerTemplate.powerAction,
-    powerProps : powerTemplate.powerProps
+    powerName :powerCaseTemplate.powerName,
+    category : powerCaseTemplate.category,
+    powerAction : powerCaseTemplate.powerAction,
+    powerProps : powerCaseTemplate.powerProps
   };
 };
 
-export const generatePowerBoard = () => ([generatePower("EXPLORE"),generatePower("RESEARCH"),generatePower("PRODUCE"), generatePower("ARMY")]);
+export const generatePowerBoard = () => ([generatePowerCase("EXPLORE"),generatePowerCase("RESEARCH"),generatePowerCase("PRODUCE"), generatePowerCase("ARMY")]);
 
 export const generateCard = (cardTemplate) => {
   return {
