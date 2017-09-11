@@ -7,13 +7,13 @@ const styles = {
   alignSelf: "center"
 };
 
-const PowerBoard = ({ player, name, powers }) => (
+const PowerBoard = ({ player, name, powerCases }) => (
   <div style={styles}>
     <div>
-      {powers.map((power, index) => (
+      {powerCases.map((powerCase, index) => (
         <PowerCase
-          key={uniqueId(power.name)}
-          power={power}
+          key={uniqueId(powerCase.name)}
+          powerCase={powerCase}
           player={player}
         />
       ))}
@@ -25,7 +25,7 @@ const mapStateToProps = (state, ownProps) => {
   const player = ownProps.player;
   return {
     name: state.playersState[player].name,
-    powers: state.playersState[player].playerBoard.powerBoard
+    powerCases: state.playersState[player].playerBoard.powerBoard
   };
 };
 

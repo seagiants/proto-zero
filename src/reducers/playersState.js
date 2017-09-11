@@ -13,12 +13,12 @@ const initialState = {
 };
 
 const addingCardToPowerBoard = (powerBoard,card) => {
-  return powerBoard.map( (power) => {
-        if(power.category.name!==card.category.name) {
-            return power;
+  return powerBoard.map( (powerCase) => {
+        if(powerCase.categoryName!==card.category.name) {
+            return powerCase;
         }
         return {
-            ...power, card : card
+            ...powerCase, card : card
         };
     });
 };

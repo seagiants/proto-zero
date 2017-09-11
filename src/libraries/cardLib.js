@@ -2,59 +2,65 @@ import random from "lodash.random";
 import * as actions from "../actions";
 import { getCategory } from "./powerLib.js"
 
+//FIXME need entity mechanism. Card = power + cost, same entity or not ?
 const cardLibrairy = [
   {
-    name: "Vision",
+    powerName: "Vision",
     cost: 2,
-    color : "purple",
-    powerAction: actions.discoverCell,
     category: getCategory("EXPLORATION"),
+    powerAction: actions.discoverCell,
     powerProps : {
       isTargetRequired : true
       }
     },
   {
-    name: "Radar",
+    powerName: "Radar",
     cost: 7,
-    color : "purple",
-    powerAction: actions.discoverCell,
     category: getCategory("EXPLORATION"),
+    powerAction: actions.discoverCell,
     powerProps : {
       isTargetRequired : true
       }
   },
   {
-    name: "Factory",
+    powerName: "Factory",
     cost: 2,
-    color : "purple",
-    powerAction: actions.noAction,
     category: getCategory("ECONOMY"),
+    powerAction: actions.noAction,
     powerProps : {
       isTargetRequired : true
       }
   },
   {
-    name: "Missile",
+    powerName: "Missile",
     cost: 2,
-    color : "purple",
-    powerAction: actions.noAction,
     category: getCategory("ECONOMY"),
+    powerAction: actions.noAction,
     powerProps : {
       isTargetRequired : true
       }
   },
   {
-    name: "Increased Radar",
+    powerName: "Increased Radar",
     cost: 2,
-    color : "purple",
-    powerAction: actions.noAction,
     category: getCategory("TECHNOLOGY"),
+    powerAction: actions.noAction,
     powerProps : {
       isTargetRequired : false
       }
   }
 ];
 
+export const generateCard = (cardTemplate) => {
+  return {
+    powerName: cardTemplate.powerName,
+    cost: cardTemplate.cost,
+    category: cardTemplate.category,
+    powerAction: cardTemplate.powerAction,
+    powerProps : cardTemplate.powerProps
+  };
+};
+
 export const randCard = () => cardLibrairy[random(cardLibrairy.length - 1)];
 
-export const getCard = (name) => cardLibrairy.filter((element) => (element.name === name) )[0];
+export const getCard = (name) => cardLibrairy.filter((element) => (element.powerName === name) )[0];

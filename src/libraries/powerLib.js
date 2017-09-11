@@ -1,6 +1,7 @@
 import * as actions from "../actions";
 
 // FIXME color scheme should be extracted to a proper file
+// FIXME need an entity for Category={name,index,color,altColor}
 const powerCategoryLibrairy = [
    {
     name : "EXPLORATION",
@@ -32,22 +33,22 @@ export function getCategory(categoryName){
   return powerCategoryLibrairy.filter((element)=>(element.name === categoryName))[0];
 };
 
-const powerLibrairy = [
+//FIXME need an entity for Power={powerName,category,powerAction,powerProps}
+const defaultPowerLibrairy = [
   {
     powerName : actions.EXPLORE,
     category : getCategory("EXPLORATION"),
     powerAction : actions.discoverCell,
     powerProps : {
-      isTargetRequired : true,
-      isTapped : false
-    }  },
+      isTargetRequired : true
+    }
+  },
   {
     powerName : actions.RESEARCH,
     category : getCategory("TECHNOLOGY"),
     powerAction : actions.draw,
     powerProps : {
-      isTargetRequired : false,
-      isTapped : false
+      isTargetRequired : false
       }
     },
   {
@@ -56,7 +57,6 @@ const powerLibrairy = [
     powerAction : actions.produce,
     powerProps : {
       isTargetRequired : false,
-      isTapped : false,
       quantity : 1
     }
   },
@@ -65,9 +65,32 @@ const powerLibrairy = [
     category : getCategory("MILITARY"),
     powerAction : actions.noAction,
     powerProps : {
-      isTargetRequired : false,
-      isTapped : false
+      isTargetRequired : false
       }
     }
 ];
-export const getPowerCaseTemplate= (powerName)=> powerLibrairy.filter((element) => (element.powerName === powerName) )[0];
+
+//FIXME Need an entity for PowerCase={categoryName,defaultPower,isSelected,isTapped,card}
+export function getPowerCaseTemplate(categoryName) {
+  console.log(defaultPowerLibrairy.filter((element) => (element.category.name === categoryName) )[0]);
+  return {
+    categoryName: categoryName,
+    defaultPower: defaultPowerLibrairy.filter((element) => (element.category.name === categoryName) )[0],
+    isSelected: false,
+    isTapped: false,
+    card: null
+  }
+
+};
+
+export const generatePowerCase = (powerName) => {
+  const powerCaseTemplate = getPowerCaseTemplate(powerName);
+  return{
+    categoryName :powerCaseTemplate.categoryName,
+    defaultPower: powerCaseTemplate.defaultPower,
+    isSelected: powerCaseTemplate.isSelected,
+    isTapped: powerCaseTemplate.isTapped,
+    card: powerCaseTemplate.card
+  }
+
+};
