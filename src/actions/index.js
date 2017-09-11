@@ -58,11 +58,11 @@ export function selectedCard(player, card, index) {
     cardIndex: index
   };
 };
-  export function powerSelection(player, power) {
+  export function powerSelection(player, powerCase) {
     return {
       type: POWER_SELECTION,
       player: player,
-      power: power
+      powerCase: powerCase
     };
   };
 

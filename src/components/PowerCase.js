@@ -32,7 +32,7 @@ const textTransform = (text) => {
 
 const clickWrapper = (e, powerCase, player, click) => {
   e.preventDefault();
-  console.log(`clicking on a ${powerCase.powerName} power tile`);
+  console.log(`clicking on a ${getActivePower(powerCase).powerName} power tile`);
   click(player, powerCase);
 };
 
@@ -85,7 +85,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       FIXME - This implementation should be elsewhere...
     */
     click: (player, powerCase) => {
-      console.log(getActivePower(powerCase).powerProps.isTargetRequired);
       if (powerCase.isTapped){
         dispatch(noAction(player))
       }else{

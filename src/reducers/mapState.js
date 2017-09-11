@@ -30,7 +30,7 @@ const showCell = (gameMap, x, y) => {
     }
   });
 };
-//FIXME Confusing usage of power instead of powerCase in the action props
+
 export const mapState = (state = initialState, action) => {
   switch (action.type) {
     case GENERATE_MAP:
@@ -43,9 +43,9 @@ export const mapState = (state = initialState, action) => {
       };
     case POWER_SELECTION:
       let newSelectPower =
-        action.power.card == null
-          ? action.power.defaultPower.powerAction
-          : action.power.card.powerAction;
+        action.powerCase.card == null
+          ? action.powerCase.defaultPower.powerAction
+          : action.powerCase.card.powerAction;
       return { ...state, selectedPower: newSelectPower };
     default:
       return state;
