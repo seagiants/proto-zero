@@ -1,3 +1,5 @@
+import { getActivePower } from "../engine/powerCaseRules";
+
 /* Action types */
 export const START_GAME = "START_GAME";
 export const GENERATE_MAP = "GENERATE_MAP";
@@ -11,6 +13,8 @@ export const RESEARCH = "RESEARCH";
 export const EXPLORE = "EXPLORE";
 export const PRODUCE = "PRODUCE";
 export const ARMY = "ARMY";
+export const TAP_POWER_CASE = "TAP_POWER_CASE";
+export const REFRESH_POWER_BOARD = "REFRESH_POWER_BOARD";
 
 /* Action creators */
 export function startGame() {
@@ -94,3 +98,54 @@ export function selectedCard(player, card, index) {
       player: player
   };
 };
+
+  export function tapPowerCase(player,categoryName){
+    return {
+      type: TAP_POWER_CASE,
+      player: player,
+      categoryName: categoryName
+    };
+  };
+
+  export function refreshPowerBoard(player){
+    return {
+      type: REFRESH_POWER_BOARD,
+      player: player
+    };
+  };
+
+
+/* thunks */
+//FIXME - Something is bad coded, it need an explicit Promise.resolve to chain correctly...
+  export function clickOnPowerCase(player,powerCase){
+    const selectedPower = getActivePower(powerCase);
+    return function (dispatch,getState){
+      if(powerCase.isTapped){
+        dispatch(noAction(player))
+      }else{
+        const activePower = getActivePower(powerCase);
+        if (!activePower.powerProps.isTargetRequired) {
+          Promise.resolve(dispatch(activePower.powerAction(player, activePower.powerProps))).then(()=>{return dispatch(tapPowerCase(player,powerCase.categoryName))});
+        } else {
+          dispatch(powerSelection(player, powerCase, activePower.powerProps));
+        }
+      }
+    };
+  };
+
+  export function clickOnEndTurn(player){
+    return function (dispatch,getState) {
+      Promise.resolve(dispatch(refreshPowerBoard(player))).then(()=>{return dispatch(draw(player))})
+    };
+  };
+
+//TODO - Implement tapping after a resolved delayed action (as discoverCell)
+ export function clickOnCell(x,y,selectedPower){
+       return function (dispatch,getState){
+         if (selectedPower !== null && selectedPower !== undefined) {
+           Promise.resolve(dispatch(selectedPower.powerAction(x, y)))
+         }else{
+           Promise.resolve(dispatch(noAction()));
+         }
+    };
+  };

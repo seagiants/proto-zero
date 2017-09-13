@@ -72,7 +72,6 @@ const defaultPowerLibrairy = [
 
 //FIXME Need an entity for PowerCase={categoryName,defaultPower,isSelected,isTapped,card}
 export function getPowerCaseTemplate(categoryName) {
-  console.log(defaultPowerLibrairy.filter((element) => (element.category.name === categoryName) )[0]);
   return {
     categoryName: categoryName,
     defaultPower: defaultPowerLibrairy.filter((element) => (element.category.name === categoryName) )[0],

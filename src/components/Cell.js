@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { noAction } from "../actions";
+import { clickOnCell, noAction } from "../actions";
 
 const w = 30;
 const h = 30;
@@ -46,12 +46,14 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    click: (x, y, action) => {
-      if (action !== null && action !== undefined) {
-        dispatch(action(x, y));
-      }
+    click: (x, y, selectedPower) => {
+      console.log(x);
+      console.log(y);
+      console.log(selectedPower);
+      dispatch(clickOnCell(x, y,selectedPower));
     }
-  };
+  }
 };
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cell);

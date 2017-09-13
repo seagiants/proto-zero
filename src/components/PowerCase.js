@@ -1,28 +1,26 @@
 import React from "react";
 import { connect } from "react-redux";
-import { powerSelection, noAction } from "../actions";
+import { clickOnPowerCase } from "../actions";
 import { powerSize } from "../constants";
+import { getActivePower } from "../engine/powerCaseRules";
 
 
-//FIXME Maybe better as a prop of the component even with redunduncy.
-const getActivePower = powerCase => {
-  if (powerCase.card !== null && powerCase.card !== undefined) {
-    return powerCase.card;
-  } else {
-    return powerCase.defaultPower;
-  }
+const rectStyles = powerCase => {
+  const activePower = getActivePower(powerCase);
+  return {
+  fill: powerCase.isTapped ? activePower.category.altColor : activePower.category.color,
+  cursor: "pointer"
+  };
 };
 
-const rectStyles = powerCase => ({
-  fill: getActivePower(powerCase).category.color,
-  cursor: "pointer"
-});
-
-const textStyles = powerCase => ({
-  fill: getActivePower(powerCase).category.altColor,
+const textStyles = powerCase => {
+  const activePower = getActivePower(powerCase);
+  return {
+  fill: powerCase.isTapped ? activePower.category.color : activePower.category.altColor,
   cursor: "pointer",
   fontSize: "3em"
-});
+  };
+};
 
 const textTransform = (text) => {
   const firstPart = text.substring(0,1);
@@ -36,6 +34,7 @@ const clickWrapper = (e, powerCase, player, click) => {
   click(player, powerCase);
 };
 
+// FIXME - activePower should be a prop of the component (useless multiple calls in the comp&action)
 const PowerCase = ({ powerCase, player, card, click }) => {
   const powerText = card == null ? powerCase.defaultPower.powerName : card.powerName;
   return (
@@ -78,23 +77,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    /*Click function :
-      First check isTapped => noAction
-      Second check isTargetRequired => powerAction
-      Default => powerSelection
-      FIXME - This implementation should be elsewhere...
-    */
-    click: (player, powerCase) => {
-      if (powerCase.isTapped){
-        dispatch(noAction(player))
-      }else{
-        const activePower = getActivePower(powerCase);
-        if (!activePower.powerProps.isTargetRequired) {
-          dispatch(activePower.powerAction(player, activePower.powerProps));
-        } else {
-          dispatch(powerSelection(player, powerCase, activePower.powerProps));
-        }
-      }
+    click: (player,powerCase) => {
+      dispatch(clickOnPowerCase(player,powerCase))
     }
   };
 };

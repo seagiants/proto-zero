@@ -5,6 +5,7 @@ import {
   noAction
 } from "../actions";
 import { generateMap } from "../engine";
+import { getActivePower } from "../engine/powerCaseRules"
 import { mapDimensions } from "../constants";
 
 const initialState = {
@@ -42,11 +43,7 @@ export const mapState = (state = initialState, action) => {
         selectedPower: noAction
       };
     case POWER_SELECTION:
-      let newSelectPower =
-        action.powerCase.card == null
-          ? action.powerCase.defaultPower.powerAction
-          : action.powerCase.card.powerAction;
-      return { ...state, selectedPower: newSelectPower };
+      return { ...state, selectedPower: getActivePower(action.powerCase) };
     default:
       return state;
   }

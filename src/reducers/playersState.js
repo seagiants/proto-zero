@@ -1,5 +1,5 @@
 import { generateBoard, drawCards } from "../engine";
-import { DRAW, SELECTED_CARD, PRODUCE } from "../actions"
+import { REFRESH_POWER_BOARD, DRAW, SELECTED_CARD, PRODUCE, TAP_POWER_CASE } from "../actions"
 const initialState = {
   playerOne: {
     name: "Bibi",
@@ -15,13 +15,30 @@ const initialState = {
 const addingCardToPowerBoard = (powerBoard,card) => {
   return powerBoard.map( (powerCase) => {
         if(powerCase.categoryName!==card.category.name) {
-            return powerCase;
+            return {...powerCase};
         }
         return {
             ...powerCase, card : card
         };
     });
 };
+
+const refreshingPowerCases = (powerBoard) => {
+  return powerBoard.map((powerCase)=>{
+    return{...powerCase, isTapped: false};
+  });
+};
+
+const togglingPowerCaseFromPowerBoard = (powerBoard,categoryName,newStatus=true) => {
+  return powerBoard.map((powerCase) => {
+    if(powerCase.categoryName === categoryName){
+      return {...powerCase, isTapped:newStatus};
+    }else{ return {...powerCase}
+    }
+  })
+};
+
+
 
 export const playersState = (state = initialState, action) => {
 
@@ -47,7 +64,22 @@ export const playersState = (state = initialState, action) => {
             ...state[action.player].playerBoard, resourceCounter : newResourceCounter
           }
         }
-      }
+      };
+
+    case TAP_POWER_CASE :
+      return { ...state, [action.player] : {
+                ...state[action.player], playerBoard : {
+                  ...state[action.player].playerBoard, powerBoard : togglingPowerCaseFromPowerBoard(state[action.player].playerBoard.powerBoard,action.categoryName,true)
+                }
+              }
+            };
+    case REFRESH_POWER_BOARD :
+      return { ...state, [action.player] : {
+                ...state[action.player], playerBoard : {
+                  ...state[action.player].playerBoard, powerBoard : refreshingPowerCases(state[action.player].playerBoard.powerBoard)
+                }
+              }
+            };
   /*  case DISCOVER_CELL :
 
         return {..., [action.player] : {

@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { draw} from "../actions"
+import { clickOnEndTurn } from "../actions"
 
 
 const w = 60;
 const h = 30;
 
-const DrawButton = ({ player, click }) => {
+const EndTurnButton = ({ player, click }) => {
   return (
     <svg
       width={w}
@@ -14,7 +14,7 @@ const DrawButton = ({ player, click }) => {
       onClick={e => {
         e.preventDefault();
         console.log(
-          `clicking on DrawButton`
+          `clicking on EndTurnButton`
         );
         click(player);
       }}
@@ -27,12 +27,11 @@ const DrawButton = ({ player, click }) => {
 const mapStateToProps = state => state
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const player = ownProps.player
   return {
-    click: () => {
-      dispatch(draw(player));
+    click: (player) => {
+      dispatch(clickOnEndTurn(player))
     }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DrawButton);
+export default connect(mapStateToProps, mapDispatchToProps)(EndTurnButton);
