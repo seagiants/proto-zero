@@ -1,5 +1,5 @@
 import { generateBoard, drawCards } from "../engine";
-import { REFRESH_POWER_BOARD, DRAW, SELECTED_CARD, PRODUCE, TAP_POWER_CASE } from "../actions"
+import { REFRESH_POWER_BOARD, DRAW, SELECTED_CARD, PRODUCE, TAP_POWER_CASE, POWER_SELECTION } from "../actions"
 const initialState = {
   playerOne: {
     name: "Bibi",
@@ -25,15 +25,25 @@ const addingCardToPowerBoard = (powerBoard,card) => {
 
 const refreshingPowerCases = (powerBoard) => {
   return powerBoard.map((powerCase)=>{
-    return{...powerCase, isTapped: false};
+    return{...powerCase, isTapped: false, isSelected: false};
   });
 };
+
+const selectingPowerCaseFromPowerBoard = (powerBoard, categoryName,newStatus=true) => {
+  return powerBoard.map((powerCase) => {
+    if(powerCase.categoryName === categoryName){
+      return {...powerCase, isSelected:newStatus};
+    }else{ return {...powerCase}
+    }
+  })
+};
+
 
 const togglingPowerCaseFromPowerBoard = (powerBoard,categoryName,newStatus=true) => {
   return powerBoard.map((powerCase) => {
     if(powerCase.categoryName === categoryName){
-      return {...powerCase, isTapped:newStatus};
-    }else{ return {...powerCase}
+      return {...powerCase, isTapped:newStatus, isSelected: false};
+    }else{ return {...powerCase, isSelected: false}
     }
   })
 };
@@ -80,6 +90,13 @@ export const playersState = (state = initialState, action) => {
                 }
               }
             };
+    case POWER_SELECTION :
+    return { ...state, [action.player] : {
+              ...state[action.player], playerBoard : {
+                ...state[action.player].playerBoard, powerBoard : selectingPowerCaseFromPowerBoard(state[action.player].playerBoard.powerBoard, action.powerCase.categoryName,true)
+              }
+            }
+          };
   /*  case DISCOVER_CELL :
 
         return {..., [action.player] : {

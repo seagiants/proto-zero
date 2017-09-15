@@ -117,7 +117,6 @@ export function selectedCard(player, card, index) {
 
 /* thunks */
 export function clickOnPowerCase(player,powerCase){
-    const selectedPower = getActivePower(powerCase);
     return function (dispatch,getState){
       if(powerCase.isTapped){
         dispatch(noAction(player))
@@ -140,13 +139,14 @@ export function clickOnPowerCase(player,powerCase){
     };
   };
 
-//TODO - Implement tapping after a resolved delayed action (as discoverCell)
  export function clickOnCell(x,y,selectedPower){
        return function (dispatch,getState){
          if (selectedPower !== null && selectedPower !== undefined) {
-           Promise.resolve(dispatch(selectedPower.powerAction(x, y)))
+           dispatch(selectedPower.powerAction(x, y));
+           const player = getState().mapState.activePlayer;
+           dispatch(tapPowerCase(player,selectedPower.category.name));
          }else{
-           Promise.resolve(dispatch(noAction()));
+           dispatch(noAction());
          }
     };
   };

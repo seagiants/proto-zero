@@ -47,10 +47,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     click: (x, y, selectedPower) => {
-      console.log(x);
-      console.log(y);
-      console.log(selectedPower);
-      dispatch(clickOnCell(x, y,selectedPower));
+      dispatch(clickOnCell(x, y,selectedPower,ownProps.player));
     }
   }
 };
