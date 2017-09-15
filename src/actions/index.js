@@ -116,8 +116,7 @@ export function selectedCard(player, card, index) {
 
 
 /* thunks */
-//FIXME - Something is bad coded, it need an explicit Promise.resolve to chain correctly...
-  export function clickOnPowerCase(player,powerCase){
+export function clickOnPowerCase(player,powerCase){
     const selectedPower = getActivePower(powerCase);
     return function (dispatch,getState){
       if(powerCase.isTapped){
@@ -125,7 +124,8 @@ export function selectedCard(player, card, index) {
       }else{
         const activePower = getActivePower(powerCase);
         if (!activePower.powerProps.isTargetRequired) {
-          Promise.resolve(dispatch(activePower.powerAction(player, activePower.powerProps))).then(()=>{return dispatch(tapPowerCase(player,powerCase.categoryName))});
+          dispatch(activePower.powerAction(player, activePower.powerProps));
+          dispatch(tapPowerCase(player,powerCase.categoryName));
         } else {
           dispatch(powerSelection(player, powerCase, activePower.powerProps));
         }
@@ -135,7 +135,8 @@ export function selectedCard(player, card, index) {
 
   export function clickOnEndTurn(player){
     return function (dispatch,getState) {
-      Promise.resolve(dispatch(refreshPowerBoard(player))).then(()=>{return dispatch(draw(player))})
+      dispatch(refreshPowerBoard(player));
+      dispatch(draw(player));
     };
   };
 
