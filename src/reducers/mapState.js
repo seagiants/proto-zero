@@ -10,7 +10,6 @@ import { mapDimensions } from "../constants";
 
 const initialState = {
   gameMap: generateMap(mapDimensions.width, mapDimensions.height),
-  selectedPower: noAction,
   activePlayer: 'playerOne'
 };
 

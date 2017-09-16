@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { clickOnCell, noAction } from "../actions";
+import { clickOnCell } from "../actions";
 
 const w = 30;
 const h = 30;
@@ -37,10 +37,10 @@ const Cell = ({ type, click, selectedPower }) => {
 };
 
 const mapStateToProps = state => {
-  if (state.mapState.selectedPower !== null) {
+  if (state.mapState.selectedPower !== null && state.mapState.selectedPower !== undefined ) {
     return { selectedPower: state.mapState.selectedPower };
-  } else {
-    return { selectedPower: {powerName:"noAction",powerAction:noAction} };
+    } else {
+    return {};
   }
 };
 
