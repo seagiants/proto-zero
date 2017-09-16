@@ -6,26 +6,26 @@ const powerCategoryLibrairy = [
    {
     name : "EXPLORATION",
     index : 0,
-    color : "#4212AF",
-    altColor: "#8D6DD7"
-  },
-  {
-    name : "TECHNOLOGY",
-    index : 1,
-    color : "#FF1E00",
-    altColor: "#FF8373"
-  },
-  {
-    name : "ECONOMY",
-    index : 2,
     color : "#00BF32",
     altColor: "#64DF85"
   },
   {
-    name : "MILITARY",
-    index : 3,
+    name : "TECHNOLOGY",
+    index : 1,
+    color : "#4212AF",
+    altColor: "#8D6DD7"
+  },
+  {
+    name : "ECONOMY",
+    index : 2,
     color : "#FFDA00",
     altColor: "#FFEB73"
+  },
+  {
+    name : "MILITARY",
+    index : 3,
+    color : "#FF1E00",
+    altColor: "#FF8373"
   }
 ];
 
@@ -39,6 +39,7 @@ const defaultPowerLibrairy = [
     powerName : actions.EXPLORE,
     category : getCategory("EXPLORATION"),
     powerAction : actions.discoverCell,
+    cost : 0,
     powerProps : {
       isTargetRequired : true
     }
@@ -47,6 +48,7 @@ const defaultPowerLibrairy = [
     powerName : actions.RESEARCH,
     category : getCategory("TECHNOLOGY"),
     powerAction : actions.draw,
+    cost : 0,
     powerProps : {
       isTargetRequired : false
       }
@@ -55,6 +57,7 @@ const defaultPowerLibrairy = [
     powerName : actions.PRODUCE,
     category : getCategory("ECONOMY"),
     powerAction : actions.produce,
+    cost : 0,
     powerProps : {
       isTargetRequired : false,
       quantity : 1
@@ -64,6 +67,7 @@ const defaultPowerLibrairy = [
     powerName : actions.ARMY,
     category : getCategory("MILITARY"),
     powerAction : actions.noAction,
+    cost : 0,
     powerProps : {
       isTargetRequired : false
       }

@@ -40,7 +40,7 @@ const mapStateToProps = state => {
   if (state.mapState.selectedPower !== null) {
     return { selectedPower: state.mapState.selectedPower };
   } else {
-    return { selectedPower: noAction };
+    return { selectedPower: {powerName:"noAction",powerAction:noAction} };
   }
 };
 

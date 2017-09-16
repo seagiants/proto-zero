@@ -5,7 +5,7 @@ import {
   noAction
 } from "../actions";
 import { generateMap } from "../engine";
-import { getActivePower } from "../engine/powerCaseRules"
+import { getActivePower } from "../engine/powerLogic"
 import { mapDimensions } from "../constants";
 
 const initialState = {

@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { clickOnPowerCase } from "../actions";
 import { powerSize } from "../constants";
-import { getActivePower } from "../engine/powerCaseRules";
+import { getActivePower } from "../engine/powerLogic";
 
 
 const rectStyles = powerCase => {

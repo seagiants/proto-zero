@@ -1,4 +1,4 @@
-import { getActivePower } from "../engine/powerCaseRules";
+import * as powerLogic from "../engine/powerLogic";
 
 /* Action types */
 export const START_GAME = "START_GAME";
@@ -70,10 +70,11 @@ export function selectedCard(player, card, index) {
     };
   };
 
-  export function noAction(player){
+  export function noAction(player,message="No message"){
     return {
       type: NO_ACTION,
-      player: player
+      player: player,
+      message: message
     };
   };
 
@@ -118,10 +119,10 @@ export function selectedCard(player, card, index) {
 /* thunks */
 export function clickOnPowerCase(player,powerCase){
     return function (dispatch,getState){
-      if(powerCase.isTapped){
+      const activePower = powerLogic.getActivePower(powerCase);
+      if(powerCase.isTapped || !powerLogic.isPowerPlayable(activePower,getState())){
         dispatch(noAction(player))
       }else{
-        const activePower = getActivePower(powerCase);
         if (!activePower.powerProps.isTargetRequired) {
           dispatch(activePower.powerAction(player, activePower.powerProps));
           dispatch(tapPowerCase(player,powerCase.categoryName));
@@ -141,12 +142,17 @@ export function clickOnPowerCase(player,powerCase){
 
  export function clickOnCell(x,y,selectedPower){
        return function (dispatch,getState){
+         console.log(selectedPower);
          if (selectedPower !== null && selectedPower !== undefined) {
            dispatch(selectedPower.powerAction(x, y));
+           if(powerLogic.isPowerPlayable(selectedPower,getState())) {
            const player = getState().mapState.activePlayer;
            dispatch(tapPowerCase(player,selectedPower.category.name));
+          }else{
+            dispatch(noAction("Not enough resource"))
+          }
          }else{
-           dispatch(noAction());
+           dispatch(noAction("No power"));
          }
     };
   };
