@@ -142,7 +142,6 @@ export function clickOnPowerCase(player,powerCase){
 
  export function clickOnCell(x,y,selectedPower){
        return function (dispatch,getState){
-         console.log(selectedPower);
          if (selectedPower !== null && selectedPower !== undefined) {
            dispatch(selectedPower.powerAction(x, y));
            if(powerLogic.isPowerPlayable(selectedPower,getState())) {

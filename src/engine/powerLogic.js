@@ -9,8 +9,5 @@ export const getActivePower = powerCase => {
 };
 
 export function isPowerPlayable(power,state){
-  console.log(state.playersState[state.mapState.activePlayer]);
-  console.log("cost:"+power.cost);
-  console.log("resource:"+(state.playersState[state.mapState.activePlayer].playerBoard.resourceCounter +1));
   return power.cost < state.playersState[state.mapState.activePlayer].playerBoard.resourceCounter +1
 }

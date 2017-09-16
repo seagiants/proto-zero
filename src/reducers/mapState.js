@@ -1,8 +1,7 @@
 import {
   GENERATE_MAP,
   DISCOVER_CELL,
-  POWER_SELECTION,
-  noAction
+  POWER_SELECTION
 } from "../actions";
 import { generateMap } from "../engine";
 import { getActivePower } from "../engine/powerLogic"
@@ -40,7 +39,7 @@ export const mapState = (state = initialState, action) => {
       return {
         ...state,
         gameMap: showCell(state.gameMap, action.x, action.y),
-        selectedPower: noAction
+        selectedPower: null
       };
     case POWER_SELECTION:
       return { ...state, selectedPower: getActivePower(action.powerCase) };
