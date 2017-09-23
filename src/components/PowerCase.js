@@ -4,39 +4,45 @@ import { clickOnPowerCase } from "../actions";
 import { powerSize } from "../constants";
 import { getActivePower } from "../engine/powerLogic";
 
-
 const rectStyles = powerCase => {
   const activePower = getActivePower(powerCase);
   return {
-  fill: powerCase.isTapped ? activePower.category.altColor : activePower.category.color,
-  cursor: "pointer"
+    fill: powerCase.isTapped
+      ? activePower.category.tappedColor
+      : activePower.category.color,
+    cursor: "pointer"
   };
 };
 
 const textStyles = powerCase => {
   const activePower = getActivePower(powerCase);
   return {
-  fill: powerCase.isTapped ? activePower.category.color : activePower.category.altColor,
-  cursor: "pointer",
-  fontSize: "3em"
+    fill: powerCase.isTapped
+      ? activePower.category.tappedAltColor
+      : activePower.category.altColor,
+    cursor: "pointer",
+    fontSize: "3em"
   };
 };
 
-const textTransform = (text) => {
-  const firstPart = text.substring(0,1);
-  const secondPart = text.substring(1,3).toLowerCase();
+const textTransform = text => {
+  const firstPart = text.substring(0, 1);
+  const secondPart = text.substring(1, 3).toLowerCase();
   return `${firstPart}${secondPart}`;
-}
+};
 
 const clickWrapper = (e, powerCase, player, click) => {
   e.preventDefault();
-  console.log(`clicking on a ${getActivePower(powerCase).powerName} power tile`);
+  console.log(
+    `clicking on a ${getActivePower(powerCase).powerName} power tile`
+  );
   click(player, powerCase);
 };
 
 // FIXME - activePower should be a prop of the component (useless multiple calls in the comp&action)
 const PowerCase = ({ powerCase, player, card, click }) => {
-  const powerText = card == null ? powerCase.defaultPower.powerName : card.powerName;
+  const powerText =
+    card == null ? powerCase.defaultPower.powerName : card.powerName;
   return (
     <svg
       width={powerSize.boxFactor * powerSize.width}
@@ -77,8 +83,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    click: (player,powerCase) => {
-      dispatch(clickOnPowerCase(player,powerCase))
+    click: (player, powerCase) => {
+      dispatch(clickOnPowerCase(player, powerCase));
     }
   };
 };

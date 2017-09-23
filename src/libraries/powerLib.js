@@ -1,5 +1,8 @@
 import * as actions from "../actions";
 
+const TAPPED_COLOR = "#696969";
+const TAPPED_ALT_COLOR = "#D3D3D3";
+
 // FIXME color scheme should be extracted to a proper file
 // FIXME need an entity for Category={name,index,color,altColor}
 const powerCategoryLibrairy = [
@@ -7,25 +10,33 @@ const powerCategoryLibrairy = [
     name : "EXPLORATION",
     index : 0,
     color : "#00BF32",
-    altColor: "#64DF85"
+    altColor: "#64DF85",
+    tappedColor: TAPPED_COLOR,
+    tappedAltColor: TAPPED_ALT_COLOR
   },
   {
     name : "TECHNOLOGY",
     index : 1,
     color : "#4212AF",
-    altColor: "#8D6DD7"
+    altColor: "#8D6DD7",
+    tappedColor: TAPPED_COLOR,
+    tappedAltColor: TAPPED_ALT_COLOR
   },
   {
     name : "ECONOMY",
     index : 2,
     color : "#FFDA00",
-    altColor: "#FFEB73"
+    altColor: "#FFEB73",
+    tappedColor: TAPPED_COLOR,
+    tappedAltColor: TAPPED_ALT_COLOR
   },
   {
     name : "MILITARY",
     index : 3,
     color : "#FF1E00",
-    altColor: "#FF8373"
+    altColor: "#FF8373",
+    tappedColor: TAPPED_COLOR,
+    tappedAltColor: TAPPED_ALT_COLOR
   }
 ];
 
