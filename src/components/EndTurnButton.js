@@ -4,7 +4,11 @@ import { clickOnEndTurn } from "../actions"
 
 
 const w = 60;
-const h = 30;
+const h = 60;
+
+const textStyles = {
+  fill: "white"
+}
 
 const EndTurnButton = ({ player, click }) => {
   return (
@@ -20,6 +24,15 @@ const EndTurnButton = ({ player, click }) => {
       }}
     >
       <rect width={w} height={h}/>
+        <text
+          x="50%"
+          y="50%"
+          alignmentBaseline="middle"
+          textAnchor="middle"
+          style={textStyles}
+          >
+          END
+        </text>
     </svg>
   );
 };
