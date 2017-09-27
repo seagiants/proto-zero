@@ -9,12 +9,14 @@ const styles = {
   alignSelf: "center"
 };
 
-//FIXME the width and height attributes should be calculated
-// 600 is 20 tiles times 30 of dimension
-// those should be constants
+// FIXME the width and height of the SVG should come not from the obsolete constants
+// FIXME but from the gameMap object itself
 const MapDisplay = ({ gameMap }) => (
   <div style={styles}>
-    <svg width={mapDimensions.width * cellSize.width} height={mapDimensions.height * cellSize.height}>
+    <svg
+      width={mapDimensions.width * cellSize.width}
+      height={mapDimensions.height * cellSize.height}
+    >
       {flatten(gameMap).map(type => <Cell key={uniqueId()} type={type} />)}
     </svg>
   </div>
