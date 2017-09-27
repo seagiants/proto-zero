@@ -1,8 +1,4 @@
-import {
-  DISCOVER_CELL,
-  POWER_SELECTION,
-  STORE_MAP
-} from "../actions";
+import { DISCOVER_CELL, POWER_SELECTION, STORE_MAP } from "../actions";
 import { getActivePower } from "../engine/powerLogic";
 
 const showCell = (gameMap, x, y) => {
@@ -24,7 +20,7 @@ const showCell = (gameMap, x, y) => {
   });
 };
 
-export const mapState = (state = {}, action) => {
+export const mapState = (state = { activePlayer: "playerOne" }, action) => {
   switch (action.type) {
     case STORE_MAP:
       return { ...state, gameMap: action.map };
