@@ -1,15 +1,11 @@
-import {
-  GENERATE_MAP,
-  DISCOVER_CELL,
-  POWER_SELECTION
-} from "../actions";
+import { GENERATE_MAP, DISCOVER_CELL, POWER_SELECTION } from "../actions";
 import { generateMap } from "../engine";
-import { getActivePower } from "../engine/powerLogic"
+import { getActivePower } from "../engine/powerLogic";
 import { mapDimensions } from "../constants";
 
 const initialState = {
   gameMap: generateMap(mapDimensions.width, mapDimensions.height),
-  activePlayer: 'playerOne'
+  activePlayer: "playerOne"
 };
 
 const showCell = (gameMap, x, y) => {

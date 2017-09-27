@@ -6,6 +6,7 @@ import App from "./App";
 import "./index.css";
 import appState from "./reducers";
 import thunk from "redux-thunk";
+import {askForGameCreation} from "./actions";
 
 /*const middleware = applyMiddleware(thunk);
 const reduxTools =   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
@@ -28,17 +29,7 @@ let store = createStore(
   enhancer
 );
 
-fetch("http://localhost:9000/newgame")
-  .then(response => {
-    console.log("Response from the server");
-    return response.json();
-  })
-  .then(data => {
-    console.log("Game data is", data);
-  })
-  .catch(error => {
-    console.error("Error when trying to reach the server", error);
-  });
+store.dispatch(askForGameCreation("Bibi"));
 
 ReactDOM.render(
   <Provider store={store}>
