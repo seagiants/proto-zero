@@ -1,4 +1,9 @@
-import { GENERATE_MAP, DISCOVER_CELL, POWER_SELECTION } from "../actions";
+import {
+  GENERATE_MAP,
+  DISCOVER_CELL,
+  POWER_SELECTION,
+  STORE_MAP
+} from "../actions";
 import { generateMap } from "../engine";
 import { getActivePower } from "../engine/powerLogic";
 import { mapDimensions } from "../constants";
@@ -27,10 +32,12 @@ const showCell = (gameMap, x, y) => {
   });
 };
 
-export const mapState = (state = initialState, action) => {
+export const mapState = (state = {}, action) => {
   switch (action.type) {
-    case GENERATE_MAP:
-      return { ...state, gameMap: generateMap(action.x, action.y) };
+    //case GENERATE_MAP:
+    //  return { ...state, gameMap: generateMap(action.x, action.y) };
+    case STORE_MAP:
+      return { ...state, gameMap: action.map };
     case DISCOVER_CELL:
       return {
         ...state,

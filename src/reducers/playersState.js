@@ -159,7 +159,6 @@ export const playersState = (state = initialState, action) => {
         }
       }*/
     default:
-      console.log("Action not supported : " + action.type);
       return state;
   }
 };
