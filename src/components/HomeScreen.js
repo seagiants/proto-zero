@@ -1,5 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 import uniqueId from "lodash.uniqueid";
+import { askForGameCreation } from "../actions";
 
 class HomeScreen extends React.Component {
   constructor(props) {
@@ -13,11 +15,9 @@ class HomeScreen extends React.Component {
     // FIXME hack, in the future use an action
     fetch("http://localhost:9000/games-list")
       .then(resp => {
-        console.dir(resp);
         return resp.json();
       })
       .then(gamesList => {
-        console.log(gamesList);
         this.setState({ games: gamesList });
       })
       .catch(error => {
@@ -27,22 +27,37 @@ class HomeScreen extends React.Component {
 
   render() {
     let comp;
-    if(this.state.games !== null) {
+    if (this.state.games !== null) {
       comp = this.state.games.map(game => (
         <li key={uniqueId()}>Join game #{game.id}</li>
-      ))
+      ));
     } else {
-      comp = <p>No games</p>
+      comp = <p>No games</p>;
     }
     return (
       <div>
-        <button>New game</button>
-        <ul>
-          {comp}
-        </ul>
+        <button
+          onClick={e => {
+            e.preventDefault();
+            this.props.click();
+          }}
+        >
+          New game
+        </button>
+        <ul>{comp}</ul>
       </div>
     );
   }
 }
 
-export default HomeScreen;
+const mapStateToProps = state => state;
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    click: () => {
+      dispatch(askForGameCreation("Bibi"));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
