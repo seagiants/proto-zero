@@ -18,7 +18,9 @@ class HomeScreen extends React.Component {
         return resp.json();
       })
       .then(gamesList => {
-        this.setState({ games: gamesList });
+        if(gamesList.length > 0) {
+            this.setState({ games: gamesList });
+        }
       })
       .catch(error => {
         console.error("Error fetching games list", error);
