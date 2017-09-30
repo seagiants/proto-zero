@@ -1,6 +1,7 @@
 import * as powerLogic from "../engine/powerLogic";
 
 /* Action types */
+export const SWITCH_TO_GAME_SCREEN = "SWITCH_TO_GAME_SCREEN";
 export const ASK_FOR_GAME_CREATION = "ASK_FOR_GAME_CREATION";
 export const GAME_CREATED = "GAME_CREATED";
 export const ERROR_CREATING_GAME = "ERROR_CREATING_GAME";
