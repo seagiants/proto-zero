@@ -22,6 +22,10 @@ export const TAP_POWER_CASE = "TAP_POWER_CASE";
 export const REFRESH_POWER_BOARD = "REFRESH_POWER_BOARD";
 
 /* Action creators */
+export function switchToGameScreen() {
+  return { type: SWITCH_TO_GAME_SCREEN };
+}
+
 export function gameCreated(game) {
   return { type: GAME_CREATED, game: game };
 }
@@ -140,6 +144,7 @@ export function askForGameCreation(playerName) {
         return response.json();
       })
       .then(game => {
+        dispatch(switchToGameScreen());
         dispatch(gameCreated(game));
         dispatch(storeMap(game.gameMap));
       })

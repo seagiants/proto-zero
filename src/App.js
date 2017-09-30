@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import PlayerBoard from "./components/PlayerBoard";
 import MapDisplay from "./components/MapDisplay";
 import Chat from "./components/Chat";
@@ -11,9 +12,9 @@ const styles = {
 
 const SWITCH = true;
 
-const App = () => (
+const App = ({ activeScreen }) => (
   <div>
-    {SWITCH ? (
+    {activeScreen === "HOME_SCREEN" ? (
       <div style={styles}>
         <HomeScreen />
       </div>
@@ -28,4 +29,8 @@ const App = () => (
   </div>
 );
 
-export default App;
+const mapStateToProps = (state, ownProps) => {
+  return { activeScreen: state.uiState.activeScreen };
+};
+
+export default connect(mapStateToProps)(App);
