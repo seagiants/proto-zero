@@ -5,23 +5,40 @@ class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      games: [
-        { id: "7d93fa08-9273-4459-aa05-0f5669422159" },
-        { id: "e70dde47-2bee-4690-9017-8006841ceb4a" }
-      ]
+      games: null
     };
   }
 
   componentDidMount() {
-    // TODO here request the game list to the server
+    // FIXME hack, in the future use an action
+    fetch("http://localhost:9000/games-list")
+      .then(resp => {
+        console.dir(resp);
+        return resp.json();
+      })
+      .then(gamesList => {
+        console.log(gamesList);
+        this.setState({ games: gamesList });
+      })
+      .catch(error => {
+        console.error("Error fetching games list", error);
+      });
   }
 
   render() {
+    let comp;
+    if(this.state.games !== null) {
+      comp = this.state.games.map(game => (
+        <li key={uniqueId()}>Join game #{game.id}</li>
+      ))
+    } else {
+      comp = <p>No games</p>
+    }
     return (
       <div>
         <button>New game</button>
         <ul>
-          { this.state.games.map(game => <li key={uniqueId()}>Join game #{ game.id }</li>) }
+          {comp}
         </ul>
       </div>
     );
