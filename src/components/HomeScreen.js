@@ -3,6 +3,11 @@ import { connect } from "react-redux";
 import uniqueId from "lodash.uniqueid";
 import { askForGameCreation } from "../actions";
 
+const styles = {
+  display: "flex",
+  flexDirection: "column"
+};
+
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -37,7 +42,7 @@ class HomeScreen extends React.Component {
       comp = <p>No games</p>;
     }
     return (
-      <div>
+      <div style={styles}>
         <button
           onClick={e => {
             e.preventDefault();

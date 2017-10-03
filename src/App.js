@@ -1,32 +1,21 @@
 import React from "react";
 import { connect } from "react-redux";
-import PlayerBoard from "./components/PlayerBoard";
-import MapDisplay from "./components/MapDisplay";
-import Chat from "./components/Chat";
 import HomeScreen from "./components/HomeScreen";
+import GameScreen from "./components/GameScreen";
 
-const styles = {
-  display: "flex",
-  flexDirection: "column"
+const getActiveScreenComponent = activeScreen => {
+  switch (activeScreen) {
+    case "HOME_SCREEN":
+      return <HomeScreen />;
+    case "GAME_SCREEN":
+      return <GameScreen />;
+    default:
+      return <HomeScreen />;
+  }
 };
 
-const SWITCH = true;
-
 const App = ({ activeScreen }) => (
-  <div>
-    {activeScreen === "HOME_SCREEN" ? (
-      <div style={styles}>
-        <HomeScreen />
-      </div>
-    ) : (
-      <div style={styles}>
-        <PlayerBoard player="playerOne" />
-        <MapDisplay />
-        <PlayerBoard player="playerTwo" />
-        <Chat />
-      </div>
-    )}
-  </div>
+  <div>{getActiveScreenComponent(activeScreen)}</div>
 );
 
 const mapStateToProps = (state, ownProps) => {

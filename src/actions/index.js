@@ -139,7 +139,7 @@ export function refreshPowerBoard(player) {
 /* thunks */
 export function askForGameCreation(playerName) {
   return function(dispatch) {
-    fetch("http://localhost:9000/newgame")
+    fetch(`http://localhost:9000/newgame?playerName=${playerName}`)
       .then(response => {
         return response.json();
       })
