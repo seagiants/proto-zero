@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import uniqueId from "lodash.uniqueid";
-import { askForGameCreation } from "../actions";
+import { askForGameCreation, askForGamesList } from "../actions";
 
 const styles = {
   display: "flex",
@@ -17,25 +17,13 @@ class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
-    // FIXME hack, in the future use an action
-    fetch("http://localhost:9000/games-list")
-      .then(resp => {
-        return resp.json();
-      })
-      .then(gamesList => {
-        if(gamesList.length > 0) {
-            this.setState({ games: gamesList });
-        }
-      })
-      .catch(error => {
-        console.error("Error fetching games list", error);
-      });
+    this.props.getGamesList();
   }
 
   render() {
     let comp;
-    if (this.state.games !== null) {
-      comp = this.state.games.map(game => (
+    if (this.props.gamesList !== null && this.props.gamesList !== undefined) {
+      comp = this.props.gamesList.map(game => (
         <li key={uniqueId()}>Join game #{game.id}</li>
       ));
     } else {
@@ -57,12 +45,17 @@ class HomeScreen extends React.Component {
   }
 }
 
-const mapStateToProps = state => state;
+const mapStateToProps = state => {
+  return { gamesList: state.uiState.gamesList };
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     click: () => {
       dispatch(askForGameCreation("Bibi"));
+    },
+    getGamesList: () => {
+      dispatch(askForGamesList());
     }
   };
 };

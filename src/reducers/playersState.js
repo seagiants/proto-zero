@@ -7,6 +7,7 @@ import {
   TAP_POWER_CASE,
   POWER_SELECTION
 } from "../actions";
+
 const initialState = {
   playerOne: {
     name: "Bibi",

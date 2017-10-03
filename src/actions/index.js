@@ -3,6 +3,9 @@ import * as powerLogic from "../engine/powerLogic";
 /* Action types */
 export const SWITCH_TO_GAME_SCREEN = "SWITCH_TO_GAME_SCREEN";
 export const ASK_FOR_GAME_CREATION = "ASK_FOR_GAME_CREATION";
+export const ASK_FOR_GAMES_LIST = "ASK_FOR_GAMES_LIST";
+export const STORE_GAMES_LIST = "STORE_GAMES_LIST";
+export const ERROR_FETCHING_GAMES_LIST = "ERROR_FETCHING_GAMES_LIST";
 export const GAME_CREATED = "GAME_CREATED";
 export const ERROR_CREATING_GAME = "ERROR_CREATING_GAME";
 export const START_GAME = "START_GAME";
@@ -32,6 +35,14 @@ export function gameCreated(game) {
 
 export function errorCreatingGame(error) {
   return { type: ERROR_CREATING_GAME, error: error };
+}
+
+export function storeGamesList(gamesList) {
+  return { type: STORE_GAMES_LIST, gamesList: gamesList };
+}
+
+export function errorFetchingGamesList(error) {
+  return { type: ERROR_FETCHING_GAMES_LIST, error: error };
 }
 
 export function storeMap(map) {
@@ -150,6 +161,23 @@ export function askForGameCreation(playerName) {
       })
       .catch(error => {
         dispatch(errorCreatingGame());
+      });
+  };
+}
+
+export function askForGamesList() {
+  return function(dispatch) {
+    fetch("http://localhost:9000/games-list")
+      .then(resp => {
+        return resp.json();
+      })
+      .then(gamesList => {
+        if (gamesList.length > 0) {
+          dispatch(storeGamesList(gamesList));
+        }
+      })
+      .catch(error => {
+        dispatch(errorFetchingGamesList(error));
       });
   };
 }
