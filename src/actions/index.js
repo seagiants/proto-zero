@@ -1,6 +1,7 @@
 import * as powerLogic from "../engine/powerLogic";
 
 /* Action types */
+export const SWITCH_TO_WAIT_SCREEN = "SWITCH_TO_WAIT_SCREEN";
 export const SWITCH_TO_GAME_SCREEN = "SWITCH_TO_GAME_SCREEN";
 export const ASK_FOR_GAME_CREATION = "ASK_FOR_GAME_CREATION";
 export const ASK_FOR_GAMES_LIST = "ASK_FOR_GAMES_LIST";
@@ -25,6 +26,10 @@ export const TAP_POWER_CASE = "TAP_POWER_CASE";
 export const REFRESH_POWER_BOARD = "REFRESH_POWER_BOARD";
 
 /* Action creators */
+export function switchToWaitScreen() {
+  return { type: SWITCH_TO_WAIT_SCREEN };
+}
+
 export function switchToGameScreen() {
   return { type: SWITCH_TO_GAME_SCREEN };
 }
@@ -155,12 +160,12 @@ export function askForGameCreation(playerName) {
         return response.json();
       })
       .then(game => {
-        dispatch(switchToGameScreen());
-        dispatch(gameCreated(game));
+        dispatch(switchToWaitScreen());
         dispatch(storeMap(game.gameMap));
       })
       .catch(error => {
-        dispatch(errorCreatingGame());
+        console.log("error from the server", error);
+        dispatch(errorCreatingGame(error));
       });
   };
 }

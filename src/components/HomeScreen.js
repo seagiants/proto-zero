@@ -9,12 +9,6 @@ const styles = {
 };
 
 class HomeScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      games: null
-    };
-  }
 
   componentDidMount() {
     this.props.getGamesList();
