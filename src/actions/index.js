@@ -102,10 +102,10 @@ export function powerSelection(player, powerCase) {
   };
 }
 
-export function noAction(player, message = "No message") {
+export function noAction(message = "Not implemented") {
+  console.log(`NoAction:${message}`);
   return {
     type: NO_ACTION,
-    player: player,
     message: message
   };
 }
@@ -185,41 +185,38 @@ export function askForGamesList() {
 export function clickOnPowerCase(player, powerCase) {
   return function(dispatch, getState) {
     const activePower = powerLogic.getActivePower(powerCase);
-    if (
-      powerCase.isTapped ||
-      !powerLogic.isPowerPlayable(activePower, getState())
-    ) {
-      dispatch(noAction(player));
+    //Check if tapped
+    if (powerCase.isTapped){
+      dispatch(noAction("Tapped!"));
+    //Check cost avalaible
+    } else if (!powerLogic.isPowerPlayable(activePower, getState())) {
+      dispatch(noAction("Not enough Ressources!"));
+    //Check if a target is required
+    } else if (activePower.powerProps.isTargetRequired) {
+      dispatch(powerSelection(player, powerCase, activePower.powerProps));
+    //Fire the power
     } else {
-      if (!activePower.powerProps.isTargetRequired) {
-        dispatch(activePower.powerAction(player, activePower.powerProps));
-        dispatch(tapPowerCase(player, powerCase.categoryName));
-      } else {
-        dispatch(powerSelection(player, powerCase, activePower.powerProps));
+      dispatch(activePower.powerAction(player, activePower.powerProps));
+      dispatch(tapPowerCase(player, powerCase.categoryName));
       }
     }
   };
-}
+
 
 export function clickOnEndTurn(player) {
   return function(dispatch, getState) {
     dispatch(refreshPowerBoard(player));
-    dispatch(draw(player));
   };
 }
 
 export function clickOnCell(x, y, selectedPower) {
   return function(dispatch, getState) {
-    if (selectedPower !== null && selectedPower !== undefined) {
-      dispatch(selectedPower.powerAction(x, y));
-      if (powerLogic.isPowerPlayable(selectedPower, getState())) {
-        const player = getState().mapState.activePlayer;
-        dispatch(tapPowerCase(player, selectedPower.category.name));
-      } else {
-        dispatch(noAction("Not enough resource"));
-      }
-    } else {
+    if (selectedPower === null || selectedPower === undefined) {
       dispatch(noAction("No power"));
-    }
+    } else {
+      dispatch(selectedPower.powerAction(x, y));
+      const player = getState().mapState.activePlayer;
+      dispatch(tapPowerCase(player, selectedPower.category.name));
+      }
   };
 }

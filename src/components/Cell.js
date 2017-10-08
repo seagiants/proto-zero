@@ -15,6 +15,7 @@ const renderCell = (type, click, selectedPower) => {
   } else {
     return (
       <rect
+        stroke="white"
         width={w}
         height={h}
         x={type.x * 30}
