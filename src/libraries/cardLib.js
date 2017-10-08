@@ -10,7 +10,8 @@ const cardLibrairy = [
     category: getCategory("EXPLORATION"),
     powerAction: actions.discoverCell,
     powerProps : {
-      isTargetRequired : true
+      isTargetRequired : true,
+      radius: 1
       }
     },
   {

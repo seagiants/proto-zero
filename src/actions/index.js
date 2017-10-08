@@ -63,11 +63,12 @@ export function generateMap(x, y) {
   };
 }
 
-export function discoverCell(x, y) {
+export function discoverCell(x, y,props) {
   return {
     type: DISCOVER_CELL,
     x: x,
-    y: y
+    y: y,
+    radius: props.radius
   };
 }
 
@@ -214,7 +215,7 @@ export function clickOnCell(x, y, selectedPower) {
     if (selectedPower === null || selectedPower === undefined) {
       dispatch(noAction("No power"));
     } else {
-      dispatch(selectedPower.powerAction(x, y));
+      dispatch(selectedPower.powerAction(x, y,powerLogic.getAddedPowerProps(selectedPower,getState())));
       const player = getState().mapState.activePlayer;
       dispatch(tapPowerCase(player, selectedPower.category.name));
       }

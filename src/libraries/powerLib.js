@@ -52,7 +52,8 @@ const defaultPowerLibrairy = [
     powerAction : actions.discoverCell,
     cost : 0,
     powerProps : {
-      isTargetRequired : true
+      isTargetRequired : true,
+      radius : 0
     }
   },
   {
