@@ -5,7 +5,8 @@ import {
   SELECTED_CARD,
   PRODUCE,
   TAP_POWER_CASE,
-  POWER_SELECTION
+  POWER_SELECTION,
+  UPDATE_RESOURCE_COUNTER
 } from "../actions";
 
 const initialState = {
@@ -151,6 +152,13 @@ export const playersState = (state = initialState, action) => {
           }
         }
       };
+      case UPDATE_RESOURCE_COUNTER :
+      return {...state,[action.player]: {
+          ...state[action.player], playerBoard: {
+            ...state[action.player].playerBoard, resourceCounter:state[action.player].playerBoard.resourceCounter-action.cost
+          }
+      }
+    }
     /*  case DISCOVER_CELL :
 
         return {..., [action.player] : {

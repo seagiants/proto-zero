@@ -23,6 +23,7 @@ export const PRODUCE = "PRODUCE";
 export const ARMY = "ARMY";
 export const TAP_POWER_CASE = "TAP_POWER_CASE";
 export const REFRESH_POWER_BOARD = "REFRESH_POWER_BOARD";
+export const UPDATE_RESOURCE_COUNTER = "UPDATE_RESOURCE_COUNTER";
 
 /* Action creators */
 export function switchToGameScreen() {
@@ -148,6 +149,14 @@ export function refreshPowerBoard(player) {
   };
 }
 
+export function updateResourceCounter(player,cost){
+  return {
+    type: UPDATE_RESOURCE_COUNTER,
+    player: player,
+    cost: cost
+  }
+}
+
 /* thunks */
 export function askForGameCreation(playerName) {
   return function(dispatch) {
@@ -183,6 +192,7 @@ export function askForGamesList() {
   };
 }
 
+//FIXME Need a real actionFlow logic to avoid redundancy
 export function clickOnPowerCase(player, powerCase) {
   return function(dispatch, getState) {
     const activePower = powerLogic.getActivePower(powerCase);
@@ -199,17 +209,19 @@ export function clickOnPowerCase(player, powerCase) {
     } else {
       dispatch(activePower.powerAction(player, activePower.powerProps));
       dispatch(tapPowerCase(player, powerCase.categoryName));
+      dispatch(updateResourceCounter(player,activePower.cost));
       }
     }
   };
 
-
+//FIXME Need a real actionFlow logic to avoid redundancy
 export function clickOnEndTurn(player) {
   return function(dispatch, getState) {
     dispatch(refreshPowerBoard(player));
   };
 }
 
+//FIXME Need a real actionFlow logic to avoid redundancy
 export function clickOnCell(x, y, selectedPower) {
   return function(dispatch, getState) {
     if (selectedPower === null || selectedPower === undefined) {
@@ -218,6 +230,7 @@ export function clickOnCell(x, y, selectedPower) {
       dispatch(selectedPower.powerAction(x, y,powerLogic.getAddedPowerProps(selectedPower,getState())));
       const player = getState().mapState.activePlayer;
       dispatch(tapPowerCase(player, selectedPower.category.name));
+      dispatch(updateResourceCounter(player,selectedPower.cost))
       }
   };
 }
