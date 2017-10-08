@@ -10,9 +10,13 @@ export const cellSize = {
   height: 30
 }
 
-/*  */
+/* #FIXME Enhance costTextFunction whithout redundency powerSize usage (based on self prop values) */
 export const powerSize = {
   width: 100,
   height: 120,
-  boxFactor: 1.2
+  boxFactor: 1.2,
+  x: 20,
+  y: 20,
+  costTextX:(powerSize)=>powerSize.x+powerSize.width*0.7,
+  costTextY:(powerSize)=>powerSize.y+powerSize.height*0.85
 };
