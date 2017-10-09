@@ -1,4 +1,4 @@
-import { DISCOVER_CELL, POWER_SELECTION, STORE_MAP, BUILD } from "../actions";
+import { DISCOVER_CELL, POWER_SELECTION, STORE_MAP, BUILD, REFRESH_POWER_BOARD } from "../actions";
 import { getActivePower } from "../engine/powerLogic";
 import { getBuilding, generateBuilding } from "../libraries/buildingLib.js";
 const showCell = (gameMap, x, y,radius) => {
@@ -57,6 +57,8 @@ export const mapState = (state = { activePlayer: "playerOne" }, action) => {
       };
     case POWER_SELECTION:
       return { ...state, selectedPower: getActivePower(action.powerCase) };
+    case REFRESH_POWER_BOARD:
+      return {...state, selectedPower: null}
     default:
       return state;
   }
