@@ -246,8 +246,12 @@ export function clickOnEndTurn(player) {
 //FIXME Need a real actionFlow logic to avoid redundancy
 export function clickOnCell(x, y, selectedPower) {
   return function(dispatch, getState) {
+    //Check if a power is selected
     if (selectedPower === null || selectedPower === undefined) {
       dispatch(noAction("No power"));
+    //Check if powerConditions are met
+  } else if (powerLogic.checkPowerWithTargetConditions(x,y,selectedPower,getState()) === false) {
+      dispatch(noAction("powerConditions not met"));
     } else {
       dispatch(selectedPower.powerAction(x, y,powerLogic.getAddedPowerProps(selectedPower,getState())));
       const player = getState().mapState.activePlayer;

@@ -1,3 +1,5 @@
+import { getBuilding } from "../libraries/buildingLib.js";
+
 //The active Power of a PowerCase is the one of is attached card,
 //or by default its own defaultPower
 export const getActivePower = powerCase => {
@@ -8,6 +10,15 @@ export const getActivePower = powerCase => {
   }
 };
 
+export function checkPowerWithTargetConditions(x,y,power,state){
+  //Power with building => check building conditions
+  if(power.powerProps.build !==undefined && power.powerProps.build !==null ){
+    return (getBuilding(power.powerProps.build)).checkConditions(x,y,state)
+  //Else conditions are ok
+  } else {
+    return true
+  }
+}
 export function isPowerPlayable(power,state){
   return power.powerProps.cost < state.playersState[state.mapState.activePlayer].playerBoard.resourceCounter +1
 }
