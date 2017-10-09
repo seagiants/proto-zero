@@ -1,5 +1,11 @@
 import { getBuilding } from "../libraries/buildingLib.js";
 
+export const S_TAPPED = "TAPPED";
+export const S_NO_RESSOURCE = "NO_RESSOURCE";
+export const S_WAIT_TARGET = "WAIT_TARGET";
+export const S_FIRE_POWER = "FIRE_POWER";
+export const S_NO_POWER = "NO_POWER";
+export const S_CONDITIONS_NOT_MET = "CONDITIONS_NOT_MET";
 //The active Power of a PowerCase is the one of is attached card,
 //or by default its own defaultPower
 export const getActivePower = powerCase => {
@@ -19,7 +25,7 @@ export function checkPowerWithTargetConditions(x,y,power,state){
     return true
   }
 }
-export function isPowerPlayable(power,state){
+export function isPowerCostAffordable(power,state){
   return power.powerProps.cost < state.playersState[state.mapState.activePlayer].playerBoard.resourceCounter +1
 }
 
@@ -49,4 +55,36 @@ export function getProductivity(player,state){
     },0);
   let reduceMap = state.mapState.gameMap.reduce((memo,row)=>(memo+reduceRow(row)),0)
   return reduceMap
+};
+
+const isTapped = (powerCase) => powerCase.isTapped;
+const isTargetRequired = (power) => power.powerProps.isTargetRequired;
+
+export function checkPowerCaseStatus(player,powerCase,state) {
+  const activePower = getActivePower(powerCase);
+  //Check if tapped
+  if (isTapped(powerCase)){
+    return S_TAPPED;
+  //Check cost avalaible
+  } else if (!isPowerCostAffordable(activePower, state)) {
+    return S_NO_RESSOURCE;
+  //Check if a target is required
+  } else if (isTargetRequired(activePower)) {
+    return S_WAIT_TARGET;
+  //Fire the power
+  } else {
+    return S_FIRE_POWER;
+  }
+};
+
+export function checkCellStatus(x,y,selectedPower,state) {
+  //Check if a power is selected
+  if (selectedPower === null || selectedPower === undefined) {
+    return S_NO_POWER;
+  //Check if powerConditions are met
+  } else if (!checkPowerWithTargetConditions(x,y,selectedPower,state)) {
+    return S_CONDITIONS_NOT_MET;
+  } else {
+    return S_FIRE_POWER;
+  }
 };

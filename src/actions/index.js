@@ -1,5 +1,3 @@
-import * as powerLogic from "../engine/powerLogic";
-
 /* Action types */
 export const SWITCH_TO_GAME_SCREEN = "SWITCH_TO_GAME_SCREEN";
 export const ASK_FOR_GAME_CREATION = "ASK_FOR_GAME_CREATION";
@@ -26,6 +24,7 @@ export const REFRESH_POWER_BOARD = "REFRESH_POWER_BOARD";
 export const UPDATE_RESOURCE_COUNTER = "UPDATE_RESOURCE_COUNTER";
 export const ENHANCEMENT = "ENHANCEMENT";
 export const BUILD = "BUILD";
+export const FIRE_MISSILE = "FIRE_MISSILE";
 
 /* Action creators */
 export function switchToGameScreen() {
@@ -116,7 +115,7 @@ export function powerSelection(player, powerCase) {
 }
 
 export function noAction(message = "Not implemented") {
-  console.log(`NoAction:${message}`);
+  console.log(`NoAction: ${message}`);
   return {
     type: NO_ACTION,
     message: message
@@ -177,86 +176,10 @@ export function enhancement(player,powerProps){
   }
 }
 
-
-/* thunks */
-export function askForGameCreation(playerName) {
-  return function(dispatch) {
-    fetch(`http://localhost:9000/newgame?playerName=${playerName}`)
-      .then(response => {
-        return response.json();
-      })
-      .then(game => {
-        dispatch(switchToGameScreen());
-        dispatch(gameCreated(game));
-        dispatch(storeMap(game.gameMap));
-      })
-      .catch(error => {
-        dispatch(errorCreatingGame());
-      });
-  };
-}
-
-export function askForGamesList() {
-  return function(dispatch) {
-    fetch("http://localhost:9000/games-list")
-      .then(resp => {
-        return resp.json();
-      })
-      .then(gamesList => {
-        if (gamesList.length > 0) {
-          dispatch(storeGamesList(gamesList));
-        }
-      })
-      .catch(error => {
-        dispatch(errorFetchingGamesList(error));
-      });
-  };
-}
-
-//FIXME Need a real actionFlow logic to avoid redundancy
-export function clickOnPowerCase(player, powerCase) {
-  return function(dispatch, getState) {
-    const activePower = powerLogic.getActivePower(powerCase);
-    //Check if tapped
-    if (powerCase.isTapped){
-      dispatch(noAction("Tapped!"));
-    //Check cost avalaible
-    } else if (!powerLogic.isPowerPlayable(activePower, getState())) {
-      dispatch(noAction("Not enough Ressources!"));
-    //Check if a target is required
-    } else if (activePower.powerProps.isTargetRequired) {
-      dispatch(powerSelection(player, powerCase, activePower.powerProps));
-    //Fire the power
-    } else {
-      dispatch(activePower.powerAction(player, activePower.powerProps));
-      dispatch(tapPowerCase(player, powerCase.categoryName,activePower.powerProps.persistent));
-      dispatch(updateResourceCounter(player,activePower.powerProps.cost));
-      }
-    }
-  };
-
-//FIXME Need a real actionFlow logic to avoid redundancy
-export function clickOnEndTurn(player) {
-  return function(dispatch, getState) {
-    dispatch(refreshPowerBoard(player));
-    dispatch(updateResourceCounter(player,0-powerLogic.getProductivity(player,getState())))
-  };
-}
-
-//FIXME Need a real actionFlow logic to avoid redundancy
-export function clickOnCell(x, y, selectedPower) {
-  return function(dispatch, getState) {
-    //Check if a power is selected
-    if (selectedPower === null || selectedPower === undefined) {
-      dispatch(noAction("No power"));
-    //Check if powerConditions are met
-  } else if (powerLogic.checkPowerWithTargetConditions(x,y,selectedPower,getState()) === false) {
-      dispatch(noAction("powerConditions not met"));
-    } else {
-      dispatch(selectedPower.powerAction(x, y,powerLogic.getAddedPowerProps(selectedPower,getState())));
-      const player = getState().mapState.activePlayer;
-      dispatch(tapPowerCase(player, selectedPower.category.name,selectedPower.powerProps.persistent));
-      dispatch(updateResourceCounter(player,selectedPower.powerProps.cost))
-      }
-  };
+export function fireMissile(x,y,props) {
+  return {
+    type: FIRE_MISSILE,
+    x:x,
+    y:y
+    };
 }

@@ -1,4 +1,4 @@
-import { DISCOVER_CELL, POWER_SELECTION, STORE_MAP, BUILD, REFRESH_POWER_BOARD } from "../actions";
+import { DISCOVER_CELL, POWER_SELECTION, STORE_MAP, BUILD, REFRESH_POWER_BOARD, FIRE_MISSILE } from "../actions";
 import { getActivePower } from "../engine/powerLogic";
 import { getBuilding, generateBuilding } from "../libraries/buildingLib.js";
 const showCell = (gameMap, x, y,radius) => {
@@ -38,7 +38,23 @@ const buildOnCell = (gameMap,x,y,building) => {
   });
 }
 
-
+const updateMapAfterFire = (map,x,y) => {
+  return map.map((row, index) => {
+    if (x!==index) {
+      return row;
+    } else {
+      return row.map((cell, index) => {
+        if (y!==index) {
+          return cell;
+        } else {
+          return {
+            ...cell,
+            content: null};
+        }
+      });
+    }
+  });
+}
 export const mapState = (state = { activePlayer: "playerOne" }, action) => {
   switch (action.type) {
     case STORE_MAP:
@@ -59,6 +75,8 @@ export const mapState = (state = { activePlayer: "playerOne" }, action) => {
       return { ...state, selectedPower: getActivePower(action.powerCase) };
     case REFRESH_POWER_BOARD:
       return {...state, selectedPower: null}
+    case FIRE_MISSILE:
+      return {...state, gameMap: updateMapAfterFire(state.gameMap,action.x,action.y)}
     default:
       return state;
   }

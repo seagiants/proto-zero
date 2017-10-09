@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { clickOnCell } from "../actions";
+import { clickOnCell } from "../actions/actionFlowThunks.js";
 
 const w = 30;
 const h = 30;

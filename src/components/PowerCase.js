@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { clickOnPowerCase } from "../actions";
+import { clickOnPowerCase } from "../actions/actionFlowThunks.js";
 import { powerSize } from "../constants";
 import { getActivePower } from "../engine/powerLogic";
 
