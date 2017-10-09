@@ -1,6 +1,6 @@
-import { DISCOVER_CELL, POWER_SELECTION, STORE_MAP } from "../actions";
+import { DISCOVER_CELL, POWER_SELECTION, STORE_MAP, BUILD } from "../actions";
 import { getActivePower } from "../engine/powerLogic";
-
+import { getBuilding, generateBuilding } from "../libraries/buildingLib.js";
 const showCell = (gameMap, x, y,radius) => {
   return gameMap.map((row, index) => {
     if (Math.abs(x-index) > radius) {
@@ -20,15 +20,39 @@ const showCell = (gameMap, x, y,radius) => {
   });
 };
 
+const buildOnCell = (gameMap,x,y,building) => {
+  return gameMap.map((row, index) => {
+    if (x!==index) {
+      return row;
+    } else {
+      return row.map((cell, index) => {
+        if (y!==index) {
+          return cell;
+        } else {
+          return {
+            ...cell,
+            content: generateBuilding(getBuilding(building))};
+        }
+      });
+    }
+  });
+}
+
+
 export const mapState = (state = { activePlayer: "playerOne" }, action) => {
   switch (action.type) {
     case STORE_MAP:
       return { ...state, gameMap: action.map };
     case DISCOVER_CELL:
-    console.log(action);
       return {
         ...state,
         gameMap: showCell(state.gameMap, action.x, action.y,action.radius),
+        selectedPower: null
+      };
+    case BUILD:
+      return {
+        ...state,
+        gameMap: buildOnCell(state.gameMap, action.x, action.y,action.build),
         selectedPower: null
       };
     case POWER_SELECTION:

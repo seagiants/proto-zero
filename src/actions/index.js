@@ -25,6 +25,7 @@ export const TAP_POWER_CASE = "TAP_POWER_CASE";
 export const REFRESH_POWER_BOARD = "REFRESH_POWER_BOARD";
 export const UPDATE_RESOURCE_COUNTER = "UPDATE_RESOURCE_COUNTER";
 export const ENHANCEMENT = "ENHANCEMENT";
+export const BUILD = "BUILD";
 
 /* Action creators */
 export function switchToGameScreen() {
@@ -71,6 +72,15 @@ export function discoverCell(x, y,props) {
     x: x,
     y: y,
     radius: props.radius
+  };
+}
+
+export function build(x,y,props) {
+  return {
+    type: BUILD,
+    x:x,
+    y:y,
+    build: props.build
   };
 }
 

@@ -28,11 +28,12 @@ const cardLibrairy = [
   {
     powerName: "Factory",
     category: getCategory("ECONOMY"),
-    powerAction: actions.noAction,
+    powerAction: actions.build,
     powerProps : {
       cost: 2,
       isTargetRequired : true,
-      persistent : true
+      persistent : true,
+      build: "Factory"
       }
   },
   {
