@@ -11,6 +11,7 @@ const cardLibrairy = [
     powerAction: actions.discoverCell,
     powerProps : {
       isTargetRequired : true,
+      persistent : true,
       radius: 1
       }
     },
@@ -20,7 +21,8 @@ const cardLibrairy = [
     category: getCategory("EXPLORATION"),
     powerAction: actions.discoverCell,
     powerProps : {
-      isTargetRequired : true
+      isTargetRequired : true,
+      persistent : true
       }
   },
   {
@@ -29,7 +31,8 @@ const cardLibrairy = [
     category: getCategory("ECONOMY"),
     powerAction: actions.noAction,
     powerProps : {
-      isTargetRequired : true
+      isTargetRequired : true,
+      persistent : true
       }
   },
   {
@@ -38,7 +41,8 @@ const cardLibrairy = [
     category: getCategory("ECONOMY"),
     powerAction: actions.noAction,
     powerProps : {
-      isTargetRequired : true
+      isTargetRequired : true,
+      persistent : true
       }
   },
   {
@@ -47,7 +51,8 @@ const cardLibrairy = [
     category: getCategory("TECHNOLOGY"),
     powerAction: actions.noAction,
     powerProps : {
-      isTargetRequired : false
+      isTargetRequired : false,
+      persistent : false
       }
   }
 ];

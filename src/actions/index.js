@@ -134,11 +134,12 @@ export function research(player) {
   };
 }
 
-export function tapPowerCase(player, categoryName) {
+export function tapPowerCase(player, categoryName,persistent) {
   return {
     type: TAP_POWER_CASE,
     player: player,
-    categoryName: categoryName
+    categoryName: categoryName,
+    persistent: persistent
   };
 }
 
@@ -208,7 +209,7 @@ export function clickOnPowerCase(player, powerCase) {
     //Fire the power
     } else {
       dispatch(activePower.powerAction(player, activePower.powerProps));
-      dispatch(tapPowerCase(player, powerCase.categoryName));
+      dispatch(tapPowerCase(player, powerCase.categoryName,activePower.powerProps.persistent));
       dispatch(updateResourceCounter(player,activePower.cost));
       }
     }
@@ -229,7 +230,7 @@ export function clickOnCell(x, y, selectedPower) {
     } else {
       dispatch(selectedPower.powerAction(x, y,powerLogic.getAddedPowerProps(selectedPower,getState())));
       const player = getState().mapState.activePlayer;
-      dispatch(tapPowerCase(player, selectedPower.category.name));
+      dispatch(tapPowerCase(player, selectedPower.category.name,selectedPower.powerProps.persistent));
       dispatch(updateResourceCounter(player,selectedPower.cost))
       }
   };

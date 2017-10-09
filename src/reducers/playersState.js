@@ -51,15 +51,16 @@ const selectingPowerCaseFromPowerBoard = (
     }
   });
 };
-
+//FIXME Mixing Tapping Case and Discarding non-peristent Card
 const togglingPowerCaseFromPowerBoard = (
   powerBoard,
   categoryName,
-  newStatus = true
-) => {
+  newStatus = true,persistent = true) => {
   return powerBoard.map(powerCase => {
     if (powerCase.categoryName === categoryName) {
-      return { ...powerCase, isTapped: newStatus, isSelected: false };
+      return {
+        ...powerCase, isTapped: newStatus, isSelected: false, card: persistent ? powerCase.card : null
+      };
     } else {
       return { ...powerCase, isSelected: false };
     }
@@ -119,8 +120,8 @@ export const playersState = (state = initialState, action) => {
             powerBoard: togglingPowerCaseFromPowerBoard(
               state[action.player].playerBoard.powerBoard,
               action.categoryName,
-              true
-            )
+              true,
+              action.persistent)
           }
         }
       };

@@ -53,6 +53,7 @@ const defaultPowerLibrairy = [
     cost : 0,
     powerProps : {
       isTargetRequired : true,
+      persistent : true,
       radius : 0
     }
   },
@@ -62,7 +63,8 @@ const defaultPowerLibrairy = [
     powerAction : actions.draw,
     cost : 0,
     powerProps : {
-      isTargetRequired : false
+      isTargetRequired : false,
+      persistent : true
       }
     },
   {
@@ -72,6 +74,7 @@ const defaultPowerLibrairy = [
     cost : 0,
     powerProps : {
       isTargetRequired : false,
+      persistent : true,
       quantity : 1
     }
   },
@@ -81,7 +84,8 @@ const defaultPowerLibrairy = [
     powerAction : actions.noAction,
     cost : 0,
     powerProps : {
-      isTargetRequired : false
+      isTargetRequired : false,
+      persistent : true
       }
     }
 ];
