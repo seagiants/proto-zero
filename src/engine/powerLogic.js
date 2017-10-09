@@ -25,3 +25,17 @@ export function getAddedPowerProps(power,state){
         return power.powerProps;
     }
 }
+
+export function getProductivity(player,state){
+  let reduceRow = (row) => row.reduce((memo,cell)=>{
+      if(cell.content === undefined || cell.content === null){
+        return memo;
+      } else if (cell.content.buildingProps.productivity === null || cell.content.buildingProps.productivity === undefined ){
+        return memo;
+      } else {
+        return memo + 1
+      }
+    },0);
+  let reduceMap = state.mapState.gameMap.reduce((memo,row)=>(memo+reduceRow(row)),0)
+  return reduceMap
+};

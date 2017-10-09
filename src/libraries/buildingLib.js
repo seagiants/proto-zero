@@ -4,7 +4,8 @@ const buildingLibrairy = [
   {
     buildingName: "Factory",
     symbol : "F",
-    powerProps : {
+    buildingProps : {
+      productivity : 1
       }
     }
 ];

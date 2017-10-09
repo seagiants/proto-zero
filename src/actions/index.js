@@ -176,6 +176,8 @@ export function enhancement(player,powerProps){
     powerProps : powerProps
   }
 }
+
+
 /* thunks */
 export function askForGameCreation(playerName) {
   return function(dispatch) {
@@ -237,6 +239,7 @@ export function clickOnPowerCase(player, powerCase) {
 export function clickOnEndTurn(player) {
   return function(dispatch, getState) {
     dispatch(refreshPowerBoard(player));
+    dispatch(updateResourceCounter(player,0-powerLogic.getProductivity(player,getState())))
   };
 }
 

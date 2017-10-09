@@ -188,7 +188,8 @@ export const playersState = (state = initialState, action) => {
           }
         }
       }
-            /*  case DISCOVER_CELL :
+
+          /*  case DISCOVER_CELL :
 
         return {..., [action.player] : {
             ...state[action.player], playerBoard: {
