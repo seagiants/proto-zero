@@ -6,10 +6,10 @@ import { getCategory } from "./powerLib.js"
 const cardLibrairy = [
   {
     powerName: "Vision",
-    cost: 2,
     category: getCategory("EXPLORATION"),
     powerAction: actions.discoverCell,
     powerProps : {
+      cost: 2,
       isTargetRequired : true,
       persistent : true,
       radius: 1
@@ -17,42 +17,50 @@ const cardLibrairy = [
     },
   {
     powerName: "Radar",
-    cost: 7,
     category: getCategory("EXPLORATION"),
     powerAction: actions.discoverCell,
     powerProps : {
+      cost: 7,
       isTargetRequired : true,
       persistent : true
       }
   },
   {
     powerName: "Factory",
-    cost: 2,
     category: getCategory("ECONOMY"),
     powerAction: actions.noAction,
     powerProps : {
+      cost: 2,
       isTargetRequired : true,
       persistent : true
       }
   },
   {
     powerName: "Missile",
-    cost: 2,
     category: getCategory("ECONOMY"),
     powerAction: actions.noAction,
     powerProps : {
+      cost: 2,
       isTargetRequired : true,
       persistent : true
       }
   },
   {
     powerName: "Increased Radar",
-    cost: 2,
     category: getCategory("TECHNOLOGY"),
-    powerAction: actions.noAction,
+    powerAction: actions.enhancement,
     powerProps : {
+      cost: 0,
       isTargetRequired : false,
-      persistent : false
+      persistent : false,
+      enhancements : {
+          "TECHNOLOGY" : {
+            cost: 1
+          },
+          "EXPLORATION" : {
+            radius: 1
+          }
+        }
       }
   }
 ];
@@ -60,7 +68,6 @@ const cardLibrairy = [
 export const generateCard = (cardTemplate) => {
   return {
     powerName: cardTemplate.powerName,
-    cost: cardTemplate.cost,
     category: cardTemplate.category,
     powerAction: cardTemplate.powerAction,
     powerProps : cardTemplate.powerProps

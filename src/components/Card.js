@@ -10,7 +10,7 @@ const Card = ({ card, index, player, click }) => {
     <svg width={2*w} height={2*h} >
     <text x="0"
        y="20"
-       id="text4533">{card.powerName} / {card.cost}</text>
+       id="text4533">{card.powerName} / {card.powerProps.cost}</text>
     <rect x="20" y="30" width={w} height={h} style={{fill: card.category.color}} onClick={e => {
       e.preventDefault();
       console.log(`clicking on a ${card.powerName} card`);

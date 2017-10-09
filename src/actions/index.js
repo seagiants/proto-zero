@@ -24,6 +24,7 @@ export const ARMY = "ARMY";
 export const TAP_POWER_CASE = "TAP_POWER_CASE";
 export const REFRESH_POWER_BOARD = "REFRESH_POWER_BOARD";
 export const UPDATE_RESOURCE_COUNTER = "UPDATE_RESOURCE_COUNTER";
+export const ENHANCEMENT = "ENHANCEMENT";
 
 /* Action creators */
 export function switchToGameScreen() {
@@ -158,6 +159,13 @@ export function updateResourceCounter(player,cost){
   }
 }
 
+export function enhancement(player,powerProps){
+  return {
+    type: ENHANCEMENT,
+    player : player,
+    powerProps : powerProps
+  }
+}
 /* thunks */
 export function askForGameCreation(playerName) {
   return function(dispatch) {
@@ -210,7 +218,7 @@ export function clickOnPowerCase(player, powerCase) {
     } else {
       dispatch(activePower.powerAction(player, activePower.powerProps));
       dispatch(tapPowerCase(player, powerCase.categoryName,activePower.powerProps.persistent));
-      dispatch(updateResourceCounter(player,activePower.cost));
+      dispatch(updateResourceCounter(player,activePower.powerProps.cost));
       }
     }
   };
@@ -231,7 +239,7 @@ export function clickOnCell(x, y, selectedPower) {
       dispatch(selectedPower.powerAction(x, y,powerLogic.getAddedPowerProps(selectedPower,getState())));
       const player = getState().mapState.activePlayer;
       dispatch(tapPowerCase(player, selectedPower.category.name,selectedPower.powerProps.persistent));
-      dispatch(updateResourceCounter(player,selectedPower.cost))
+      dispatch(updateResourceCounter(player,selectedPower.powerProps.cost))
       }
   };
 }

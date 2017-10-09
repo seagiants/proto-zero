@@ -75,7 +75,7 @@ const PowerCase = ({ powerCase, player, card, click }) => {
          style={rectStyles(powerCase)} stroke="black"
          />
          {costTriangle()}
-         <text x={powerSize.costTextX(powerSize)} y={powerSize.costTextY(powerSize)}>{getActivePower(powerCase).cost}</text>
+         <text x={powerSize.costTextX(powerSize)} y={powerSize.costTextY(powerSize)}>{getActivePower(powerCase).powerProps.cost}</text>
          {costSymbole()}
       <text
         x="50%"
