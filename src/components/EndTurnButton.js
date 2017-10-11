@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { clickOnEndTurn } from "../actions";
+import { clickOnEndTurn } from "../actions/actionFlowThunks.js";
 
 const w = 60;
 const h = 60;

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import uniqueId from "lodash.uniqueid";
-import { askForGameCreation, askForGamesList } from "../actions";
+import { askForGameCreation, askForGamesList } from "../actions/serverThunks.js";
 
 const styles = {
   display: "flex",

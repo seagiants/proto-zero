@@ -1,5 +1,3 @@
-import * as powerLogic from "../engine/powerLogic";
-
 /* Action types */
 export const SWITCH_TO_WAIT_SCREEN = "SWITCH_TO_WAIT_SCREEN";
 export const SWITCH_TO_GAME_SCREEN = "SWITCH_TO_GAME_SCREEN";
@@ -24,6 +22,10 @@ export const PRODUCE = "PRODUCE";
 export const ARMY = "ARMY";
 export const TAP_POWER_CASE = "TAP_POWER_CASE";
 export const REFRESH_POWER_BOARD = "REFRESH_POWER_BOARD";
+export const UPDATE_RESOURCE_COUNTER = "UPDATE_RESOURCE_COUNTER";
+export const ENHANCEMENT = "ENHANCEMENT";
+export const BUILD = "BUILD";
+export const FIRE_MISSILE = "FIRE_MISSILE";
 
 /* Action creators */
 export function switchToWaitScreen() {
@@ -68,11 +70,21 @@ export function generateMap(x, y) {
   };
 }
 
-export function discoverCell(x, y) {
+export function discoverCell(x, y,props) {
   return {
     type: DISCOVER_CELL,
     x: x,
-    y: y
+    y: y,
+    radius: props.radius
+  };
+}
+
+export function build(x,y,props) {
+  return {
+    type: BUILD,
+    x:x,
+    y:y,
+    build: props.build
   };
 }
 
@@ -107,10 +119,10 @@ export function powerSelection(player, powerCase) {
   };
 }
 
-export function noAction(player, message = "No message") {
+export function noAction(message = "Not implemented") {
+  console.log(`NoAction: ${message}`);
   return {
     type: NO_ACTION,
-    player: player,
     message: message
   };
 }
@@ -137,11 +149,12 @@ export function research(player) {
   };
 }
 
-export function tapPowerCase(player, categoryName) {
+export function tapPowerCase(player, categoryName,persistent) {
   return {
     type: TAP_POWER_CASE,
     player: player,
-    categoryName: categoryName
+    categoryName: categoryName,
+    persistent: persistent
   };
 }
 
@@ -152,79 +165,26 @@ export function refreshPowerBoard(player) {
   };
 }
 
-/* thunks */
-export function askForGameCreation(playerName) {
-  return function(dispatch) {
-    fetch(`http://localhost:9000/newgame?playerName=${playerName}`)
-      .then(response => {
-        return response.json();
-      })
-      .then(game => {
-        dispatch(switchToWaitScreen());
-        dispatch(storeMap(game.gameMap));
-      })
-      .catch(error => {
-        console.log("error from the server", error);
-        dispatch(errorCreatingGame(error));
-      });
-  };
+export function updateResourceCounter(player,cost){
+  return {
+    type: UPDATE_RESOURCE_COUNTER,
+    player: player,
+    cost: cost
+  }
 }
 
-export function askForGamesList() {
-  return function(dispatch) {
-    fetch("http://localhost:9000/games-list")
-      .then(resp => {
-        return resp.json();
-      })
-      .then(gamesList => {
-        if (gamesList.length > 0) {
-          dispatch(storeGamesList(gamesList));
-        }
-      })
-      .catch(error => {
-        dispatch(errorFetchingGamesList(error));
-      });
-  };
+export function enhancement(player,powerProps){
+  return {
+    type: ENHANCEMENT,
+    player : player,
+    powerProps : powerProps
+  }
 }
 
-export function clickOnPowerCase(player, powerCase) {
-  return function(dispatch, getState) {
-    const activePower = powerLogic.getActivePower(powerCase);
-    if (
-      powerCase.isTapped ||
-      !powerLogic.isPowerPlayable(activePower, getState())
-    ) {
-      dispatch(noAction(player));
-    } else {
-      if (!activePower.powerProps.isTargetRequired) {
-        dispatch(activePower.powerAction(player, activePower.powerProps));
-        dispatch(tapPowerCase(player, powerCase.categoryName));
-      } else {
-        dispatch(powerSelection(player, powerCase, activePower.powerProps));
-      }
-    }
-  };
-}
-
-export function clickOnEndTurn(player) {
-  return function(dispatch, getState) {
-    dispatch(refreshPowerBoard(player));
-    dispatch(draw(player));
-  };
-}
-
-export function clickOnCell(x, y, selectedPower) {
-  return function(dispatch, getState) {
-    if (selectedPower !== null && selectedPower !== undefined) {
-      dispatch(selectedPower.powerAction(x, y));
-      if (powerLogic.isPowerPlayable(selectedPower, getState())) {
-        const player = getState().mapState.activePlayer;
-        dispatch(tapPowerCase(player, selectedPower.category.name));
-      } else {
-        dispatch(noAction("Not enough resource"));
-      }
-    } else {
-      dispatch(noAction("No power"));
-    }
-  };
+export function fireMissile(x,y,props) {
+  return {
+    type: FIRE_MISSILE,
+    x:x,
+    y:y
+    };
 }

@@ -5,7 +5,9 @@ import {
   SELECTED_CARD,
   PRODUCE,
   TAP_POWER_CASE,
-  POWER_SELECTION
+  POWER_SELECTION,
+  UPDATE_RESOURCE_COUNTER,
+  ENHANCEMENT
 } from "../actions";
 
 const initialState = {
@@ -51,19 +53,40 @@ const selectingPowerCaseFromPowerBoard = (
   });
 };
 
+//FIXME Mixing Tapping Case and Discarding non-peristent Card
 const togglingPowerCaseFromPowerBoard = (
   powerBoard,
   categoryName,
-  newStatus = true
-) => {
+  newStatus = true,persistent = true) => {
   return powerBoard.map(powerCase => {
     if (powerCase.categoryName === categoryName) {
-      return { ...powerCase, isTapped: newStatus, isSelected: false };
+      return {
+        ...powerCase, isTapped: newStatus, isSelected: false, card: persistent ? powerCase.card : null
+      };
     } else {
       return { ...powerCase, isSelected: false };
     }
   });
 };
+
+const enhancePowerBoard = (powerBoard,
+                          enhancements
+                        ) => {
+  return powerBoard.map(
+    (powerCase)=>{
+      if(enhancements[powerCase.categoryName]!==null && enhancements[powerCase.categoryName]!==undefined){
+        var thisEnhancement = enhancements[powerCase.categoryName];
+        //Generic adding method on each property based on paired-names
+        let enhancedPowerCase = Object.assign({}, ...Object.keys(powerCase.defaultPower.powerProps).map(prop => ({[prop]: thisEnhancement[prop]!==undefined?powerCase.defaultPower.powerProps[prop]+thisEnhancement[prop]:powerCase.defaultPower.powerProps[prop]})));
+        return{...powerCase, defaultPower:{
+          ...powerCase.defaultPower, powerProps:enhancedPowerCase
+        }}
+      }else{
+        return {...powerCase};
+      }
+    }
+  )
+}
 
 export const playersState = (state = initialState, action) => {
   switch (action.type) {
@@ -118,8 +141,8 @@ export const playersState = (state = initialState, action) => {
             powerBoard: togglingPowerCaseFromPowerBoard(
               state[action.player].playerBoard.powerBoard,
               action.categoryName,
-              true
-            )
+              true,
+              action.persistent)
           }
         }
       };
@@ -151,7 +174,22 @@ export const playersState = (state = initialState, action) => {
           }
         }
       };
-    /*  case DISCOVER_CELL :
+      case UPDATE_RESOURCE_COUNTER :
+      return {...state,[action.player]: {
+          ...state[action.player], playerBoard: {
+            ...state[action.player].playerBoard, resourceCounter:state[action.player].playerBoard.resourceCounter-action.cost
+          }
+      }
+    }
+      case ENHANCEMENT :
+      return {...state,[action.player]: {
+          ...state[action.player], playerBoard: {
+            ...state[action.player].playerBoard, powerBoard:enhancePowerBoard(state[action.player].playerBoard.powerBoard,action.powerProps.enhancements)
+          }
+        }
+      }
+
+          /*  case DISCOVER_CELL :
 
         return {..., [action.player] : {
             ...state[action.player], playerBoard: {

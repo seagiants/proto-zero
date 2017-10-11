@@ -39,7 +39,7 @@ const cardLibrairy = [
   {
     powerName: "Missile",
     category: getCategory("ECONOMY"),
-    powerAction: actions.fireMissile,
+    powerAction: actions.noAction,
     powerProps : {
       cost: 2,
       isTargetRequired : true,

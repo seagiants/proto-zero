@@ -50,27 +50,31 @@ const defaultPowerLibrairy = [
     powerName : actions.EXPLORE,
     category : getCategory("EXPLORATION"),
     powerAction : actions.discoverCell,
-    cost : 0,
     powerProps : {
-      isTargetRequired : true
+      cost : 0,
+      isTargetRequired : true,
+      persistent : true,
+      radius : 0
     }
   },
   {
     powerName : actions.RESEARCH,
     category : getCategory("TECHNOLOGY"),
     powerAction : actions.draw,
-    cost : 0,
     powerProps : {
-      isTargetRequired : false
+      cost : 0,
+      isTargetRequired : false,
+      persistent : true
       }
     },
   {
     powerName : actions.PRODUCE,
     category : getCategory("ECONOMY"),
     powerAction : actions.produce,
-    cost : 0,
     powerProps : {
+      cost : 0,
       isTargetRequired : false,
+      persistent : true,
       quantity : 1
     }
   },
@@ -78,9 +82,10 @@ const defaultPowerLibrairy = [
     powerName : actions.ARMY,
     category : getCategory("MILITARY"),
     powerAction : actions.noAction,
-    cost : 0,
     powerProps : {
-      isTargetRequired : false
+      cost : 0,
+      isTargetRequired : false,
+      persistent : true
       }
     }
 ];
