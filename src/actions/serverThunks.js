@@ -1,4 +1,11 @@
-import {switchToGameScreen,gameCreated,storeMap,errorCreatingGame,storeGamesList,errorFetchingGamesList} from "./index.js"
+import {
+  switchToGameScreen,
+  gameCreated,
+  storeMap,
+  errorCreatingGame,
+  storeGamesList,
+  errorFetchingGamesList
+} from "./index.js";
 
 export function askForGameCreation(playerName) {
   return function(dispatch) {
@@ -7,7 +14,7 @@ export function askForGameCreation(playerName) {
         return response.json();
       })
       .then(game => {
-        dispatch(switchToGameScreen());
+        dispatch(switchToGameScreen()); // can switch to game screen for dev if needed
         dispatch(gameCreated(game));
         dispatch(storeMap(game.gameMap));
       })
