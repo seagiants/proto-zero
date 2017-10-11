@@ -8,6 +8,20 @@ import {
   errorFetchingGamesList
 } from "./index.js";
 
+/* Action types */
+export const STORE_WEBSOCKET = "STORE_WEBSOCKET";
+export const ERROR_CREATING_WEBSOCKET = "ERROR_CREATING_WEBSOCKET";
+
+/* Action creators */
+export function storeWebSocket(socket) {
+  return { type: STORE_WEBSOCKET, socket: socket};
+}
+
+export function errorCreatingWebSocket(error) {
+  return { type: ERROR_CREATING_WEBSOCKET, error: error };
+}
+
+/* Thunks */
 export function askForGameCreation(playerName) {
   return function(dispatch) {
     fetch(`http://localhost:9000/newgame?playerName=${playerName}`)
@@ -15,8 +29,8 @@ export function askForGameCreation(playerName) {
         return response.json();
       })
       .then(game => {
-        dispatch(switchToGameScreen()); // can switch to game screen for dev if needed
         dispatch(gameCreated(game));
+        dispatch(switchToWaitScreen()); // can switch to game screen for dev if needed
         dispatch(storeMap(game.gameMap));
       })
       .catch(error => {
@@ -40,4 +54,16 @@ export function askForGamesList() {
         dispatch(errorFetchingGamesList(error));
       });
   };
+}
+
+export function registerWebSocket(gameId, playerId) {
+  console.log("in thunk rws", gameId, playerId);
+  return function(dispatch) {
+    try {
+      const socket = new WebSocket(`ws://localhost:9000/ws-test/${gameId}`);
+      dispatch(storeWebSocket(socket));
+    } catch(error) {
+      dispatch(errorCreatingWebSocket(error));
+    }
+  }
 }
