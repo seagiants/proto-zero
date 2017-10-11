@@ -1,4 +1,5 @@
 import {
+  switchToWaitScreen,
   switchToGameScreen,
   gameCreated,
   storeMap,
