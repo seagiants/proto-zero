@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { clickOnPowerCase } from "../actions/actionFlowThunks.js";
 import { powerSize, symbolSize } from "../constants";
 import { getActivePower } from "../engine/powerLogic";
-import { costTriangle, costSymbole, symbols} from "../svg";
+import { costTriangle, symbols} from "../svg";
 
 const rectStyles = powerCase => {
   const activePower = getActivePower(powerCase);
@@ -15,7 +15,7 @@ const rectStyles = powerCase => {
   };
 };
 
-const textStyles = powerCase => {
+/*const textStyles = powerCase => {
   const activePower = getActivePower(powerCase);
   return {
     fill: powerCase.isTapped
@@ -31,7 +31,7 @@ const textTransform = text => {
   const secondPart = text.substring(1, 3).toLowerCase();
   return `${firstPart}${secondPart}`;
 };
-
+*/
 const clickWrapper = (e, powerCase, player, click) => {
   e.preventDefault();
   console.log(
@@ -43,8 +43,9 @@ const clickWrapper = (e, powerCase, player, click) => {
 
 // FIXME - activePower should be a prop of the component (useless multiple calls in the comp&action)
 const PowerCase = ({ powerCase, player, card, click }) => {
-  const powerText =
+  /*const powerText =
     card == null ? powerCase.defaultPower.powerName : card.powerName;
+*/
   const activePower = getActivePower(powerCase);
   return (
     <svg
