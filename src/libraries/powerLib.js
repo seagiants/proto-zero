@@ -62,7 +62,7 @@ const defaultPowerLibrairy = [
     powerName : actions.RESEARCH,
     category : getCategory("TECHNOLOGY"),
     powerAction : actions.draw,
-    symbol: "vision",
+    symbol: "draw",
     powerProps : {
       cost : 0,
       isTargetRequired : false,
@@ -73,7 +73,7 @@ const defaultPowerLibrairy = [
     powerName : actions.PRODUCE,
     category : getCategory("ECONOMY"),
     powerAction : actions.produce,
-    symbol: "build",
+    symbol: "cost",
     powerProps : {
       cost : 0,
       isTargetRequired : false,
@@ -85,7 +85,7 @@ const defaultPowerLibrairy = [
     powerName : actions.ARMY,
     category : getCategory("MILITARY"),
     powerAction : actions.noAction,
-    symbol: "vision",
+    symbol: "missile",
     powerProps : {
       cost : 0,
       isTargetRequired : false,

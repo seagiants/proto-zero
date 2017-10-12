@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { clickOnPowerCase } from "../actions/actionFlowThunks.js";
-import { powerSize } from "../constants";
+import { powerSize, symbolSize } from "../constants";
 import { getActivePower } from "../engine/powerLogic";
 import { costTriangle, costSymbole, symbols} from "../svg";
 
@@ -45,6 +45,7 @@ const clickWrapper = (e, powerCase, player, click) => {
 const PowerCase = ({ powerCase, player, card, click }) => {
   const powerText =
     card == null ? powerCase.defaultPower.powerName : card.powerName;
+  const activePower = getActivePower(powerCase);
   return (
     <svg
       width={powerSize.boxFactor * powerSize.width}
@@ -58,7 +59,7 @@ const PowerCase = ({ powerCase, player, card, click }) => {
          />
          {costTriangle(powerSize.x,powerSize.y,powerSize.width,powerSize.height)}
          <text x={powerSize.costTextX(powerSize)} y={powerSize.costTextY(powerSize)}>{getActivePower(powerCase).powerProps.cost}</text>
-         {costSymbole(powerSize.x + powerSize.width*0.85,powerSize.y + powerSize.height*0.75)}
+         {symbols.cost(powerSize.x + powerSize.width*0.85,powerSize.y + powerSize.height*0.75,1,"white")}
 {/*      <text
         x="50%"
         y="50%"
@@ -68,8 +69,8 @@ const PowerCase = ({ powerCase, player, card, click }) => {
       >
         {textTransform(powerText)}
       </text>*/}
-      {symbols[powerCase.defaultPower.symbol](powerSize.symbols[powerCase.defaultPower.symbol].x(powerSize),powerSize.symbols[powerCase.defaultPower.symbol].y(powerSize),powerSize.symbols[powerCase.defaultPower.symbol].scale(powerSize))
-      //buildSymbol(powerSize.buildSymbol.x(powerSize),powerSize.buildSymbol.y(powerSize),powerSize.buildSymbol.scale(powerSize))
+      {
+        symbols[activePower.symbol](symbolSize[activePower.symbol].x(powerSize),symbolSize[activePower.symbol].y(powerSize),symbolSize[activePower.symbol].scale(powerSize),"black")
       }
       <rect onClick={e => clickWrapper(e, powerCase, player, click)} x={powerSize.x} y={powerSize.y} width={powerSize.width} height={powerSize.height}
            stroke="#fff" fill="#fff" fillOpacity="0" strokeOpacity="0"/>
