@@ -8,6 +8,7 @@ const cardLibrairy = [
     powerName: "Vision",
     category: getCategory("EXPLORATION"),
     powerAction: actions.discoverCell,
+    symbol: "vision",
     powerProps : {
       cost: 2,
       isTargetRequired : true,
@@ -19,6 +20,7 @@ const cardLibrairy = [
     powerName: "Radar",
     category: getCategory("EXPLORATION"),
     powerAction: actions.discoverCell,
+    symbol: "vision",
     powerProps : {
       cost: 7,
       isTargetRequired : true,
@@ -29,6 +31,7 @@ const cardLibrairy = [
     powerName: "Factory",
     category: getCategory("ECONOMY"),
     powerAction: actions.build,
+    symbol: "vision",
     powerProps : {
       cost: 2,
       isTargetRequired : true,
@@ -40,6 +43,7 @@ const cardLibrairy = [
     powerName: "Missile",
     category: getCategory("ECONOMY"),
     powerAction: actions.fireMissile,
+    symbol: "vision",
     powerProps : {
       cost: 2,
       isTargetRequired : true,
@@ -50,6 +54,7 @@ const cardLibrairy = [
     powerName: "Increased Radar",
     category: getCategory("TECHNOLOGY"),
     powerAction: actions.enhancement,
+    symbol: "vision",
     powerProps : {
       cost: 0,
       isTargetRequired : false,

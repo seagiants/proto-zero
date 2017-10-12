@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { clickOnPowerCase } from "../actions/actionFlowThunks.js";
 import { powerSize } from "../constants";
 import { getActivePower } from "../engine/powerLogic";
+import { costTriangle, costSymbole, symbols} from "../svg";
 
 const rectStyles = powerCase => {
   const activePower = getActivePower(powerCase);
@@ -39,24 +40,6 @@ const clickWrapper = (e, powerCase, player, click) => {
   click(player, powerCase);
 };
 
-const costSymbole = () => {
-  const x = powerSize.x + powerSize.width*0.85
-  const y = powerSize.y + powerSize.height*0.75
-  const transformValue = `translate(${x},${y})`;
-  return(
-    <path d="M 0 0, 5 5,0 10,-5 5" fill="white" transform={transformValue}></path>
-  )
-}
-
-const costTriangle = () => {
-  const x = powerSize.x + powerSize.width*0.40
-  const y = powerSize.y + powerSize.height*1
-  const transformValue = `translate(${x},${y})`;
-  const dValue = `M 0 0,${powerSize.width*0.60} 0,${powerSize.width*0.60} ${powerSize.height*(-0.60)}`
-  return(
-  <path d={dValue} transform={transformValue} fill="gray" stroke="black"/>
-  )
-}
 
 // FIXME - activePower should be a prop of the component (useless multiple calls in the comp&action)
 const PowerCase = ({ powerCase, player, card, click }) => {
@@ -65,19 +48,18 @@ const PowerCase = ({ powerCase, player, card, click }) => {
   return (
     <svg
       width={powerSize.boxFactor * powerSize.width}
-      height={powerSize.boxFactor * powerSize.height}
-    >
-    <rect
+      height={powerSize.boxFactor * powerSize.height}>
+  <rect
          x={powerSize.x}
          y={powerSize.y}
          width={powerSize.width}
          height={powerSize.height}
          style={rectStyles(powerCase)} stroke="black"
          />
-         {costTriangle()}
+         {costTriangle(powerSize.x,powerSize.y,powerSize.width,powerSize.height)}
          <text x={powerSize.costTextX(powerSize)} y={powerSize.costTextY(powerSize)}>{getActivePower(powerCase).powerProps.cost}</text>
-         {costSymbole()}
-      <text
+         {costSymbole(powerSize.x + powerSize.width*0.85,powerSize.y + powerSize.height*0.75)}
+{/*      <text
         x="50%"
         y="50%"
         alignmentBaseline="middle"
@@ -85,7 +67,10 @@ const PowerCase = ({ powerCase, player, card, click }) => {
         style={textStyles(powerCase)}
       >
         {textTransform(powerText)}
-      </text>
+      </text>*/}
+      {symbols[powerCase.defaultPower.symbol](powerSize.symbols[powerCase.defaultPower.symbol].x(powerSize),powerSize.symbols[powerCase.defaultPower.symbol].y(powerSize),powerSize.symbols[powerCase.defaultPower.symbol].scale(powerSize))
+      //buildSymbol(powerSize.buildSymbol.x(powerSize),powerSize.buildSymbol.y(powerSize),powerSize.buildSymbol.scale(powerSize))
+      }
       <rect onClick={e => clickWrapper(e, powerCase, player, click)} x={powerSize.x} y={powerSize.y} width={powerSize.width} height={powerSize.height}
            stroke="#fff" fill="#fff" fillOpacity="0" strokeOpacity="0"/>
     </svg>
