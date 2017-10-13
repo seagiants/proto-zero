@@ -22,22 +22,45 @@ class WaitScreen extends React.Component {
   componentDidMount() {
     this.props.registerWebSocket(this.props.gameId, this.props.playerId);
     const makeDots = waitingDots();
-    setInterval(() => {
+    const id = setInterval(() => {
       this.setState({ dots: makeDots() });
     }, 450);
+    this.setState({intervalFnId: id});
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalFnId);
+  }
+
+  // FIXME For test only
+  testSocket() {
+    this.props.socket.send("A message from the wait screen");
   }
 
   render() {
-    return <div>{`Waiting for a challenger${this.state.dots}`}</div>;
+    return (
+      <div>
+        <p>{`Waiting for a challenger${this.state.dots}`}</p>
+        <button
+          onClick={e => {
+            e.preventDefault();
+            this.testSocket();
+          }}
+        >
+          TEST SOCKET
+        </button>
+      </div>
+    );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     gameId: state.gameState.gameId,
-    playerId: state.playersState.playerOne.name
+    playerId: state.playersState.playerOne.name,
+    socket: state.gameState.socket
   };
-}
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {

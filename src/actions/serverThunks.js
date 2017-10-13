@@ -30,10 +30,11 @@ export function askForGameCreation(playerName) {
       })
       .then(game => {
         dispatch(gameCreated(game));
-        dispatch(switchToGameScreen()); // can switch to game screen for dev if needed
+        dispatch(switchToWaitScreen()); // can switch to game screen for dev if needed
         dispatch(storeMap(game.gameMap));
       })
       .catch(error => {
+        console.log(error);
         dispatch(errorCreatingGame());
       });
   };
@@ -61,8 +62,10 @@ export function registerWebSocket(gameId, playerId) {
   return function(dispatch) {
     try {
       const socket = new WebSocket(`ws://localhost:9000/ws-test/${gameId}`);
-      socket.onmessage = (data) => {
-        console.log("message received from server", data);
+      socket.onmessage = (message) => {
+        console.log("Action received from server, raw message is :", message);
+        const action = JSON.parse(message.data);
+        dispatch(action);
       };
       dispatch(storeWebSocket(socket));
     } catch(error) {
