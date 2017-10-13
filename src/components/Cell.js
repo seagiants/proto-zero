@@ -1,15 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { clickOnCell } from "../actions/actionFlowThunks.js";
+import { cellSize } from "../constants";
+import { cellBack } from "../svg";
 
-const w = 30;
-const h = 30;
 
-const styles = type => ({
-  fill: type.hidden ? "black" : type.color
-});
-
-const getCellContent = type => {
+const getCellContent = (type,w,h) => {
     if(type.content !== null && type.content !== undefined){
       return <text
         fontSize="20"
@@ -28,17 +24,15 @@ const renderCell = (type, click, selectedPower) => {
     return type.visibleBuilding.renderBuilding();
   } else {
     */
+    const h = cellSize.height;
+    const w = cellSize.width;
     return (
       <g>
-      <rect
-        stroke="white"
-        width={w}
-        height={h}
-        x={type.x * w}
-        y={type.y * h}
-        style={styles(type)}
-      />
-      {getCellContent(type)}
+      {cellBack(type,w,h)}
+      {getCellContent(type,w,h)}
+      {
+        //Clicking transparent zone
+      }
       <rect
         onClick={e => {
           e.preventDefault();

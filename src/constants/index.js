@@ -19,7 +19,8 @@ export const powerSize = {
   y: 20,
   costTextX:(powerSize)=>powerSize.x+powerSize.width*0.7,
   costTextY:(powerSize)=>powerSize.y+powerSize.height*0.85
-}
+} 
+
 
 export const symbolSize = {
     vision: {
