@@ -8,6 +8,7 @@ const cardLibrairy = [
     powerName: "Vision",
     category: getCategory("EXPLORATION"),
     powerAction: actions.discoverCell,
+    symbol: "vision",
     powerProps : {
       cost: 2,
       isTargetRequired : true,
@@ -19,6 +20,7 @@ const cardLibrairy = [
     powerName: "Radar",
     category: getCategory("EXPLORATION"),
     powerAction: actions.discoverCell,
+    symbol: "vision",
     powerProps : {
       cost: 7,
       isTargetRequired : true,
@@ -29,6 +31,7 @@ const cardLibrairy = [
     powerName: "Factory",
     category: getCategory("ECONOMY"),
     powerAction: actions.build,
+    symbol: "build",
     powerProps : {
       cost: 2,
       isTargetRequired : true,
@@ -40,6 +43,7 @@ const cardLibrairy = [
     powerName: "Missile",
     category: getCategory("ECONOMY"),
     powerAction: actions.fireMissile,
+    symbol: "missile",
     powerProps : {
       cost: 2,
       isTargetRequired : true,
@@ -50,6 +54,7 @@ const cardLibrairy = [
     powerName: "Increased Radar",
     category: getCategory("TECHNOLOGY"),
     powerAction: actions.enhancement,
+    symbol: "enhancement",
     powerProps : {
       cost: 0,
       isTargetRequired : false,
@@ -67,12 +72,7 @@ const cardLibrairy = [
 ];
 
 export const generateCard = (cardTemplate) => {
-  return {
-    powerName: cardTemplate.powerName,
-    category: cardTemplate.category,
-    powerAction: cardTemplate.powerAction,
-    powerProps : cardTemplate.powerProps
-  };
+  return {...cardTemplate};
 };
 
 export const randCard = () => cardLibrairy[random(cardLibrairy.length - 1)];

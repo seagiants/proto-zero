@@ -50,6 +50,7 @@ const defaultPowerLibrairy = [
     powerName : actions.EXPLORE,
     category : getCategory("EXPLORATION"),
     powerAction : actions.discoverCell,
+    symbol: "vision",
     powerProps : {
       cost : 0,
       isTargetRequired : true,
@@ -61,6 +62,7 @@ const defaultPowerLibrairy = [
     powerName : actions.RESEARCH,
     category : getCategory("TECHNOLOGY"),
     powerAction : actions.draw,
+    symbol: "draw",
     powerProps : {
       cost : 0,
       isTargetRequired : false,
@@ -71,6 +73,7 @@ const defaultPowerLibrairy = [
     powerName : actions.PRODUCE,
     category : getCategory("ECONOMY"),
     powerAction : actions.produce,
+    symbol: "cost",
     powerProps : {
       cost : 0,
       isTargetRequired : false,
@@ -82,6 +85,7 @@ const defaultPowerLibrairy = [
     powerName : actions.ARMY,
     category : getCategory("MILITARY"),
     powerAction : actions.noAction,
+    symbol: "missile",
     powerProps : {
       cost : 0,
       isTargetRequired : false,
