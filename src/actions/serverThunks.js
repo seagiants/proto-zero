@@ -8,13 +8,28 @@ import {
   errorFetchingGamesList
 } from "./index.js";
 
+/* Utils */
+function webSocketCreation(dispatch, gameId) {
+  try {
+    const socket = new WebSocket(`ws://localhost:9000/ws-test/${gameId}`);
+    socket.onmessage = message => {
+      console.log("Action received from server, raw message is :", message);
+      const action = JSON.parse(message.data);
+      dispatch(action);
+    };
+    dispatch(storeWebSocket(socket));
+  } catch (error) {
+    dispatch(errorCreatingWebSocket(error));
+  }
+}
+
 /* Action types */
 export const STORE_WEBSOCKET = "STORE_WEBSOCKET";
 export const ERROR_CREATING_WEBSOCKET = "ERROR_CREATING_WEBSOCKET";
 
 /* Action creators */
 export function storeWebSocket(socket) {
-  return { type: STORE_WEBSOCKET, socket: socket};
+  return { type: STORE_WEBSOCKET, socket: socket };
 }
 
 export function errorCreatingWebSocket(error) {
@@ -58,18 +73,27 @@ export function askForGamesList() {
 }
 
 export function registerWebSocket(gameId, playerId) {
-  console.log("in thunk rws", gameId, playerId);
   return function(dispatch) {
-    try {
-      const socket = new WebSocket(`ws://localhost:9000/ws-test/${gameId}`);
-      socket.onmessage = (message) => {
-        console.log("Action received from server, raw message is :", message);
-        const action = JSON.parse(message.data);
-        dispatch(action);
-      };
-      dispatch(storeWebSocket(socket));
-    } catch(error) {
-      dispatch(errorCreatingWebSocket(error));
-    }
-  }
+    webSocketCreation(dispatch, gameId);
+  };
+}
+
+export function joinGame(url, gameId) {
+  return function(dispatch) {
+    console.log("join game at url", url);
+    fetch(url)
+      .then(response => {
+        return response.json();
+      })
+      .then(game => {
+        dispatch(gameCreated(game));
+        dispatch(storeMap(game.gameMap));
+        dispatch(switchToGameScreen());
+        webSocketCreation(dispatch, gameId);
+      })
+      .catch(error => {
+        console.log("Error joining the game", error);
+        // TODO implement a proper action
+      });
+  };
 }
