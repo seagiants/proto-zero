@@ -12,6 +12,21 @@ export const costTriangle = (x,y,w,h) => {
   )
 };
 
+const cellStyles = type => ({
+  fill: type.hidden ? "black" : type.color
+});
+
+export const cellBack = (type,w,h) => {
+  return <rect
+    stroke="white"
+    width={w}
+    height={h}
+    x={type.x * w}
+    y={type.y * h}
+    style={cellStyles(type)}
+  />
+};
+
 export const symbols ={
   vision : (x,y,scale,fill) => {
   const transformValue = `translate(${x},${y}),scale(${scale})`
