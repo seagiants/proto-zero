@@ -9,9 +9,10 @@ import {
 } from "./index.js";
 
 /* Utils */
-function webSocketCreation(dispatch, gameId) {
+function webSocketCreation(dispatch, gameId, playerNum) {
+  // FIXME the ws URL must contain a player id !
   try {
-    const socket = new WebSocket(`ws://localhost:9000/ws-test/${gameId}`);
+    const socket = new WebSocket(`ws://localhost:9000/ws-test/${gameId}/${playerNum}`);
     socket.onmessage = message => {
       console.log("Action received from server, raw message is :", message);
       const action = JSON.parse(message.data);
@@ -74,7 +75,7 @@ export function askForGamesList() {
 
 export function registerWebSocket(gameId, playerId) {
   return function(dispatch) {
-    webSocketCreation(dispatch, gameId);
+    webSocketCreation(dispatch, gameId, "one");
   };
 }
 
@@ -89,7 +90,7 @@ export function joinGame(url, gameId) {
         dispatch(gameCreated(game));
         dispatch(storeMap(game.gameMap));
         dispatch(switchToGameScreen());
-        webSocketCreation(dispatch, gameId);
+        webSocketCreation(dispatch, gameId, "two");
       })
       .catch(error => {
         console.log("Error joining the game", error);
