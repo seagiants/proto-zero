@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import uniqueId from "lodash.uniqueid";
 import {
   askForGameCreation,
   askForGamesList,
   joinGame
 } from "../actions/serverThunks.js";
+import GamesList from "./GamesList";
 
 const styles = {
   display: "flex",
@@ -18,24 +18,6 @@ class HomeScreen extends React.Component {
   }
 
   render() {
-    let comp;
-    if (this.props.gamesList !== null && this.props.gamesList !== undefined) {
-      comp = this.props.gamesList.map(game => (
-        <li key={uniqueId()}>
-          Join game #{game.id}
-          <button
-            onClick={e => {
-              e.preventDefault();
-              this.props.joinGame(game.join, game.id);
-            }}
-          >
-            JOIN!
-          </button>
-        </li>
-      ));
-    } else {
-      comp = <p>No games</p>;
-    }
     return (
       <div style={styles}>
         <button
@@ -46,7 +28,7 @@ class HomeScreen extends React.Component {
         >
           New game
         </button>
-        <ul>{comp}</ul>
+        <GamesList gamesList={this.props.gamesList} joinGame={this.props.joinGame} />
       </div>
     );
   }
