@@ -13,8 +13,8 @@
     "lodash.random": "^3.2.0",
     "lodash.range": "^3.2.0",
     "lodash.uniqueid": "^4.0.1",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
+    "react": "16",
+    "react-dom": "16",
     "react-redux": "^5.0.4",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0"
