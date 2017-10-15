@@ -3,20 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-scripts": "0.9.5",
-    "redux-devtools": "^3.3.2"
+    "react-scripts": "^1",
+    "redux-devtools": "^3.4.0"
   },
   "dependencies": {
-    "flow-bin": "^0.54.1",
+    "flow-bin": "^0.57.2",
     "lodash": "^4.17.4",
     "lodash.flatten": "^4.4.0",
     "lodash.random": "^3.2.0",
     "lodash.range": "^3.2.0",
     "lodash.uniqueid": "^4.0.1",
-    "react": "16",
-    "react-dom": "16",
-    "react-redux": "^5.0.4",
-    "redux": "^3.6.0",
+    "react": "^16",
+    "react-dom": "^16",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
