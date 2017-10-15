@@ -10,9 +10,10 @@ import {
 
 /* Utils */
 function webSocketCreation(dispatch, gameId, playerNum) {
-  // FIXME the ws URL must contain a player id !
   try {
-    const socket = new WebSocket(`ws://localhost:9000/ws-test/${gameId}/${playerNum}`);
+    const socket = new WebSocket(
+      `ws://localhost:9000/channel/${gameId}/${playerNum}`
+    );
     socket.onmessage = message => {
       console.log("Action received from server, raw message is :", message);
       const action = JSON.parse(message.data);

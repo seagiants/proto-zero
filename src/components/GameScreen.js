@@ -9,9 +9,8 @@ const styles = {
 
 const GameScreen = () => (
   <div style={styles}>
-    <PlayerBoard player="playerOne" />
     <MapDisplay />
-    <PlayerBoard player="playerTwo" />
+    <PlayerBoard player="playerOne" />
   </div>
 );
 
