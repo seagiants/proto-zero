@@ -14,8 +14,8 @@ const styles = {
 const MapDisplay = ({ gameMap }) => (
   <div style={styles}>
     <svg
-      width={mapDimensions.width * cellSize.width}
-      height={mapDimensions.height * cellSize.height}
+      width={gameMap[0].length * cellSize.width}
+      height={gameMap.length * cellSize.height}
     >
       {flatten(gameMap).map(type => <Cell key={uniqueId()} type={type} />)}
     </svg>
