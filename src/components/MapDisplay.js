@@ -1,6 +1,5 @@
 import React from "react";
 import uniqueId from "lodash.uniqueid";
-import flatten from "lodash.flatten";
 import { connect } from "react-redux";
 import Cell from "./Cell";
 import { mapDimensions, cellSize } from "../constants";
@@ -11,19 +10,20 @@ const styles = {
 
 // FIXME the width and height of the SVG should come not from the obsolete constants
 // FIXME but from the gameMap object itself
-const MapDisplay = ({ gameMap }) => (
+const MapDisplay = ({ gameMap, mapWidth, mapHeight }) => (
   <div style={styles}>
-    <svg
-      width={gameMap[0].length * cellSize.width}
-      height={gameMap.length * cellSize.height}
-    >
-      {flatten(gameMap).map(type => <Cell key={uniqueId()} type={type} />)}
+    <svg width={mapWidth * cellSize.width} height={mapHeight * cellSize.height}>
+      {gameMap.map(type => <Cell key={uniqueId()} type={type} />)}
     </svg>
   </div>
 );
 
 const mapStateToProps = state => {
-  return { gameMap: state.mapState.gameMap };
+  return {
+    gameMap: state.mapState.gameMap,
+    mapWidth: state.mapState.mapWidth,
+    mapHeight: state.mapState.mapHeight
+  };
 };
 
 export default connect(mapStateToProps)(MapDisplay);

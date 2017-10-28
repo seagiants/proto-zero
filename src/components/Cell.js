@@ -67,6 +67,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     click: (x, y, selectedPower) => {
+      console.log("clicking on cell", x, y);
       dispatch(clickOnCell(x, y, selectedPower, ownProps.player));
     }
   };

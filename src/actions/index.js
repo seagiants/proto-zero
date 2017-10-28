@@ -52,8 +52,8 @@ export function errorFetchingGamesList(error) {
   return { type: ERROR_FETCHING_GAMES_LIST, error: error };
 }
 
-export function storeMap(map) {
-  return { type: STORE_MAP, map: map };
+export function storeMap(map, width, height) {
+  return { type: STORE_MAP, map: map, mapWidth: width, mapHeight: height };
 }
 
 export function startGame() {
@@ -70,7 +70,7 @@ export function generateMap(x, y) {
   };
 }
 
-export function discoverCell(x, y,props) {
+export function discoverCell(x, y, props) {
   return {
     type: DISCOVER_CELL,
     x: x,
@@ -79,11 +79,11 @@ export function discoverCell(x, y,props) {
   };
 }
 
-export function build(x,y,props) {
+export function build(x, y, props) {
   return {
     type: BUILD,
-    x:x,
-    y:y,
+    x: x,
+    y: y,
     build: props.build
   };
 }
@@ -149,7 +149,7 @@ export function research(player) {
   };
 }
 
-export function tapPowerCase(player, categoryName,persistent) {
+export function tapPowerCase(player, categoryName, persistent) {
   return {
     type: TAP_POWER_CASE,
     player: player,
@@ -165,26 +165,26 @@ export function refreshPowerBoard(player) {
   };
 }
 
-export function updateResourceCounter(player,cost){
+export function updateResourceCounter(player, cost) {
   return {
     type: UPDATE_RESOURCE_COUNTER,
     player: player,
     cost: cost
-  }
+  };
 }
 
-export function enhancement(player,powerProps){
+export function enhancement(player, powerProps) {
   return {
     type: ENHANCEMENT,
-    player : player,
-    powerProps : powerProps
-  }
+    player: player,
+    powerProps: powerProps
+  };
 }
 
-export function fireMissile(x,y,props) {
+export function fireMissile(x, y, props) {
   return {
     type: FIRE_MISSILE,
-    x:x,
-    y:y
-    };
+    x: x,
+    y: y
+  };
 }

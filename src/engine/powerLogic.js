@@ -16,75 +16,94 @@ export const getActivePower = powerCase => {
   }
 };
 
-export function checkPowerWithTargetConditions(x,y,power,state){
+export function checkPowerWithTargetConditions(x, y, power, state) {
   //Power with building => check building conditions
-  if(power.powerProps.build !==undefined && power.powerProps.build !==null ){
-    return (getBuilding(power.powerProps.build)).checkConditions(x,y,state)
-  //Else conditions are ok
+  console.log(
+    power.powerProps.build,
+    getBuilding(power.powerProps.build)
+  );
+  if (power.powerProps.build !== undefined && power.powerProps.build !== null) {
+    return getBuilding(power.powerProps.build).checkConditions(x, y, state);
+    //Else conditions are ok
   } else {
-    return true
+    return true;
   }
 }
-export function isPowerCostAffordable(power,state){
-  return power.powerProps.cost < state.playersState[state.mapState.activePlayer].playerBoard.resourceCounter +1
+export function isPowerCostAffordable(power, state) {
+  return (
+    power.powerProps.cost <
+    state.playersState[state.mapState.activePlayer].playerBoard
+      .resourceCounter +
+      1
+  );
 }
 
 //FIXME Quick&dirty implementation, need generic one (active player & category case) and more simpler
-export function getAddedPowerProps(power,state){
-    switch (power.category.name) {
-      case "EXPLORATION":
-        const powerCaseRadius = state.playersState["playerOne"].playerBoard.powerBoard.filter((element)=>power.category.name===element.categoryName)[0].defaultPower.powerProps.radius;
-        const addedRadius = (power.powerName !== "EXPLORE") ? powerCaseRadius+power.powerProps.radius : powerCaseRadius;
-        return {
-          ...power.powerProps,radius:addedRadius
+export function getAddedPowerProps(power, state) {
+  switch (power.category.name) {
+    case "EXPLORATION":
+      const powerCaseRadius = state.playersState[
+        "playerOne"
+      ].playerBoard.powerBoard.filter(
+        element => power.category.name === element.categoryName
+      )[0].defaultPower.powerProps.radius;
+      const addedRadius =
+        power.powerName !== "EXPLORE"
+          ? powerCaseRadius + power.powerProps.radius
+          : powerCaseRadius;
+      return {
+        ...power.powerProps,
+        radius: addedRadius
       };
-      default:
-        return power.powerProps;
-    }
+    default:
+      return power.powerProps;
+  }
 }
 
-export function getProductivity(player,state){
-  let reduceRow = (row) => row.reduce((memo,cell)=>{
-      if(cell.content === undefined || cell.content === null){
-        return memo;
-      } else if (cell.content.buildingProps.productivity === null || cell.content.buildingProps.productivity === undefined ){
-        return memo;
-      } else {
-        return memo + 1
-      }
-    },0);
-  let reduceMap = state.mapState.gameMap.reduce((memo,row)=>(memo+reduceRow(row)),0)
-  return reduceMap
-};
+export function getProductivity(player, state) {
+  let reducedMap = state.mapState.gameMap.reduce((memo, cell) => {
+    if (cell.content === undefined || cell.content === null) {
+      return memo;
+    } else if (
+      cell.content.buildingProps.productivity === null ||
+      cell.content.buildingProps.productivity === undefined
+    ) {
+      return memo;
+    } else {
+      return memo + 1;
+    }
+  }, 0);
+  return reducedMap;
+}
 
-const isTapped = (powerCase) => powerCase.isTapped;
-const isTargetRequired = (power) => power.powerProps.isTargetRequired;
+const isTapped = powerCase => powerCase.isTapped;
+const isTargetRequired = power => power.powerProps.isTargetRequired;
 
-export function checkPowerCaseStatus(player,powerCase,state) {
+export function checkPowerCaseStatus(player, powerCase, state) {
   const activePower = getActivePower(powerCase);
   //Check if tapped
-  if (isTapped(powerCase)){
+  if (isTapped(powerCase)) {
     return S_TAPPED;
-  //Check cost avalaible
+    //Check cost avalaible
   } else if (!isPowerCostAffordable(activePower, state)) {
     return S_NO_RESSOURCE;
-  //Check if a target is required
+    //Check if a target is required
   } else if (isTargetRequired(activePower)) {
     return S_WAIT_TARGET;
-  //Fire the power
+    //Fire the power
   } else {
     return S_FIRE_POWER;
   }
-};
+}
 
-export function checkCellStatus(x,y,selectedPower,state) {
+export function checkCellStatus(x, y, selectedPower, state) {
   //Check if a power is selected
   if (selectedPower === null || selectedPower === undefined) {
     return S_NO_POWER;
-  //Check if powerConditions are met
-  } else if (!checkPowerWithTargetConditions(x,y,selectedPower,state)) {
+    //Check if powerConditions are met
+  } else if (!checkPowerWithTargetConditions(x, y, selectedPower, state)) {
     return S_CONDITIONS_NOT_MET;
   } else {
     return S_FIRE_POWER;
   }
-};
+}

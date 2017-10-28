@@ -48,7 +48,13 @@ export function askForGameCreation(playerName) {
       .then(game => {
         dispatch(gameCreated(game));
         dispatch(switchToWaitScreen()); // can switch to game screen for dev if needed
-        dispatch(storeMap(game.gameMap));
+        dispatch(
+          storeMap(
+            game.gameMap._map,
+            game.gameMap._mapWidth,
+            game.gameMap._mapHeight
+          )
+        );
       })
       .catch(error => {
         console.log(error);
@@ -89,7 +95,13 @@ export function joinGame(url, gameId) {
       })
       .then(game => {
         dispatch(gameCreated(game));
-        dispatch(storeMap(game.gameMap));
+        dispatch(
+          storeMap(
+            game.gameMap._map,
+            game.gameMap._mapWidth,
+            game.gameMap._mapHeight
+          )
+        );
         dispatch(switchToGameScreen());
         webSocketCreation(dispatch, gameId, "two");
       })
