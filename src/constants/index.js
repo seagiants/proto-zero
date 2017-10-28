@@ -17,9 +17,13 @@ export const powerSize = {
   boxFactor: 1.2,
   x: 20,
   y: 20,
-  costTextX:(powerSize)=>powerSize.x+powerSize.width*0.7,
-  costTextY:(powerSize)=>powerSize.y+powerSize.height*0.85
-} 
+  get costTextX(){
+    return this.x+this.width*0.7
+  },
+  get costTextY(){
+    return powerSize.y+powerSize.height*0.85
+  }
+}
 
 
 export const symbolSize = {
