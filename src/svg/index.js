@@ -12,6 +12,16 @@ export const costTriangle = (x,y,w,h) => {
   )
 };
 
+export const powerRect = (powerSize,style) => {
+  return(
+    <rect
+       x={powerSize.x}
+       y={powerSize.y}
+       width={powerSize.width}
+       height={powerSize.height}
+       style={style} stroke="black"/>
+ )
+};
 const cellStyles = type => ({
   fill: type.hidden ? "black" : type.color
 });
