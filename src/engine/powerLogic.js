@@ -16,15 +16,14 @@ export const getActivePower = powerCase => {
   }
 };
 
+//FIXME should have a default checkConditions mechanism on all powers&cards
 export function checkPowerWithTargetConditions(x, y, power, state) {
   //Power with building => check building conditions
-  console.log(
-    power.powerProps.build,
-    getBuilding(power.powerProps.build)
-  );
   if (power.powerProps.build !== undefined && power.powerProps.build !== null) {
     return getBuilding(power.powerProps.build).checkConditions(x, y, state);
     //Else conditions are ok
+  } else if (power.checkConditions !== undefined && power.checkConditions !== null) {
+    return power.checkConditions(x,y,state);
   } else {
     return true;
   }

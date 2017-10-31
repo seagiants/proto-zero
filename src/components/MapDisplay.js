@@ -2,7 +2,7 @@ import React from "react";
 import uniqueId from "lodash.uniqueid";
 import { connect } from "react-redux";
 import Cell from "./Cell";
-import { mapDimensions, cellSize } from "../constants";
+import { cellSize } from "../constants";
 
 const styles = {
   alignSelf: "center"

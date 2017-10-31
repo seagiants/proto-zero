@@ -1,6 +1,7 @@
 import random from "lodash.random";
 import * as actions from "../actions";
 import { getCategory } from "./powerLib.js"
+import { hasSpecificBuilding } from "../engine/mapLogic.js"
 
 //FIXME need entity mechanism. Card = power + cost, same entity or not ?
 const cardLibrairy = [
@@ -24,7 +25,7 @@ const cardLibrairy = [
     powerProps : {
       cost: 7,
       isTargetRequired : true,
-      persistent: 0 
+      persistent: 0
       }
   },
   {
@@ -56,10 +57,11 @@ const cardLibrairy = [
     category: getCategory("ECONOMY"),
     powerAction: actions.fireMissile,
     symbol: "missile",
+    checkConditions: (x,y,state) => hasSpecificBuilding(x,y,state,true),
     powerProps : {
       cost: 2,
       isTargetRequired : true,
-      persistent: 0 
+      persistent: 0
       }
   },
   {
@@ -67,10 +69,11 @@ const cardLibrairy = [
     category: getCategory("ECONOMY"),
     powerAction: actions.fireRocket,
     symbol: "missile",
+    checkConditions : (x,y,state) => false,
     powerProps : {
       cost: 2,
       isTargetRequired : true,
-      persistent: 0 
+      persistent: 0
       }
   },
   {
