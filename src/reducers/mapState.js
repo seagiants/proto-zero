@@ -43,21 +43,19 @@ const buildOnCell = (gameMap, x, y, building) => {
   });
 };
 
-const updateMapAfterFire = (map, x, y) => {
-  return map.map((row, index) => {
-    if (x !== index) {
-      return row;
+const updateMapAfterFire = (gameMap, x, y) => {
+  return gameMap.map(cell => {
+    if (x !== cell.x) {
+      return cell;
     } else {
-      return row.map((cell, index) => {
-        if (y !== index) {
-          return cell;
-        } else {
-          return {
-            ...cell,
-            content: null
-          };
-        }
-      });
+      if (y !== cell.y) {
+        return cell;
+      } else {
+        return {
+          ...cell,
+          content: null
+        };
+      }
     }
   });
 };
