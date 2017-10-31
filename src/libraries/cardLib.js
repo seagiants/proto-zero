@@ -12,7 +12,7 @@ const cardLibrairy = [
     powerProps : {
       cost: 2,
       isTargetRequired : true,
-      persistent : true,
+      persistent: 0 ,
       radius: 1
       }
     },
@@ -24,7 +24,7 @@ const cardLibrairy = [
     powerProps : {
       cost: 7,
       isTargetRequired : true,
-      persistent : true
+      persistent: 0 
       }
   },
   {
@@ -35,8 +35,20 @@ const cardLibrairy = [
     powerProps : {
       cost: 2,
       isTargetRequired : true,
-      persistent : true,
+      persistent: 0 ,
       build: "Factory"
+      }
+  },
+  {
+    powerName: "Nexus",
+    category: getCategory("ECONOMY"),
+    powerAction: actions.build,
+    symbol: "build",
+    powerProps : {
+      cost: 4,
+      isTargetRequired : true,
+      persistent: 0 ,
+      build: "Nexus"
       }
   },
   {
@@ -47,7 +59,18 @@ const cardLibrairy = [
     powerProps : {
       cost: 2,
       isTargetRequired : true,
-      persistent : true
+      persistent: 0 
+      }
+  },
+  {
+    powerName: "Roquette",
+    category: getCategory("ECONOMY"),
+    powerAction: actions.fireRocket,
+    symbol: "missile",
+    powerProps : {
+      cost: 2,
+      isTargetRequired : true,
+      persistent: 0 
       }
   },
   {
@@ -58,14 +81,31 @@ const cardLibrairy = [
     powerProps : {
       cost: 0,
       isTargetRequired : false,
-      persistent : false,
+      persistent: 0 ,
       enhancements : {
           "TECHNOLOGY" : {
             cost: 1
           },
           "EXPLORATION" : {
-            radius: 1
+            radius: 1,
+            cost: 1
           }
+        }
+      }
+  },
+  {
+    powerName: "Enhanced Research",
+    category: getCategory("TECHNOLOGY"),
+    powerAction: actions.enhancement,
+    symbol: "enhancement",
+    powerProps : {
+      cost: 0,
+      isTargetRequired : false,
+      persistent: 0 ,
+      enhancements : {
+          "TECHNOLOGY" : {
+            cost: -1
+          },
         }
       }
   }

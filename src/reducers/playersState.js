@@ -9,6 +9,7 @@ import {
   UPDATE_RESOURCE_COUNTER,
   ENHANCEMENT
 } from "../actions";
+import { enhanceProp } from "../engine/powerLogic.js"
 
 const initialState = {
   playerOne: {
@@ -53,20 +54,29 @@ const selectingPowerCaseFromPowerBoard = (
   });
 };
 
+const refreshCardStatus = (card) => {
+    if  (card.powerProps.persistent > 0) {
+        return {...card, powerProps: {...card.powerProps, persistent: card.powerProps.persistent - 1}}
+      }else{
+        return null;
+    }
+};
+
 //FIXME Mixing Tapping Case and Discarding non-peristent Card
 const togglingPowerCaseFromPowerBoard = (
   powerBoard,
   categoryName,
   newStatus = true,
-  persistent = true
+  persistent = Infinity
 ) => {
   return powerBoard.map(powerCase => {
     if (powerCase.categoryName === categoryName) {
+      let card = powerCase.card;
       return {
         ...powerCase,
         isTapped: newStatus,
         isSelected: false,
-        card: persistent ? powerCase.card : null
+        card: card === null || card === undefined ? null:refreshCardStatus(card)
       };
     } else {
       return { ...powerCase, isSelected: false };
@@ -86,9 +96,9 @@ const enhancePowerBoard = (powerBoard, enhancements) => {
         {},
         ...Object.keys(powerCase.defaultPower.powerProps).map(prop => ({
           [prop]:
-            thisEnhancement[prop] !== undefined
-              ? powerCase.defaultPower.powerProps[prop] + thisEnhancement[prop]
-              : powerCase.defaultPower.powerProps[prop]
+              thisEnhancement[prop] !== undefined
+                ? enhanceProp(prop,powerCase.defaultPower.powerProps[prop],thisEnhancement[prop])
+                : powerCase.defaultPower.powerProps[prop]
         }))
       );
       return {
