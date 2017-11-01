@@ -62,44 +62,36 @@ const updateMapAfterFire = (gameMap, x, y) => {
   });
 };
 
-//To be continued.
+//Discover cells on line 'til mountain or building encounter, destroy building encountered.
+//FIXME Should probably return a new modified cell instead of modifying cell directly.
+//FIXME need a specific implementation when there are multiple possible starting points.
 const updateMapAfterRocketFire = (gameMap, x, y) => {
+  //get rocket starting point.
   const start = getCellNeighboursWithSpecificBuilding(x,y,gameMap, "Nexus")
+  //define direction movements (0 = no movement, 1 = to the right or bottom, -1 = to the left or top)
   const xMove = x - start.x;
   const yMove = y - start.y;
+  //duplicating gameMap to return a new object
   let newMap = gameMap.slice(0);
   let keepGoing = true;
-  let step = 1;
+  let xStep = xMove;
+  let yStep = yMove;
   let stepCell = null;
-  if(y === start.y){
-      step = xMove;
-      while (keepGoing) {
-        console.log(step);
-        stepCell = newMap.filter(cell => (cell.x === start.x + step)&&(cell.y === start.y) )[0];
-        console.log(stepCell);
-        if(stepCell !== null && stepCell !== undefined){
-          step+= xMove;
-          keepGoing = stepCell.cellType !== "mountain" && (stepCell.content === undefined || stepCell.content === null);
-          stepCell.content = null;
-          stepCell.hidden = false;
-        }else {
-          keepGoing = false;
-        }
-      }
-    }else{
-      step = yMove;
-      while (keepGoing) {
-        console.log(step);
-        stepCell = newMap.filter(cell => (cell.y === start.y + step)&&(cell.x === start.x) )[0];
-        console.log(stepCell);
-        if(stepCell !== null && stepCell !== undefined){
-          step+= yMove;
-          keepGoing = stepCell.cellType !== "mountain" && (stepCell.content === undefined || stepCell.content === null);
-          stepCell.content = null;
-          stepCell.hidden = false;
-        }else {
-          keepGoing = false;
-        }
+    while (keepGoing) {
+      //current cell
+      stepCell = newMap.filter(cell => (cell.x === start.x + xStep)&&(cell.y === start.y + yStep))[0];
+      //check if any cell is matched, if not end, 'cause rocket went off map
+      if(stepCell !== null && stepCell !== undefined){
+        //EndConditions based on mountain or building encounter
+        keepGoing = stepCell.cellType !== "mountain" && (stepCell.content === undefined || stepCell.content === null);
+        //FIXME should be a copy of the cell not directly the cell which is modified.
+        stepCell.content = null;
+        stepCell.hidden = false;
+        xStep+= xMove;
+        yStep+= yMove;
+      }else {
+        //Rocket went off map.
+        keepGoing = false;
       }
     }
   return newMap;
