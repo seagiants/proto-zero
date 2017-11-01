@@ -8,16 +8,16 @@ const buildingLibrairy = [
     symbol: "F",
     // FIXME why pass the ENTIRE state here, we only need the gameMap
     checkConditions: (x, y, state) =>
-      isCellVisible(x, y, state) && isOnSpecificType(x, y, state, "land"),
+      isCellVisible(x, y, state.mapState.gameMap) && isOnSpecificType(x, y, state.mapState.gameMap, "mountain"),
     buildingProps: {
       productivity: 1
     }
   },
   {
     buildingName: "Nexus",
-    symbol: "N",    
+    symbol: "N",
     checkConditions: (x, y, state) =>
-      isCellVisible(x, y, state) && isOnSpecificType(x,y,state,"land") && isNeighboursSpecificType(x,y,state,"cristal"),
+      isCellVisible(x, y, state.mapState.gameMap) && isOnSpecificType(x,y,state.mapState.gameMap,"land") && isNeighboursSpecificType(x,y,state.mapState.gameMap,"cristal"),
     buildingProps: {
       productivity: 1
     }

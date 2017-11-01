@@ -54,7 +54,7 @@ const cardLibrairy = [
   },
   {
     powerName: "Missile",
-    category: getCategory("ECONOMY"),
+    category: getCategory("MILITARY"),
     powerAction: actions.fireMissile,
     symbol: "missile",
     checkConditions: (x,y,state) => hasSpecificBuilding(x,y,state.mapState.gameMap,true),
