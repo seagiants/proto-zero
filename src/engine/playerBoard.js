@@ -1,5 +1,6 @@
 import { generatePowerCase } from "../libraries/powerLib.js";
-import { generateCard, randCard } from "../libraries/cardLib.js";
+
+import { generateDeck } from "./deckLogic.js";
 
 export const emptyBoard = {
   h: 60,
@@ -12,15 +13,17 @@ export const generatePowerBoard = () => [
   generatePowerCase("ECONOMY"),
   generatePowerCase("MILITARY")
 ];
-
+/*
 export const drawCards = size => {
   return Array.from({ length: size }, _ => generateCard(randCard()));
 };
+*/
 
 export const generateBoard = () => {
   return {
     powerBoard: generatePowerBoard(),
-    drawBoard: null,
+    deckState: generateDeck(),
+    //Could init to more for debug
     resourceCounter: 0
   };
 };

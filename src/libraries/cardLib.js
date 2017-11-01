@@ -1,10 +1,9 @@
-import random from "lodash.random";
 import * as actions from "../actions";
 import { getCategory } from "./powerLib.js"
 import { hasSpecificBuilding, hasNeighboursSpecificBuilding } from "../engine/mapLogic.js"
 
 //FIXME need entity mechanism. Card = power + cost, same entity or not ?
-const cardLibrairy = [
+export const cardLibrairy = [
   {
     powerName: "Vision",
     category: getCategory("EXPLORATION"),
@@ -125,11 +124,3 @@ const cardLibrairy = [
       }
   }
 ];
-
-export const generateCard = (cardTemplate) => {
-  return {...cardTemplate};
-};
-
-export const randCard = () => cardLibrairy[random(cardLibrairy.length - 1)];
-
-export const getCard = (name) => cardLibrairy.filter((element) => (element.powerName === name) )[0];

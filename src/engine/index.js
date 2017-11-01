@@ -1,17 +1,18 @@
-import { generateMap } from "./map";
 import {
   generatePowerBoard,
   generateBoard,
-  drawCards,
-  powerIndex
 } from "./playerBoard";
+import { drawCards,
+powerIndex,
+generateDeck } from "./deckLogic.js"
+
 
 export {
-  generateMap,
   generateBoard,
   drawCards,
   powerIndex,
-  generatePowerBoard
+  generatePowerBoard,
+  generateDeck
 };
 
 export function enhanceProp(powerProp,oldValue,enhancement) {

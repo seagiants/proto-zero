@@ -1,4 +1,4 @@
-import { generateBoard, drawCards } from "../engine";
+import { generateBoard, drawCards, generateDeck } from "../engine";
 import {
   REFRESH_POWER_BOARD,
   DRAW,
@@ -127,7 +127,7 @@ export const playersState = (state = initialState, action) => {
           ...state[action.player],
           playerBoard: {
             ...state[action.player].playerBoard,
-            drawBoard: drawCards(3)
+            deckState: drawCards(3, state[action.player].playerBoard.deckState)
           }
         }
       };
@@ -138,7 +138,9 @@ export const playersState = (state = initialState, action) => {
           ...state[action.player],
           playerBoard: {
             ...state[action.player].playerBoard,
-            drawBoard: null,
+            deckState: {
+              ...state[action.player].playerBoard.deckState, toPick:[], discard:state[action.player].playerBoard.deckState.discard.concat(state[action.player].playerBoard.deckState.toPick)
+            },
             powerBoard: addingCardToPowerBoard(
               state[action.player].playerBoard.powerBoard,
               action.card

@@ -21,10 +21,10 @@ const PlayerBoard = ({ player, name, board }) => (
         powers={board.powerBoard}
       />
       <DrawBoard
-        key={uniqueId(board.drawBoard)}
+        key={uniqueId(board.deckState)}
         player={player}
         name="DrawBoard"
-        cards={board.drawBoard}
+        cards={board.deckState.toPick}
       />
       <EndTurnButton player={player} />
       <ResourceCounter player={player} />
