@@ -63,7 +63,6 @@ const updateMapAfterFire = (gameMap, x, y) => {
 };
 
 //Discover cells on line 'til mountain or building encounter, destroy building encountered.
-//FIXME Should probably return a new modified cell instead of modifying cell directly.
 //FIXME need a specific implementation when there are multiple possible starting points.
 const updateMapAfterRocketFire = (gameMap, x, y) => {
   //get rocket starting point.
@@ -72,7 +71,7 @@ const updateMapAfterRocketFire = (gameMap, x, y) => {
   const xMove = x - start.x;
   const yMove = y - start.y;
   //duplicating gameMap to return a new object
-  let newMap = gameMap.slice(0);
+  let newMap = gameMap.map(cell => {return{...cell}});
   let keepGoing = true;
   let xStep = xMove;
   let yStep = yMove;
@@ -84,7 +83,6 @@ const updateMapAfterRocketFire = (gameMap, x, y) => {
       if(stepCell !== null && stepCell !== undefined){
         //EndConditions based on mountain or building encounter
         keepGoing = stepCell.cellType !== "mountain" && (stepCell.content === undefined || stepCell.content === null);
-        //FIXME should be a copy of the cell not directly the cell which is modified.
         stepCell.content = null;
         stepCell.hidden = false;
         xStep+= xMove;
