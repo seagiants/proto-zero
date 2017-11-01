@@ -5,6 +5,10 @@ import { clickOnEndTurn } from "../actions/actionFlowThunks.js";
 const w = 60;
 const h = 60;
 
+const styles = {
+  cursor: "pointer"
+};
+
 const textStyles = {
   fill: "white"
 };
@@ -12,6 +16,7 @@ const textStyles = {
 const EndTurnButton = ({ player, click }) => {
   return (
     <svg
+      style={styles}
       width={w}
       height={h}
       onClick={e => {

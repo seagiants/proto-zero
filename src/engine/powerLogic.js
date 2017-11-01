@@ -18,10 +18,7 @@ export const getActivePower = powerCase => {
 
 export function checkPowerWithTargetConditions(x, y, power, state) {
   //Power with building => check building conditions
-  console.log(
-    power.powerProps.build,
-    getBuilding(power.powerProps.build)
-  );
+  console.log(power.powerProps.build, getBuilding(power.powerProps.build));
   if (power.powerProps.build !== undefined && power.powerProps.build !== null) {
     return getBuilding(power.powerProps.build).checkConditions(x, y, state);
     //Else conditions are ok
