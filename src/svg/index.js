@@ -12,14 +12,15 @@ export const costTriangle = (x,y,w,h) => {
   )
 };
 
-export const powerRect = (powerSize,style) => {
+export const powerRect = (powerSize,style,scale=1) => {
+  const transformValue = `scale(${scale})`;
   return(
     <rect
        x={powerSize.x}
        y={powerSize.y}
        width={powerSize.width}
        height={powerSize.height}
-       style={style} stroke="black"/>
+       style={style} stroke="black" transform={transformValue}/>
  )
 };
 const cellStyles = type => ({
@@ -37,6 +38,15 @@ export const cellBack = (type,w,h) => {
   />
 };
 
+export const cellShield = (x,y,shield) => {
+  return <circle
+    stroke="cyan"
+    cx={x}
+    cy={y}
+    r={shield*10}
+    fillOpacity="0.1"
+    />
+};
 export const symbols ={
   vision : (x,y,scale,fill) => {
   const transformValue = `translate(${x},${y}),scale(${scale})`

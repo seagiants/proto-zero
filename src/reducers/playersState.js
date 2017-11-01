@@ -9,7 +9,7 @@ import {
   UPDATE_RESOURCE_COUNTER,
   ENHANCEMENT
 } from "../actions";
-import { enhanceProp } from "../engine/powerLogic.js"
+import { enhanceProps } from "../engine"
 
 const initialState = {
   playerOne: {
@@ -90,9 +90,9 @@ const enhancePowerBoard = (powerBoard, enhancements) => {
       enhancements[powerCase.categoryName] !== null &&
       enhancements[powerCase.categoryName] !== undefined
     ) {
-      var thisEnhancement = enhancements[powerCase.categoryName];
+    //  var thisEnhancement = enhancements[powerCase.categoryName];
       //Generic adding method on each property based on paired-names
-      let enhancedPowerCase = Object.assign(
+  /*    let enhancedPowerCase = Object.assign(
         {},
         ...Object.keys(powerCase.defaultPower.powerProps).map(prop => ({
           [prop]:
@@ -101,11 +101,13 @@ const enhancePowerBoard = (powerBoard, enhancements) => {
                 : powerCase.defaultPower.powerProps[prop]
         }))
       );
+      */
+      let enhancedPowerCaseProps = enhanceProps(powerCase.defaultPower.powerProps,enhancements[powerCase.categoryName])
       return {
         ...powerCase,
         defaultPower: {
           ...powerCase.defaultPower,
-          powerProps: enhancedPowerCase
+          powerProps: enhancedPowerCaseProps
         }
       };
     } else {
@@ -113,6 +115,8 @@ const enhancePowerBoard = (powerBoard, enhancements) => {
     }
   });
 };
+
+
 
 export const playersState = (state = initialState, action) => {
   switch (action.type) {

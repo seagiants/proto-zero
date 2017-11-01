@@ -2,14 +2,24 @@ import React from "react";
 import { connect } from "react-redux";
 import { clickOnCell } from "../actions/actionFlowThunks.js";
 import { cellSize } from "../constants";
-import { cellBack } from "../svg";
+import { cellBack, cellShield } from "../svg";
 
 const getCellContent = (type, w, h) => {
   if (type.content !== null && type.content !== undefined) {
+    const xSymb = type.x * w + w * 0.3;
+    const ySymb = type.y * h + h * 0.8;
+    const xSh = type.x*w + w/2;
+    const ySh = type.y * h + h/2;
+    const shield = (type.content.buildingProps !== null && type.content.buildingProps !== undefined && type.content.buildingProps.shield > 0)?
+                    cellShield(xSh,ySh,type.content.buildingProps.shield):
+                    null
     return (
-      <text fontSize="20" x={type.x * w + w * 0.3} y={type.y * h + h * 0.8}>
-        {type.content.symbol}
-      </text>
+      <g>
+        {shield}
+        <text fontSize="20" x={xSymb} y={ySymb}>
+          {type.content.symbol}
+        </text>
+      </g>
     );
   } else {
     return null;

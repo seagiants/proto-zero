@@ -21,7 +21,7 @@ export const powerSize = {
     return this.x+this.width*0.7
   },
   get costTextY(){
-    return powerSize.y+powerSize.height*0.85
+    return this.y+this.height*0.85
   }
 }
 

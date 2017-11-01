@@ -106,13 +106,3 @@ export function checkCellStatus(x, y, selectedPower, state) {
     return S_FIRE_POWER;
   }
 }
-
-export function enhanceProp(powerProp,oldValue,enhancement) {
-    let newValue = oldValue+enhancement;
-    switch (powerProp) {
-      case "cost":
-        return (newValue > 0) ? newValue:0;
-      default:
-        return newValue;
-    }
-};

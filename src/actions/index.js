@@ -27,6 +27,7 @@ export const ENHANCEMENT = "ENHANCEMENT";
 export const BUILD = "BUILD";
 export const FIRE_MISSILE = "FIRE_MISSILE";
 export const FIRE_ROCKET = "FIRE_ROCKET";
+export const UPGRADE_BUILDING = "UPGRADE_BUILDING";
 
 /* Action creators */
 export function switchToWaitScreen() {
@@ -195,6 +196,15 @@ export function fireRocket(x, y, props) {
   return {
     type: FIRE_ROCKET,
     x: x,
-    y: y,    
+    y: y,
+  };
+}
+
+export function upgradeBuilding(x, y, upgrade) {
+  return {
+    type: UPGRADE_BUILDING,
+    x: x,
+    y: y,
+    upgrade: upgrade
   };
 }

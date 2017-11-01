@@ -65,7 +65,7 @@ const cardLibrairy = [
       }
   },
   {
-    powerName: "Roquette",
+    powerName: "Rocket",
     category: getCategory("MILITARY"),
     powerAction: actions.fireRocket,
     symbol: "missile",
@@ -110,6 +110,18 @@ const cardLibrairy = [
             cost: -1
           },
         }
+      }
+  },
+  {
+    powerName: "Shield",
+    category: getCategory("MILITARY"),
+    powerAction: actions.upgradeBuilding,
+    symbol: "build",
+    powerProps : {
+      cost: 2,
+      isTargetRequired : true,
+      persistent: 0,
+      build: "Shield"
       }
   }
 ];

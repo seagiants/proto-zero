@@ -5,11 +5,13 @@ import {
   BUILD,
   REFRESH_POWER_BOARD,
   FIRE_MISSILE,
-  FIRE_ROCKET
+  FIRE_ROCKET,
+  UPGRADE_BUILDING
 } from "../actions";
 import { getActivePower } from "../engine/powerLogic";
 import { getBuilding, generateBuilding } from "../libraries/buildingLib.js";
-import { getCellNeighboursWithSpecificBuilding } from "../engine/mapLogic.js"
+import { getCellNeighboursWithSpecificBuilding } from "../engine/mapLogic.js";
+import { enhanceProps } from "../engine";
 
 const showCell = (gameMap, x, y, radius) => {
   return gameMap.map(cell => {
@@ -45,6 +47,21 @@ const buildOnCell = (gameMap, x, y, building) => {
   });
 };
 
+const updateCellContentAfterFire = (content) =>{
+  if(
+    content !== undefined && content != null && content.buildingProps !== undefined && content.buildingProps !==null && content.buildingProps.shield > 0
+  )
+  {
+    return {
+      ...content, buildingProps:{
+        ...content.buildingProps, shield: content.buildingProps.shield - 1
+      }
+    };
+  }else{
+    return null;
+  }
+};
+
 const updateMapAfterFire = (gameMap, x, y) => {
   return gameMap.map(cell => {
     if (x !== cell.x) {
@@ -55,7 +72,7 @@ const updateMapAfterFire = (gameMap, x, y) => {
       } else {
         return {
           ...cell,
-          content: null
+          content: updateCellContentAfterFire(cell.content)
         };
       }
     }
@@ -83,7 +100,7 @@ const updateMapAfterRocketFire = (gameMap, x, y) => {
       if(stepCell !== null && stepCell !== undefined){
         //EndConditions based on mountain or building encounter
         keepGoing = stepCell.cellType !== "mountain" && (stepCell.content === undefined || stepCell.content === null);
-        stepCell.content = null;
+        stepCell.content = updateCellContentAfterFire(stepCell.content);
         stepCell.hidden = false;
         xStep+= xMove;
         yStep+= yMove;
@@ -94,6 +111,29 @@ const updateMapAfterRocketFire = (gameMap, x, y) => {
     }
   return newMap;
 };
+
+const upgradeBuildingOnCell = (gameMap,x,y,upgradeBuilding) => {
+  const upgrade = getBuilding(upgradeBuilding.build).buildingProps;
+  console.log(upgradeBuilding.build);
+  console.log(upgrade);
+  return gameMap.map(cell => {
+    if (x !== cell.x) {
+      return cell;
+    } else {
+      if (y !== cell.y) {
+        return cell;
+      } else {
+        return {
+          ...cell,
+          content: {
+            ...cell.content,
+            buildingProps: enhanceProps(cell.content.buildingProps,upgrade)
+          }
+        };
+      }
+    }
+  });
+}
 
 export const mapState = (state = { activePlayer: "playerOne" }, action) => {
   switch (action.type) {
@@ -114,6 +154,12 @@ export const mapState = (state = { activePlayer: "playerOne" }, action) => {
       return {
         ...state,
         gameMap: buildOnCell(state.gameMap, action.x, action.y, action.build),
+        selectedPower: null
+      };
+    case UPGRADE_BUILDING:
+      return {
+        ...state,
+        gameMap: upgradeBuildingOnCell(state.gameMap, action.x, action.y, action.upgrade),
         selectedPower: null
       };
     case POWER_SELECTION:

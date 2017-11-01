@@ -1,4 +1,9 @@
-import {isCellVisible, isOnSpecificType, isNeighboursSpecificType} from "../engine/mapLogic.js";
+import {
+        isCellVisible,
+        isOnSpecificType,
+        isNeighboursSpecificType,
+        hasSpecificBuilding
+      } from "../engine/mapLogic.js";
 
 
 //FIXME need entity mechanism. building = {buildingName,symbol,buildingConditions,buildingProps}
@@ -19,7 +24,17 @@ const buildingLibrairy = [
     checkConditions: (x, y, state) =>
       isCellVisible(x, y, state.mapState.gameMap) && isOnSpecificType(x,y,state.mapState.gameMap,"land") && isNeighboursSpecificType(x,y,state.mapState.gameMap,"cristal"),
     buildingProps: {
-      productivity: 1
+      productivity: 1,
+      shield: 0
+    }
+  },
+  {
+    buildingName: "Shield",
+    symbol: "S",
+    checkConditions: (x, y, state) =>
+      isCellVisible(x, y, state.mapState.gameMap) && hasSpecificBuilding(x,y,state.mapState.gameMap,"Nexus"),
+    buildingProps: {
+      shield: 1
     }
   }
 ];
