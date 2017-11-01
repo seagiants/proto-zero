@@ -4,10 +4,12 @@ import {
   STORE_MAP,
   BUILD,
   REFRESH_POWER_BOARD,
-  FIRE_MISSILE
+  FIRE_MISSILE,
+  FIRE_ROCKET
 } from "../actions";
 import { getActivePower } from "../engine/powerLogic";
 import { getBuilding, generateBuilding } from "../libraries/buildingLib.js";
+import { getCellNeighboursWithSpecificBuilding } from "../engine/mapLogic.js"
 
 const showCell = (gameMap, x, y, radius) => {
   return gameMap.map(cell => {
@@ -59,6 +61,50 @@ const updateMapAfterFire = (gameMap, x, y) => {
     }
   });
 };
+
+//To be continued.
+const updateMapAfterRocketFire = (gameMap, x, y) => {
+  const start = getCellNeighboursWithSpecificBuilding(x,y,gameMap, "Nexus")
+  const xMove = x - start.x;
+  const yMove = y - start.y;
+  let newMap = gameMap.slice(0);
+  let keepGoing = true;
+  let step = 1;
+  let stepCell = null;
+  if(y === start.y){
+      step = xMove;
+      while (keepGoing) {
+        console.log(step);
+        stepCell = newMap.filter(cell => (cell.x === start.x + step)&&(cell.y === start.y) )[0];
+        console.log(stepCell);
+        if(stepCell !== null && stepCell !== undefined){
+          step+= xMove;
+          keepGoing = stepCell.cellType !== "mountain" && (stepCell.content === undefined || stepCell.content === null);
+          stepCell.content = null;
+          stepCell.hidden = false;
+        }else {
+          keepGoing = false;
+        }
+      }
+    }else{
+      step = yMove;
+      while (keepGoing) {
+        console.log(step);
+        stepCell = newMap.filter(cell => (cell.y === start.y + step)&&(cell.x === start.x) )[0];
+        console.log(stepCell);
+        if(stepCell !== null && stepCell !== undefined){
+          step+= yMove;
+          keepGoing = stepCell.cellType !== "mountain" && (stepCell.content === undefined || stepCell.content === null);
+          stepCell.content = null;
+          stepCell.hidden = false;
+        }else {
+          keepGoing = false;
+        }
+      }
+    }
+  return newMap;
+};
+
 export const mapState = (state = { activePlayer: "playerOne" }, action) => {
   switch (action.type) {
     case STORE_MAP:
@@ -87,8 +133,15 @@ export const mapState = (state = { activePlayer: "playerOne" }, action) => {
     case FIRE_MISSILE:
       return {
         ...state,
-        gameMap: updateMapAfterFire(state.gameMap, action.x, action.y)
+        gameMap: updateMapAfterFire(state.gameMap, action.x, action.y),
+        selectedPower: null
       };
+    case FIRE_ROCKET:
+    return {
+      ...state,
+      gameMap: updateMapAfterRocketFire(state.gameMap,action.x,action.y),
+      selectedPower: null
+    };
     default:
       return state;
   }

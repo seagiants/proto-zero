@@ -1,7 +1,7 @@
 import random from "lodash.random";
 import * as actions from "../actions";
 import { getCategory } from "./powerLib.js"
-import { hasSpecificBuilding } from "../engine/mapLogic.js"
+import { hasSpecificBuilding, hasNeighboursSpecificBuilding } from "../engine/mapLogic.js"
 
 //FIXME need entity mechanism. Card = power + cost, same entity or not ?
 const cardLibrairy = [
@@ -57,7 +57,7 @@ const cardLibrairy = [
     category: getCategory("ECONOMY"),
     powerAction: actions.fireMissile,
     symbol: "missile",
-    checkConditions: (x,y,state) => hasSpecificBuilding(x,y,state,true),
+    checkConditions: (x,y,state) => hasSpecificBuilding(x,y,state.mapState.gameMap,true),
     powerProps : {
       cost: 2,
       isTargetRequired : true,
@@ -66,14 +66,14 @@ const cardLibrairy = [
   },
   {
     powerName: "Roquette",
-    category: getCategory("ECONOMY"),
+    category: getCategory("MILITARY"),
     powerAction: actions.fireRocket,
     symbol: "missile",
-    checkConditions : (x,y,state) => false,
+    checkConditions : (x,y,state) => hasNeighboursSpecificBuilding(x,y,state.mapState.gameMap,"Nexus"),
     powerProps : {
       cost: 2,
       isTargetRequired : true,
-      persistent: 0
+      persistent: Infinity
       }
   },
   {

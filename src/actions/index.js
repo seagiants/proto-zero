@@ -26,6 +26,7 @@ export const UPDATE_RESOURCE_COUNTER = "UPDATE_RESOURCE_COUNTER";
 export const ENHANCEMENT = "ENHANCEMENT";
 export const BUILD = "BUILD";
 export const FIRE_MISSILE = "FIRE_MISSILE";
+export const FIRE_ROCKET = "FIRE_ROCKET";
 
 /* Action creators */
 export function switchToWaitScreen() {
@@ -84,7 +85,8 @@ export function build(x, y, props) {
     type: BUILD,
     x: x,
     y: y,
-    build: props.build
+    build: props.build,
+    checkConditions : props.build.checkConditions
   };
 }
 
@@ -186,5 +188,13 @@ export function fireMissile(x, y, props) {
     type: FIRE_MISSILE,
     x: x,
     y: y
+  };
+}
+
+export function fireRocket(x, y, props) {
+  return {
+    type: FIRE_ROCKET,
+    x: x,
+    y: y,    
   };
 }
