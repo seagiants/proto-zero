@@ -1,7 +1,10 @@
-import { cardLibrairy } from "../libraries/cardLib.js";
+import { cardLibrairy, upgradedCardLibrairy } from "../libraries/cardLib.js";
 import random from "lodash.random";
 
-
+export const shuffleCards = (cards) => {
+  console.log(cards);
+  return cards.slice(0).sort((a,b)=>(0.5-random(1)))
+}
 export const drawCards = (size,deckState) => {
   let newDeckState = deckState.draw.length < size?reShuffleDiscard(deckState):deckState
   let draw = newDeckState.draw.slice(size);
@@ -27,6 +30,10 @@ export const drawCards = (size,deckState) => {
   export const randCard = () => cardLibrairy[random(cardLibrairy.length - 1)];
 
   export const getCard = (name) => cardLibrairy.filter((element) => (element.powerName === name) )[0];
+
+  export const getUpgradedCard = (name) => upgradedCardLibrairy.filter((element) => (element.powerName === name) )[0];
+
+  export const addUpgradedCardToDraw = (draw,upgradedCard) => shuffleCards(draw.concat([getUpgradedCard(upgradedCard)]));
 
   export const generateDeck = () => ({
     draw: cardLibrairy.map(card => generateCard(card)).sort((a,b)=>(0.5-random(1))),

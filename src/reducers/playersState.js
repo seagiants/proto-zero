@@ -1,4 +1,4 @@
-import { generateBoard, drawCards, generateDeck } from "../engine";
+import { generateBoard, drawCards, generateDeck, enhanceProps, addUpgradedCardToDraw } from "../engine";
 import {
   REFRESH_POWER_BOARD,
   DRAW,
@@ -7,9 +7,10 @@ import {
   TAP_POWER_CASE,
   POWER_SELECTION,
   UPDATE_RESOURCE_COUNTER,
-  ENHANCEMENT
+  ENHANCEMENT,
+  EVOLVE
 } from "../actions";
-import { enhanceProps } from "../engine"
+
 
 const initialState = {
   playerOne: {
@@ -233,7 +234,20 @@ export const playersState = (state = initialState, action) => {
           }
         }
       };
+    case EVOLVE:
+      return{
+        ...state,
+        [action.player]: {
+          ...state[action.player], playerBoard: {
+            ...state[action.player].playerBoard,
+          deckState: {
+              ...state[action.player].playerBoard.deckState,
+              draw:addUpgradedCardToDraw(state[action.player].playerBoard.deckState.draw,action.upgradedCard)
+            }
+          }
+        }
+      };
     default:
       return state;
-  }
+      }
 };

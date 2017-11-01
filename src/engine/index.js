@@ -4,7 +4,7 @@ import {
 } from "./playerBoard";
 import { drawCards,
 powerIndex,
-generateDeck } from "./deckLogic.js"
+generateDeck, addUpgradedCardToDraw } from "./deckLogic.js"
 
 
 export {
@@ -12,7 +12,7 @@ export {
   drawCards,
   powerIndex,
   generatePowerBoard,
-  generateDeck
+  generateDeck, addUpgradedCardToDraw
 };
 
 export function enhanceProp(powerProp,oldValue,enhancement) {

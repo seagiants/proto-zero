@@ -60,7 +60,8 @@ export const cardLibrairy = [
     powerProps : {
       cost: 2,
       isTargetRequired : true,
-      persistent: 0
+      persistent: 0,
+      evolution: "Missile 2"
       }
   },
   {
@@ -124,3 +125,18 @@ export const cardLibrairy = [
       }
   }
 ];
+
+export const upgradedCardLibrairy = [
+  {
+    powerName: "Missile 2",
+    category: getCategory("MILITARY"),
+    powerAction: actions.fireMissile,
+    symbol: "missile",
+    checkConditions: (x,y,state) => hasSpecificBuilding(x,y,state.mapState.gameMap,true),
+    powerProps : {
+      cost: 2,
+      isTargetRequired : true,
+      persistent: 1
+      }
+  }
+]

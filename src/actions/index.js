@@ -28,6 +28,7 @@ export const BUILD = "BUILD";
 export const FIRE_MISSILE = "FIRE_MISSILE";
 export const FIRE_ROCKET = "FIRE_ROCKET";
 export const UPGRADE_BUILDING = "UPGRADE_BUILDING";
+export const EVOLVE = "EVOLVE";
 
 /* Action creators */
 export function switchToWaitScreen() {
@@ -206,5 +207,13 @@ export function upgradeBuilding(x, y, upgrade) {
     x: x,
     y: y,
     upgrade: upgrade
+  };
+}
+
+export function evolve(player,upgradedCard){
+  return {
+    type: EVOLVE,
+    player: player,
+    upgradedCard: upgradedCard
   };
 }

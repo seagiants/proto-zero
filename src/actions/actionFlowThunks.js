@@ -3,9 +3,30 @@ import {
   powerSelection,
   tapPowerCase,
   updateResourceCounter,
-  refreshPowerBoard
+  refreshPowerBoard,
+  evolve
 } from "./index.js";
 import * as powerLogic from "../engine/powerLogic.js";
+
+
+export function flowAfterFirePower(activePower,player) {
+  return function(dispatch, getState) {
+    //Tap used powerCase
+    dispatch(
+      tapPowerCase(
+        player,
+        activePower.category.name,
+        activePower.powerProps.persistent
+      )
+    );
+    //Evolve if needed
+    if(activePower.powerProps.evolution !== null && activePower.powerProps.evolution !== undefined) {
+      dispatch(evolve(player,activePower.powerProps.evolution));
+    }
+    //Update resourceCounter
+    dispatch(updateResourceCounter(player, activePower.powerProps.cost));
+  }
+}
 
 export function clickOnPowerCase(player, powerCase) {
   return function(dispatch, getState) {
@@ -27,6 +48,8 @@ export function clickOnPowerCase(player, powerCase) {
         break;
       case powerLogic.S_FIRE_POWER:
         dispatch(activePower.powerAction(player, activePower.powerProps));
+        dispatch(flowAfterFirePower(activePower,player));
+        /*
         dispatch(
           tapPowerCase(
             player,
@@ -34,7 +57,11 @@ export function clickOnPowerCase(player, powerCase) {
             activePower.powerProps.persistent
           )
         );
+        if(activePower.powerProps.evolution !== null && activePower.powerProps.evolution !== undefined) {
+          dispatch(evolve(activePower.powerProps.evolution));
+        }
         dispatch(updateResourceCounter(player, activePower.powerProps.cost));
+        */
         break;
       default:
         dispatch(noAction(`Status ${powerCaseStatus} not implemented`));
@@ -76,14 +103,19 @@ export function clickOnCell(x, y, selectedPower) {
           )
         );
         const player = state.mapState.activePlayer;
-        dispatch(
+        dispatch(flowAfterFirePower(selectedPower,player));
+        /*dispatch(
           tapPowerCase(
             player,
             selectedPower.category.name,
             selectedPower.powerProps.persistent
           )
         );
+        if(activePower.powerProps.evolution !== null && activePower.powerProps.evolution !== undefined) {
+          dispatch(evolve(activePower.powerProps.evolution));
+        }
         dispatch(updateResourceCounter(player, selectedPower.powerProps.cost));
+        */
         break;
       default:
         dispatch(noAction(`Status ${cellStatus} not implemented`));
