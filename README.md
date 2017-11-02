@@ -1,5 +1,9 @@
 # Proto Zero
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/177473e691e2c390fe01/maintainability)](https://codeclimate.com/github/seagiants/proto-zero/maintainability)
+
+[![Test Coverage](https://api.codeclimate.com/v1/badges/177473e691e2c390fe01/test_coverage)](https://codeclimate.com/github/seagiants/proto-zero/test_coverage)
+
 ## Dev
 
 To get the code:
