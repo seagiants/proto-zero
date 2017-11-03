@@ -9,7 +9,7 @@ const Card = ({ card, index, player, click }) => {
   return (
     <svg width={2 * w} height={2 * h}>
       <text x="0" y="20" id="text4533">
-        {card.powerName} / {card.powerProps.cost}
+        {card.powerName} / {card.cost}
       </text>
       <rect
         x="20"

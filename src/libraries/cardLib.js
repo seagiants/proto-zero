@@ -9,9 +9,9 @@ export const cardLibrairy = [
     category: getCategory("EXPLORATION"),
     powerAction: actions.discoverCell,
     symbol: "vision",
+    isTargetRequired : true,
+    cost: 2,
     powerProps : {
-      cost: 2,
-      isTargetRequired : true,
       persistent: 0 ,
       radius: 1
       }
@@ -21,9 +21,9 @@ export const cardLibrairy = [
     category: getCategory("EXPLORATION"),
     powerAction: actions.discoverCell,
     symbol: "vision",
+    isTargetRequired : true,
+    cost: 7,
     powerProps : {
-      cost: 7,
-      isTargetRequired : true,
       persistent: 0
       }
   },
@@ -32,9 +32,9 @@ export const cardLibrairy = [
     category: getCategory("ECONOMY"),
     powerAction: actions.build,
     symbol: "build",
+    isTargetRequired : true,
+    cost: 2,
     powerProps : {
-      cost: 2,
-      isTargetRequired : true,
       persistent: 0 ,
       build: "Factory"
       }
@@ -44,9 +44,9 @@ export const cardLibrairy = [
     category: getCategory("ECONOMY"),
     powerAction: actions.build,
     symbol: "build",
+    isTargetRequired : true,
+    cost: 4,
     powerProps : {
-      cost: 4,
-      isTargetRequired : true,
       persistent: 0 ,
       build: "Nexus"
       }
@@ -57,9 +57,9 @@ export const cardLibrairy = [
     powerAction: actions.fireMissile,
     symbol: "missile",
     checkConditions: (x,y,state) => hasSpecificBuilding(x,y,state.mapState.gameMap,true),
+    isTargetRequired : true,
+    cost: 2,
     powerProps : {
-      cost: 2,
-      isTargetRequired : true,
       persistent: 0,
       evolution: "Missile 2"
       }
@@ -70,9 +70,9 @@ export const cardLibrairy = [
     powerAction: actions.fireRocket,
     symbol: "missile",
     checkConditions : (x,y,state) => hasNeighboursSpecificBuilding(x,y,state.mapState.gameMap,"Nexus"),
+    isTargetRequired : true,
+    cost: 2,
     powerProps : {
-      cost: 2,
-      isTargetRequired : true,
       persistent: Infinity
       }
   },
@@ -81,9 +81,9 @@ export const cardLibrairy = [
     category: getCategory("TECHNOLOGY"),
     powerAction: actions.enhancement,
     symbol: "enhancement",
+    isTargetRequired : false,
+    cost: 0,
     powerProps : {
-      cost: 0,
-      isTargetRequired : false,
       persistent: 0 ,
       enhancements : {
           "TECHNOLOGY" : {
@@ -101,9 +101,9 @@ export const cardLibrairy = [
     category: getCategory("TECHNOLOGY"),
     powerAction: actions.enhancement,
     symbol: "enhancement",
+    isTargetRequired : false,
+    cost: 0,
     powerProps : {
-      cost: 0,
-      isTargetRequired : false,
       persistent: 0 ,
       enhancements : {
           "TECHNOLOGY" : {
@@ -117,9 +117,9 @@ export const cardLibrairy = [
     category: getCategory("MILITARY"),
     powerAction: actions.upgradeBuilding,
     symbol: "build",
+    isTargetRequired : true,
+    cost: 2,
     powerProps : {
-      cost: 2,
-      isTargetRequired : true,
       persistent: 0,
       build: "Shield"
       }
@@ -133,9 +133,9 @@ export const upgradedCardLibrairy = [
     powerAction: actions.fireMissile,
     symbol: "missile",
     checkConditions: (x,y,state) => hasSpecificBuilding(x,y,state.mapState.gameMap,true),
+    isTargetRequired : true,
+    cost: 2,
     powerProps : {
-      cost: 2,
-      isTargetRequired : true,
       persistent: 1
       }
   }

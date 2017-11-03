@@ -3,7 +3,26 @@ import { connect } from "react-redux";
 import { clickOnPowerCase } from "../actions/actionFlowThunks.js";
 import { powerSize, symbolSize } from "../constants";
 import { getActivePower } from "../engine/powerLogic";
-import { costTriangle, symbols, powerRect} from "../svg";
+import { costTriangle, symbols, powerRect, propsSymbols} from "../svg";
+
+//FIXME need a cleaner Implementation
+const showPowerProps = (powerProps) => {
+  const props = Object.keys(powerProps);
+  return props.sort((a,b)=>a==="enhancement"?-Infinity:b==="enhancement"?Infinity:0).map((element,index)=>showProp(powerProps,element,index))
+  //console.log(props);
+};
+
+//FIXME need a cleaner Implementation
+const showProp = (powerProps,prop,index) => {
+  const symbol =propsSymbols[prop]!==undefined?
+      propsSymbols[prop](powerSize.width*0.2,powerSize.height*(0.45+index*0.15),0.03,powerProps[prop])
+      :null
+  return (
+      <g key={prop}>
+      {symbol}
+      </g>
+    )
+};
 
 const rectStyles = powerCase => {
   const activePower = getActivePower(powerCase);
@@ -39,35 +58,17 @@ const PowerCase = ({ powerCase, player, card, click }) => {
       {/*The background triangle of the cost display*/}
       {costTriangle(powerSize.x,powerSize.y,powerSize.width,powerSize.height)}
       {/*The cost value*/}
-      <text x={powerSize.costTextX} y={powerSize.costTextY}>{getActivePower(powerCase).powerProps.cost}</text>
+      <text x={powerSize.costTextX} y={powerSize.costTextY}>{getActivePower(powerCase).cost}</text>
       {/*The cost symbol*/}
       {symbols.cost(powerSize.x + powerSize.width*0.85,powerSize.y + powerSize.height*0.75,1,"white")}
-      {/**/}
-{/*
-  <rect
-         x={powerSize.x}
-         y={powerSize.y}
-         width={powerSize.width}
-         height={powerSize.height}
-         style={rectStyles(powerCase)} stroke="black"
-         />
-
-
-  <text
-        x="50%"
-        y="50%"
-        alignmentBaseline="middle"
-        textAnchor="middle"
-        style={textStyles(powerCase)}
-      >
-        {textTransform(powerText)}
-      </text>*/}
       {/*The head symbol*/}
       {symbols[activePower.symbol](symbolSize[activePower.symbol].x(powerSize),symbolSize[activePower.symbol].y(powerSize),symbolSize[activePower.symbol].scale(powerSize),"black")}
-
+      {/*Tests*/}
+      {/*powerRect({...powerSize,x:powerSize.height*1.4,y:powerSize.width*4.5},{fill:"blue"},0.15)*/}
+      {showPowerProps(activePower.powerProps)}
       {/*The shadow clickable background*/}
       <rect onClick={e => clickWrapper(e, powerCase, player, click)} x={powerSize.x} y={powerSize.y} width={powerSize.width} height={powerSize.height}
-           stroke="#fff" fill="#fff" fillOpacity="0" strokeOpacity="0"/>
+           stroke="#fff" fill="#fff" fillOpacity="0" strokeOpacity="0" cursor="pointer"/>
     </svg>
   );
 };

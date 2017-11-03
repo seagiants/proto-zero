@@ -30,7 +30,7 @@ export function checkPowerWithTargetConditions(x, y, power, state) {
 }
 export function isPowerCostAffordable(power, state) {
   return (
-    power.powerProps.cost <
+    power.cost <
     state.playersState[state.mapState.activePlayer].playerBoard
       .resourceCounter +
       1
@@ -76,7 +76,7 @@ export function getProductivity(player, state) {
 }
 
 const isTapped = powerCase => powerCase.isTapped;
-const isTargetRequired = power => power.powerProps.isTargetRequired;
+const isTargetRequired = power => power.isTargetRequired;
 
 export function checkPowerCaseStatus(player, powerCase, state) {
   const activePower = getActivePower(powerCase);

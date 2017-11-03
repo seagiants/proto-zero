@@ -1,4 +1,4 @@
-import { generateBoard, drawCards, generateDeck, enhanceProps, addUpgradedCardToDraw } from "../engine";
+import { generateBoard, drawCards, enhanceProps, addUpgradedCardToDraw } from "../engine";
 import {
   REFRESH_POWER_BOARD,
   DRAW,

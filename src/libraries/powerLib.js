@@ -51,10 +51,10 @@ const defaultPowerLibrairy = [
     category : getCategory("EXPLORATION"),
     powerAction : actions.discoverCell,
     symbol: "vision",
+    isTargetRequired : true,
+    cost : 0,
     powerProps : {
-      cost : 0,
-      isTargetRequired : true,
-      persistent : true,
+      persistent : Infinity,
       radius : 0
     }
   },
@@ -63,10 +63,10 @@ const defaultPowerLibrairy = [
     category : getCategory("TECHNOLOGY"),
     powerAction : actions.draw,
     symbol: "draw",
+    isTargetRequired : false,
+    cost : 0,
     powerProps : {
-      cost : 0,
-      isTargetRequired : false,
-      persistent : true
+      persistent : Infinity
       }
     },
   {
@@ -74,10 +74,10 @@ const defaultPowerLibrairy = [
     category : getCategory("ECONOMY"),
     powerAction : actions.produce,
     symbol: "cost",
+    isTargetRequired : false,
+    cost : 0,
     powerProps : {
-      cost : 0,
-      isTargetRequired : false,
-      persistent : true,
+      persistent : Infinity,
       quantity : 1
     }
   },
@@ -86,10 +86,10 @@ const defaultPowerLibrairy = [
     category : getCategory("MILITARY"),
     powerAction : actions.noAction,
     symbol: "missile",
+    isTargetRequired : false,
+    cost : 0,
     powerProps : {
-      cost : 0,
-      isTargetRequired : false,
-      persistent : true
+      persistent : Infinity
       }
     }
 ];

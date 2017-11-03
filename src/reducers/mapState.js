@@ -93,9 +93,10 @@ const updateMapAfterRocketFire = (gameMap, x, y) => {
   let xStep = xMove;
   let yStep = yMove;
   let stepCell = null;
+  let filterKey = cell => (cell.x === start.x + xStep)&&(cell.y === start.y + yStep);
     while (keepGoing) {
       //current cell
-      stepCell = newMap.filter(cell => (cell.x === start.x + xStep)&&(cell.y === start.y + yStep))[0];
+      stepCell = newMap.filter(filterKey)[0];
       //check if any cell is matched, if not end, 'cause rocket went off map
       if(stepCell !== null && stepCell !== undefined){
         //EndConditions based on mountain or building encounter

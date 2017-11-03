@@ -24,7 +24,7 @@ export function flowAfterFirePower(activePower,player) {
       dispatch(evolve(player,activePower.powerProps.evolution));
     }
     //Update resourceCounter
-    dispatch(updateResourceCounter(player, activePower.powerProps.cost));
+    dispatch(updateResourceCounter(player, activePower.cost));
   }
 }
 
