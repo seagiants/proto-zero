@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import EndTurnButton from "./EndTurnButton";
 import WhoseTurnIsIt from "./WhoseTurnIsIt";
 
@@ -6,14 +7,19 @@ const styles = {
   alignSelf: "center"
 };
 
-const TurnInfo = (props) => {
-  const player = props.player;
+const TurnInfo = ({player, turn}) => {
   return(
     <div style={styles}>
-      <WhoseTurnIsIt who="your" />
+      <WhoseTurnIsIt who={turn} />
       <EndTurnButton player={player} />
     </div>
   )
 };
 
-export default TurnInfo;
+const mapStateToProps = state => {
+  return {
+    turn: state.gameState.turn
+  }
+}
+
+export default connect(mapStateToProps)(TurnInfo);

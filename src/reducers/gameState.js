@@ -1,12 +1,12 @@
 import { GAME_CREATED } from "../actions";
-import {STORE_WEBSOCKET} from "../actions/serverThunks";
+import { STORE_WEBSOCKET } from "../actions/serverThunks";
 
 export const gameState = (state = {}, action) => {
   switch (action.type) {
     case GAME_CREATED:
-      return { ...state, gameId: action.game.id };
+      return { ...state, gameId: action.game.id, turn: action.game.turn };
     case STORE_WEBSOCKET:
-      return {...state, socket: action.socket};
+      return { ...state, socket: action.socket };
     default:
       return state;
   }
