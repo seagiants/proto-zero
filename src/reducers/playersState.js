@@ -1,4 +1,9 @@
-import { generateBoard, drawCards, enhanceProps, addUpgradedCardToDraw } from "../engine";
+import {
+  generateBoard,
+  drawCards,
+  enhanceProps,
+  addUpgradedCardToDraw
+} from "../engine";
 import {
   REFRESH_POWER_BOARD,
   DRAW,
@@ -8,15 +13,17 @@ import {
   POWER_SELECTION,
   UPDATE_RESOURCE_COUNTER,
   ENHANCEMENT,
-  EVOLVE
+  EVOLVE,
+  SETTING_AS_FIRST_PLAYER,
+  SETTING_AS_SECOND_PLAYER
 } from "../actions";
-
 
 const initialState = {
   playerOne: {
     name: "Bibi",
     playerBoard: generateBoard()
   },
+  // FIXME delete player Two infos
   playerTwo: {
     name: "BustedKeaton",
     playerBoard: generateBoard()
@@ -55,12 +62,18 @@ const selectingPowerCaseFromPowerBoard = (
   });
 };
 
-const refreshCardStatus = (card) => {
-    if  (card.powerProps.persistent > 0) {
-        return {...card, powerProps: {...card.powerProps, persistent: card.powerProps.persistent - 1}}
-      }else{
-        return null;
-    }
+const refreshCardStatus = card => {
+  if (card.powerProps.persistent > 0) {
+    return {
+      ...card,
+      powerProps: {
+        ...card.powerProps,
+        persistent: card.powerProps.persistent - 1
+      }
+    };
+  } else {
+    return null;
+  }
 };
 
 //FIXME Mixing Tapping Case and Discarding non-peristent Card
@@ -77,7 +90,8 @@ const togglingPowerCaseFromPowerBoard = (
         ...powerCase,
         isTapped: newStatus,
         isSelected: false,
-        card: card === null || card === undefined ? null:refreshCardStatus(card)
+        card:
+          card === null || card === undefined ? null : refreshCardStatus(card)
       };
     } else {
       return { ...powerCase, isSelected: false };
@@ -91,19 +105,10 @@ const enhancePowerBoard = (powerBoard, enhancements) => {
       enhancements[powerCase.categoryName] !== null &&
       enhancements[powerCase.categoryName] !== undefined
     ) {
-    //  var thisEnhancement = enhancements[powerCase.categoryName];
-      //Generic adding method on each property based on paired-names
-  /*    let enhancedPowerCase = Object.assign(
-        {},
-        ...Object.keys(powerCase.defaultPower.powerProps).map(prop => ({
-          [prop]:
-              thisEnhancement[prop] !== undefined
-                ? enhanceProp(prop,powerCase.defaultPower.powerProps[prop],thisEnhancement[prop])
-                : powerCase.defaultPower.powerProps[prop]
-        }))
+      let enhancedPowerCaseProps = enhanceProps(
+        powerCase.defaultPower.powerProps,
+        enhancements[powerCase.categoryName]
       );
-      */
-      let enhancedPowerCaseProps = enhanceProps(powerCase.defaultPower.powerProps,enhancements[powerCase.categoryName])
       return {
         ...powerCase,
         defaultPower: {
@@ -116,8 +121,6 @@ const enhancePowerBoard = (powerBoard, enhancements) => {
     }
   });
 };
-
-
 
 export const playersState = (state = initialState, action) => {
   switch (action.type) {
@@ -140,7 +143,13 @@ export const playersState = (state = initialState, action) => {
           playerBoard: {
             ...state[action.player].playerBoard,
             deckState: {
-              ...state[action.player].playerBoard.deckState, toPick:[], discard:state[action.player].playerBoard.deckState.discard.concat(state[action.player].playerBoard.deckState.toPick)
+              ...state[action.player].playerBoard.deckState,
+              toPick: [],
+              discard: state[
+                action.player
+              ].playerBoard.deckState.discard.concat(
+                state[action.player].playerBoard.deckState.toPick
+              )
             },
             powerBoard: addingCardToPowerBoard(
               state[action.player].playerBoard.powerBoard,
@@ -235,19 +244,27 @@ export const playersState = (state = initialState, action) => {
         }
       };
     case EVOLVE:
-      return{
+      return {
         ...state,
         [action.player]: {
-          ...state[action.player], playerBoard: {
+          ...state[action.player],
+          playerBoard: {
             ...state[action.player].playerBoard,
-          deckState: {
+            deckState: {
               ...state[action.player].playerBoard.deckState,
-              draw:addUpgradedCardToDraw(state[action.player].playerBoard.deckState.draw,action.upgradedCard)
+              draw: addUpgradedCardToDraw(
+                state[action.player].playerBoard.deckState.draw,
+                action.upgradedCard
+              )
             }
           }
         }
       };
+    case SETTING_AS_FIRST_PLAYER:
+      return { ...state, playerNum: "playerOne" };
+    case SETTING_AS_SECOND_PLAYER:
+      return { ...state, playerNum: "playerTwo" };
     default:
       return state;
-      }
+  }
 };

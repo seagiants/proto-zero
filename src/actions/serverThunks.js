@@ -5,7 +5,9 @@ import {
   storeMap,
   errorCreatingGame,
   storeGamesList,
-  errorFetchingGamesList
+  errorFetchingGamesList,
+  settingAsFirstPlayer,
+  settingAsSecondPlayer
 } from "./index.js";
 
 /* Utils */
@@ -38,6 +40,7 @@ export function errorCreatingWebSocket(error) {
   return { type: ERROR_CREATING_WEBSOCKET, error: error };
 }
 
+
 /* Thunks */
 export function askForGameCreation(playerName) {
   return function(dispatch) {
@@ -47,6 +50,7 @@ export function askForGameCreation(playerName) {
       })
       .then(game => {
         dispatch(gameCreated(game));
+        dispatch(settingAsFirstPlayer());
         dispatch(switchToWaitScreen()); // can switch to game screen for dev if needed
         dispatch(
           storeMap(
@@ -88,13 +92,13 @@ export function registerWebSocket(gameId, playerId) {
 
 export function joinGame(url, gameId) {
   return function(dispatch) {
-    console.log("join game at url", url);
     fetch(url)
       .then(response => {
         return response.json();
       })
       .then(game => {
         dispatch(gameCreated(game));
+        dispatch(settingAsSecondPlayer());
         dispatch(
           storeMap(
             game.gameMap._map,

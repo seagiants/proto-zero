@@ -29,6 +29,8 @@ export const FIRE_MISSILE = "FIRE_MISSILE";
 export const FIRE_ROCKET = "FIRE_ROCKET";
 export const UPGRADE_BUILDING = "UPGRADE_BUILDING";
 export const EVOLVE = "EVOLVE";
+export const SETTING_AS_FIRST_PLAYER = "SETTING_AS_FIRST_PLAYER";
+export const SETTING_AS_SECOND_PLAYER = "SETTING_AS_SECOND_PLAYER";
 
 /* Action creators */
 export function switchToWaitScreen() {
@@ -216,4 +218,12 @@ export function evolve(player,upgradedCard){
     player: player,
     upgradedCard: upgradedCard
   };
+}
+
+export function settingAsFirstPlayer() {
+  return { type: SETTING_AS_FIRST_PLAYER };
+}
+
+export function settingAsSecondPlayer() {
+  return { type: SETTING_AS_SECOND_PLAYER };
 }
