@@ -72,6 +72,9 @@ export function clickOnPowerCase(player, powerCase) {
 //FIXME Need a real actionFlow logic to avoid redundancy
 export function clickOnEndTurn(player) {
   return function(dispatch, getState) {
+    const state = getState();
+    const serverAction = { type: "END_TURN", data: {some: "DATA"}};
+    state.gameState.socket.send(JSON.stringify(serverAction));
     dispatch(refreshPowerBoard(player));
     dispatch(
       updateResourceCounter(
