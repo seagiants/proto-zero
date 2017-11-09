@@ -31,6 +31,8 @@ export const UPGRADE_BUILDING = "UPGRADE_BUILDING";
 export const EVOLVE = "EVOLVE";
 export const SETTING_AS_FIRST_PLAYER = "SETTING_AS_FIRST_PLAYER";
 export const SETTING_AS_SECOND_PLAYER = "SETTING_AS_SECOND_PLAYER";
+// ----- SERVER ACTIONS
+export const CHANGE_PLAYER_TURN = "CHANGE_PLAYER_TURN";
 
 /* Action creators */
 export function switchToWaitScreen() {
@@ -226,4 +228,8 @@ export function settingAsFirstPlayer() {
 
 export function settingAsSecondPlayer() {
   return { type: SETTING_AS_SECOND_PLAYER };
+}
+
+export function changePlayerTurn() {
+  return { type: CHANGE_PLAYER_TURN };
 }

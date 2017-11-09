@@ -4,12 +4,12 @@ import {
   tapPowerCase,
   updateResourceCounter,
   refreshPowerBoard,
-  evolve
+  evolve,
+  changePlayerTurn
 } from "./index.js";
 import * as powerLogic from "../engine/powerLogic.js";
 
-
-export function flowAfterFirePower(activePower,player) {
+export function flowAfterFirePower(activePower, player) {
   return function(dispatch, getState) {
     //Tap used powerCase
     dispatch(
@@ -20,12 +20,15 @@ export function flowAfterFirePower(activePower,player) {
       )
     );
     //Evolve if needed
-    if(activePower.powerProps.evolution !== null && activePower.powerProps.evolution !== undefined) {
-      dispatch(evolve(player,activePower.powerProps.evolution));
+    if (
+      activePower.powerProps.evolution !== null &&
+      activePower.powerProps.evolution !== undefined
+    ) {
+      dispatch(evolve(player, activePower.powerProps.evolution));
     }
     //Update resourceCounter
     dispatch(updateResourceCounter(player, activePower.cost));
-  }
+  };
 }
 
 export function clickOnPowerCase(player, powerCase) {
@@ -48,7 +51,7 @@ export function clickOnPowerCase(player, powerCase) {
         break;
       case powerLogic.S_FIRE_POWER:
         dispatch(activePower.powerAction(player, activePower.powerProps));
-        dispatch(flowAfterFirePower(activePower,player));
+        dispatch(flowAfterFirePower(activePower, player));
         /*
         dispatch(
           tapPowerCase(
@@ -73,9 +76,10 @@ export function clickOnPowerCase(player, powerCase) {
 export function clickOnEndTurn(player) {
   return function(dispatch, getState) {
     const state = getState();
-    const serverAction = { type: "END_TURN", data: {some: "DATA"}};
+    const serverAction = { type: "END_TURN", data: { some: "DATA" } };
     state.gameState.socket.send(JSON.stringify(serverAction));
     dispatch(refreshPowerBoard(player));
+    dispatch(changePlayerTurn());
     dispatch(
       updateResourceCounter(
         player,
@@ -106,7 +110,7 @@ export function clickOnCell(x, y, selectedPower) {
           )
         );
         const player = state.mapState.activePlayer;
-        dispatch(flowAfterFirePower(selectedPower,player));
+        dispatch(flowAfterFirePower(selectedPower, player));
         /*dispatch(
           tapPowerCase(
             player,
