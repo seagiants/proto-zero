@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import HomeScreen from "./components/HomeScreen";
 import WaitScreen from "./components/WaitScreen";
 import GameScreen from "./components/GameScreen";
+import Header from "./components/Header";
 
 const getActiveScreenComponent = activeScreen => {
   switch (activeScreen) {
@@ -18,7 +19,10 @@ const getActiveScreenComponent = activeScreen => {
 };
 
 const App = ({ activeScreen }) => (
-  <div>{getActiveScreenComponent(activeScreen)}</div>
+  <div>
+    <Header />
+    {getActiveScreenComponent(activeScreen)}
+  </div>
 );
 
 const mapStateToProps = (state, ownProps) => {

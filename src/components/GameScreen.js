@@ -5,7 +5,8 @@ import TurnInfo from "./TurnInfo";
 
 const styles = {
   display: "flex",
-  flexDirection: "column"
+  flexDirection: "row",
+  justifyContent: "space-around"
 };
 
 const GameScreen = () => (

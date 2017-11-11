@@ -10,7 +10,7 @@ const styles = {
 const TurnInfo = ({player, turn}) => {
   return(
     <div style={styles}>
-      <WhoseTurnIsIt who={turn} />
+      <WhoseTurnIsIt who={turn} player={player}/>
       <EndTurnButton player={player} />
     </div>
   )

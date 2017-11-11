@@ -4,12 +4,12 @@ import uniqueId from "lodash.uniqueid";
 import { connect } from "react-redux";
 
 const styles = {
-  alignSelf: "center"
+  alignSelf: "center",
+  flexDirection: "column"
 };
 
 const PowerBoard = ({ player, name, powerCases }) => (
   <div style={styles}>
-    <div>
       {powerCases.map((powerCase, index) => (
         <PowerCase
           key={uniqueId(powerCase.name)}
@@ -17,7 +17,6 @@ const PowerBoard = ({ player, name, powerCases }) => (
           player={player}
         />
       ))}
-    </div>
   </div>
 );
 
