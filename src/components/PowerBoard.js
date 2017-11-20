@@ -2,6 +2,7 @@ import React from "react";
 import PowerCase from "./PowerCase";
 import uniqueId from "lodash.uniqueid";
 import { connect } from "react-redux";
+import { getActivePower } from "../engine/powerLogic";
 
 const styles = {
   alignSelf: "center",
@@ -10,13 +11,16 @@ const styles = {
 
 const PowerBoard = ({ player, name, powerCases }) => (
   <div style={styles}>
-      {powerCases.map((powerCase, index) => (
+    {powerCases.map(powerCase => {
+      return (
         <PowerCase
           key={uniqueId(powerCase.name)}
           powerCase={powerCase}
+          activePower={getActivePower(powerCase)}
           player={player}
         />
-      ))}
+      );
+    })}
   </div>
 );
 

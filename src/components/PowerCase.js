@@ -50,8 +50,9 @@ const clickWrapper = (e, powerCase, player, click) => {
 };
 
 // FIXME - activePower should be a prop of the component (useless multiple calls in the comp&action)
-const PowerCase = ({ powerCase, player, card, click }) => {
-  const activePower = getActivePower(powerCase);
+const PowerCase = ({ powerCase, activePower, player, card, click }) => {
+  // TODO using the activePower props instead of a repeated function call
+  //const activePower = getActivePower(powerCase);
   return (
     <div>
       <svg
@@ -69,7 +70,7 @@ const PowerCase = ({ powerCase, player, card, click }) => {
         )}
         {/*The cost value*/}
         <text x={powerSize.costTextX} y={powerSize.costTextY}>
-          {getActivePower(powerCase).cost}
+          {activePower.cost}
         </text>
         {/*The cost symbol*/}
         {symbols.cost(

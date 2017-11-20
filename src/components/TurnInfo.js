@@ -7,10 +7,10 @@ const styles = {
   alignSelf: "center"
 };
 
-const TurnInfo = ({player, turn}) => {
+const TurnInfo = ({player, turn, currentPlayerNum}) => {
   return(
     <div style={styles}>
-      <WhoseTurnIsIt who={turn} player={player}/>
+      <WhoseTurnIsIt whose={turn} player={currentPlayerNum}/>
       <EndTurnButton player={player} />
     </div>
   )
@@ -18,7 +18,8 @@ const TurnInfo = ({player, turn}) => {
 
 const mapStateToProps = state => {
   return {
-    turn: state.gameState.turn
+    turn: state.gameState.turn,
+    currentPlayerNum: state.playersState.playerNum
   }
 }
 

@@ -8,11 +8,14 @@ const getCellContent = (type, w, h) => {
   if (type.content !== null && type.content !== undefined) {
     const xSymb = type.x * w + w * 0.3;
     const ySymb = type.y * h + h * 0.8;
-    const xSh = type.x*w + w/2;
-    const ySh = type.y * h + h/2;
-    const shield = (type.content.buildingProps !== null && type.content.buildingProps !== undefined && type.content.buildingProps.shield > 0)?
-                    cellShield(xSh,ySh,type.content.buildingProps.shield):
-                    null
+    const xSh = type.x * w + w / 2;
+    const ySh = type.y * h + h / 2;
+    const shield =
+      type.content.buildingProps !== null &&
+      type.content.buildingProps !== undefined &&
+      type.content.buildingProps.shield > 0
+        ? cellShield(xSh, ySh, type.content.buildingProps.shield)
+        : null;
     return (
       <g>
         {shield}
@@ -28,10 +31,6 @@ const getCellContent = (type, w, h) => {
 
 const renderCell = (type, click, selectedPower) => {
   //First render Cell+content instead of Cell or Content.
-  /*if (type.visibleBuilding !== null && type.visibleBuilding !== undefined) {
-    return type.visibleBuilding.renderBuilding();
-  } else {
-    */
   const h = cellSize.height;
   const w = cellSize.width;
   return (

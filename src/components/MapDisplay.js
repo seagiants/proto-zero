@@ -8,8 +8,6 @@ const styles = {
   alignSelf: "center"
 };
 
-// FIXME the width and height of the SVG should come not from the obsolete constants
-// FIXME but from the gameMap object itself
 const MapDisplay = ({ gameMap, mapWidth, mapHeight }) => (
   <div style={styles}>
     <svg width={mapWidth * cellSize.width} height={mapHeight * cellSize.height}>
