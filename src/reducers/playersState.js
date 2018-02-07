@@ -30,6 +30,7 @@ const initialState = {
   }
 };
 
+// FIXME moved to powerState, to be deleted
 const addingCardToPowerBoard = (powerBoard, card) => {
   return powerBoard.map(powerCase => {
     if (powerCase.categoryName !== card.category.name) {
@@ -48,6 +49,7 @@ const refreshingPowerCases = powerBoard => {
   });
 };
 
+// FIXME moved to powerState, to be deleted
 const selectingPowerCaseFromPowerBoard = (
   powerBoard,
   categoryName,

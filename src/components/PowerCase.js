@@ -110,11 +110,15 @@ const PowerCase = ({ powerCase, activePower, player, card, click }) => {
 const mapStateToProps = (state, ownProps) => {
   const player = ownProps.player;
   const index = ownProps.powerCase.defaultPower.category.index;
+  // FIXME refactoring, using simpler reducers
+  // FIXME this one use the old reducer
   const powerCase = state.playersState[player].playerBoard.powerBoard[index];
+  // FIXME this other one is using the new reducer
+  const powerCase_ = state.powerState.board[index];
   return {
-    card: powerCase.card,
-    isTapped: powerCase.isTapped,
-    isSelected: powerCase.isSelected
+    card: powerCase_.card,
+    isTapped: powerCase_.isTapped,
+    isSelected: powerCase_.isSelected
   };
 };
 
