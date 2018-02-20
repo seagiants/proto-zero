@@ -16,14 +16,10 @@ const PlayerBoard = ({ player, name, board, deck }) => (
       <PowerBoard
         key={uniqueId(board.powerBoard)}
         player={player}
-        name="PowerBoard"
-        powers={board.powerBoard}
       />
       <DrawBoard
         key={uniqueId(board.deckState)}
         player={player}
-        name="DrawBoard"
-        cards={deck.toPick}
       />
       <ResourceCounter player={player} />
     </div>
@@ -33,7 +29,6 @@ const PlayerBoard = ({ player, name, board, deck }) => (
 const mapStateToProps = (state, ownProps) => {
   const player = ownProps.player;
   return {
-    //board: state.playersState[player].playerBoard
     board: state.powerState.board,
     deck: state.playersState[player].playerBoard.deckState
   };

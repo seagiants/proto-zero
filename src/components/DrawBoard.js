@@ -9,27 +9,27 @@ const styles = {
   alignSelf: "center"
 };
 
-function refillDrawBoard(cards,player){
-  if(cards == null){
-    return(<svg width={2*w} height={3*h} />);
-  }else{
-    return(cards.map((card, index) => (
+function refillDrawBoard(cards, player) {
+  if (cards == null) {
+    return <svg width={2 * w} height={3 * h} />;
+  } else {
+    return cards.map((card, index) => (
       <Card
         key={uniqueId(card.name)}
         card={card}
         index={index}
         player={player}
-        />
-      )))}
-};
+      />
+    ));
+  }
+}
+
 const DrawBoard = ({ player, name, cards }) => {
- return(
-  <div style={styles}>
-    <div>
-        {refillDrawBoard(cards,player)}
+  return (
+    <div style={styles}>
+      <div>{refillDrawBoard(cards, player)}</div>
     </div>
-  </div>
-);
+  );
 };
 
 const mapStateToProps = (state, ownProps) => {
