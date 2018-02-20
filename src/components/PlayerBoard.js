@@ -10,7 +10,7 @@ const styles = {
   flexDirection: "column"
 };
 
-const PlayerBoard = ({ player, name, board }) => (
+const PlayerBoard = ({ player, name, board, deck }) => (
   <div style={styles}>
     <div>
       <PowerBoard
@@ -23,7 +23,7 @@ const PlayerBoard = ({ player, name, board }) => (
         key={uniqueId(board.deckState)}
         player={player}
         name="DrawBoard"
-        cards={board.deckState.toPick}
+        cards={deck.toPick}
       />
       <ResourceCounter player={player} />
     </div>
@@ -33,7 +33,9 @@ const PlayerBoard = ({ player, name, board }) => (
 const mapStateToProps = (state, ownProps) => {
   const player = ownProps.player;
   return {
-    board: state.playersState[player].playerBoard
+    //board: state.playersState[player].playerBoard
+    board: state.powerState.board,
+    deck: state.playersState[player].playerBoard.deckState
   };
 };
 
