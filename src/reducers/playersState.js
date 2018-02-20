@@ -245,7 +245,9 @@ export const playersState = (state = initialState, action) => {
           }
         }
       };
+
     case EVOLVE:
+    // TODO put in deckState
       return {
         ...state,
         [action.player]: {

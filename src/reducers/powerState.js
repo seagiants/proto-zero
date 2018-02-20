@@ -1,5 +1,5 @@
 /* Reducers holding $powers$ state */
-import { generateBoard } from "../engine";
+import { generateBoard, enhanceProps } from "../engine";
 import {
   SELECTED_CARD,
   POWER_SELECTION,
@@ -77,6 +77,29 @@ const refreshingPowerCases = powerBoard => {
   });
 };
 
+const enhancePowerBoard = (powerBoard, enhancements) => {
+  return powerBoard.map(powerCase => {
+    if (
+      enhancements[powerCase.categoryName] !== null &&
+      enhancements[powerCase.categoryName] !== undefined
+    ) {
+      let enhancedPowerCaseProps = enhanceProps(
+        powerCase.defaultPower.powerProps,
+        enhancements[powerCase.categoryName]
+      );
+      return {
+        ...powerCase,
+        defaultPower: {
+          ...powerCase.defaultPower,
+          powerProps: enhancedPowerCaseProps
+        }
+      };
+    } else {
+      return { ...powerCase };
+    }
+  });
+};
+
 const initialState = {
   board: generateBoard().powerBoard // FIXME isolate the power board creation ?
 };
@@ -113,7 +136,10 @@ export const powerState = (state = initialState, action) => {
         )
       };
     case ENHANCEMENT:
-    // TODO
+      return {
+        ...state,
+        board: enhancePowerBoard(state.board, action.powerProps.enhancements)
+      };
     default:
       return state;
   }
