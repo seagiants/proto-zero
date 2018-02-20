@@ -28,7 +28,7 @@ const mapStateToProps = (state, ownProps) => {
   const player = ownProps.player;
   return {
     name: state.playersState[player].name,
-    powerCases: state.playersState[player].playerBoard.powerBoard
+    powerCases: state.powerState.board
   };
 };
 

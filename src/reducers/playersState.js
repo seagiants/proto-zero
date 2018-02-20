@@ -137,29 +137,7 @@ export const playersState = (state = initialState, action) => {
           }
         }
       };
-    case SELECTED_CARD:
-      return {
-        ...state,
-        [action.player]: {
-          ...state[action.player],
-          playerBoard: {
-            ...state[action.player].playerBoard,
-            deckState: {
-              ...state[action.player].playerBoard.deckState,
-              toPick: [],
-              discard: state[
-                action.player
-              ].playerBoard.deckState.discard.concat(
-                state[action.player].playerBoard.deckState.toPick
-              )
-            },
-            powerBoard: addingCardToPowerBoard(
-              state[action.player].playerBoard.powerBoard,
-              action.card
-            )
-          }
-        }
-      };
+    
     case PRODUCE:
       let newResourceCounter =
         state[action.player].playerBoard.resourceCounter +
