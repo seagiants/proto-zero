@@ -8,6 +8,7 @@ import {
   ENHANCEMENT
 } from "../actions";
 
+// ----- State handling functions
 const addingCardToPowerBoard = (powerBoard, card) => {
   return powerBoard.map(powerCase => {
     if (powerCase.categoryName !== card.category.name) {
@@ -70,11 +71,17 @@ const togglingPowerCaseFromPowerBoard = (
   });
 };
 
+const refreshingPowerCases = powerBoard => {
+  return powerBoard.map(powerCase => {
+    return { ...powerCase, isTapped: false, isSelected: false };
+  });
+};
+
 const initialState = {
   board: generateBoard().powerBoard // FIXME isolate the power board creation ?
 };
 
-/* STATE */
+// ----- State
 export const powerState = (state = initialState, action) => {
   switch (action.type) {
     case SELECTED_CARD:
@@ -91,7 +98,10 @@ export const powerState = (state = initialState, action) => {
         )
       };
     case REFRESH_POWER_BOARD:
-      // TODO
+      return {
+        ...state,
+        board: refreshingPowerCases(state.board)
+      };
     case TAP_POWER_CASE:
       return {
         ...state,
@@ -103,7 +113,7 @@ export const powerState = (state = initialState, action) => {
         )
       };
     case ENHANCEMENT:
-      // TODO
+    // TODO
     default:
       return state;
   }
