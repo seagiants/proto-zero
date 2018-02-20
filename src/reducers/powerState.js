@@ -34,9 +34,45 @@ const selectingPowerCaseFromPowerBoard = (
   });
 };
 
+const refreshCardStatus = card => {
+  if (card.powerProps.persistent > 0) {
+    return {
+      ...card,
+      powerProps: {
+        ...card.powerProps,
+        persistent: card.powerProps.persistent - 1
+      }
+    };
+  } else {
+    return null;
+  }
+};
+
+const togglingPowerCaseFromPowerBoard = (
+  powerBoard,
+  categoryName,
+  newStatus = true,
+  persistent = Infinity
+) => {
+  return powerBoard.map(powerCase => {
+    if (powerCase.categoryName === categoryName) {
+      let card = powerCase.card;
+      return {
+        ...powerCase,
+        isTapped: newStatus,
+        isSelected: false,
+        card:
+          card === null || card === undefined ? null : refreshCardStatus(card)
+      };
+    } else {
+      return { ...powerCase, isSelected: false };
+    }
+  });
+};
+
 const initialState = {
   board: generateBoard().powerBoard // FIXME isolate the power board creation ?
-}
+};
 
 /* STATE */
 export const powerState = (state = initialState, action) => {
@@ -55,11 +91,19 @@ export const powerState = (state = initialState, action) => {
         )
       };
     case REFRESH_POWER_BOARD:
-    // TODO
+      // TODO
     case TAP_POWER_CASE:
-    //TODO
+      return {
+        ...state,
+        board: togglingPowerCaseFromPowerBoard(
+          state.board,
+          action.categoryName,
+          true,
+          action.persistent
+        )
+      };
     case ENHANCEMENT:
-    // TODO
+      // TODO
     default:
       return state;
   }
