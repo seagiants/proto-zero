@@ -11,7 +11,11 @@ import {
 const initialState = {
   playerOne: {
     name: "Bibi",
-    playerBoard: generateBoard()
+    playerBoard: {
+      deckState: generateBoard().deckState,
+      resourceCounter: 0
+    }
+
   },
   // FIXME delete player Two infos
   playerTwo: {

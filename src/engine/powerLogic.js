@@ -22,8 +22,11 @@ export function checkPowerWithTargetConditions(x, y, power, state) {
   if (power.powerProps.build !== undefined && power.powerProps.build !== null) {
     return getBuilding(power.powerProps.build).checkConditions(x, y, state);
     //Else conditions are ok
-  } else if (power.checkConditions !== undefined && power.checkConditions !== null) {
-    return power.checkConditions(x,y,state);
+  } else if (
+    power.checkConditions !== undefined &&
+    power.checkConditions !== null
+  ) {
+    return power.checkConditions(x, y, state);
   } else {
     return true;
   }
@@ -41,9 +44,7 @@ export function isPowerCostAffordable(power, state) {
 export function getAddedPowerProps(power, state) {
   switch (power.category.name) {
     case "EXPLORATION":
-      const powerCaseRadius = state.playersState[
-        "playerOne"
-      ].playerBoard.powerBoard.filter(
+      const powerCaseRadius = state.powerState.board.filter(
         element => power.category.name === element.categoryName
       )[0].defaultPower.powerProps.radius;
       const addedRadius =
