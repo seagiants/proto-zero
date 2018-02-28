@@ -26,6 +26,7 @@ const initialState = {
 export const playersState = (state = initialState, action) => {
   switch (action.type) {
     case PRODUCE:
+      // TODO add to resourceState
       let newResourceCounter =
         state[action.player].playerBoard.resourceCounter +
         action.powerProps.quantity;
@@ -40,6 +41,7 @@ export const playersState = (state = initialState, action) => {
         }
       };
     case UPDATE_RESOURCE_COUNTER:
+      // TODO add to resourceState
       return {
         ...state,
         [action.player]: {
@@ -48,24 +50,6 @@ export const playersState = (state = initialState, action) => {
             ...state[action.player].playerBoard,
             resourceCounter:
               state[action.player].playerBoard.resourceCounter - action.cost
-          }
-        }
-      };
-    case EVOLVE:
-      // TODO put in deckState
-      return {
-        ...state,
-        [action.player]: {
-          ...state[action.player],
-          playerBoard: {
-            ...state[action.player].playerBoard,
-            deckState: {
-              ...state[action.player].playerBoard.deckState,
-              draw: addUpgradedCardToDraw(
-                state[action.player].playerBoard.deckState.draw,
-                action.upgradedCard
-              )
-            }
           }
         }
       };
