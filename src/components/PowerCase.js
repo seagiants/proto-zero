@@ -108,13 +108,12 @@ const PowerCase = ({ powerCase, activePower, player, card, click }) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const player = ownProps.player;
   const index = ownProps.powerCase.defaultPower.category.index;
-  const powerCase_ = state.powerState.board[index];
+  const powerCase = state.powerState.board[index];
   return {
-    card: powerCase_.card,
-    isTapped: powerCase_.isTapped,
-    isSelected: powerCase_.isSelected
+    card: powerCase.card,
+    isTapped: powerCase.isTapped,
+    isSelected: powerCase.isSelected
   };
 };
 
