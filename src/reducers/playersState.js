@@ -1,6 +1,5 @@
-import { generateBoard, drawCards, addUpgradedCardToDraw } from "../engine";
+import { generateBoard, addUpgradedCardToDraw } from "../engine";
 import {
-  DRAW,
   PRODUCE,
   UPDATE_RESOURCE_COUNTER,
   EVOLVE,
@@ -12,7 +11,6 @@ const initialState = {
   playerOne: {
     name: "Bibi",
     playerBoard: {
-      deckState: generateBoard().deckState,
       resourceCounter: 0
     }
 
@@ -27,17 +25,6 @@ const initialState = {
 // ----- State
 export const playersState = (state = initialState, action) => {
   switch (action.type) {
-    case DRAW:
-      return {
-        ...state,
-        [action.player]: {
-          ...state[action.player],
-          playerBoard: {
-            ...state[action.player].playerBoard,
-            deckState: drawCards(3, state[action.player].playerBoard.deckState)
-          }
-        }
-      };
     case PRODUCE:
       let newResourceCounter =
         state[action.player].playerBoard.resourceCounter +

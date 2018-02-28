@@ -36,7 +36,7 @@ const mapStateToProps = (state, ownProps) => {
   const player = ownProps.player;
   return {
     name: state.playersState[player].name,
-    cards: state.playersState[player].playerBoard.deckState.toPick
+    cards: state.deckState.toPick
   };
 };
 
