@@ -1,8 +1,7 @@
-import { generateBoard, addUpgradedCardToDraw } from "../engine";
+import { generateBoard } from "../engine";
 import {
   PRODUCE,
   UPDATE_RESOURCE_COUNTER,
-  EVOLVE,
   SETTING_AS_FIRST_PLAYER,
   SETTING_AS_SECOND_PLAYER
 } from "../actions";
@@ -13,12 +12,11 @@ const initialState = {
     playerBoard: {
       resourceCounter: 0
     }
-
   },
   // FIXME delete player Two infos
+  // TODO put in a proper opponentState
   playerTwo: {
-    name: "BustedKeaton",
-    playerBoard: generateBoard()
+    name: "BustedKeaton"
   }
 };
 
